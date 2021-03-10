@@ -39,7 +39,7 @@ all: $(OBJ)
 	$(X_OBJDUMP) -h $(OUTPUT)
 	$(X_OBJDUMP) -D -m riscv $(OUTPUT) > $(OUTPUT).dis
 	$(X_OBJDUMP) -h -b binary -m riscv $(OUTPUT).bin
-	mv $(OUTPUT).bin ../../bin
+	mv $(OUTPUT).bin ../../bin/$(OUTPUT).bin
 
 clean:
 	-rm $(OBJ)	

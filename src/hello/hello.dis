@@ -36,10 +36,13 @@ Disassembly of section .debug_info:
    6:	0000                	unimp
    8:	0000                	unimp
    a:	0104                	addi	s1,sp,128
-   c:	0020                	addi	s0,sp,8
+   c:	0000                	unimp
    e:	0000                	unimp
   10:	560c                	lw	a1,40(a2)
-	...
+  12:	0000                	unimp
+  14:	3600                	fld	fs0,40(a2)
+  16:	0000                	unimp
+  18:	0000                	unimp
   1a:	0000                	unimp
   1c:	2600                	fld	fs0,8(a2)
   1e:	0000                	unimp
@@ -93,7 +96,7 @@ Disassembly of section .debug_info:
   84:	0000                	unimp
   86:	6200                	flw	fs0,0(a2)
   88:	0000                	unimp
-  8a:	0000                	unimp
+  8a:	3600                	fld	fs0,40(a2)
   8c:	0000                	unimp
   8e:	6900                	flw	fs0,16(a0)
   90:	0000                	unimp
@@ -245,43 +248,42 @@ Disassembly of section .debug_line:
 Disassembly of section .debug_str:
 
 00000000 <.debug_str>:
-   0:	3a64                	fld	fs1,240(a2)
-   2:	635c                	flw	fa5,4(a4)
-   4:	32636363          	bltu	t1,t1,32a <_start+0x302>
-   8:	3230                	fld	fa2,96(a2)
-   a:	5c30                	lw	a2,120(s0)
-   c:	45444f43          	fmadd.h	ft10,fs0,fs4,fs0,rmm
-  10:	655c                	flw	fa5,12(a0)
-  12:	3039                	jal	fffff820 <__stack_top+0xffbfe820>
-  14:	5c32                	lw	s8,44(sp)
-  16:	5c637273          	csrrci	tp,shint,6
-  1a:	6568                	flw	fa0,76(a0)
-  1c:	6c6c                	flw	fa1,92(s0)
-  1e:	4e47006f          	j	70502 <_start+0x704da>
-  22:	2055                	jal	c6 <_start+0x9e>
-  24:	20373143          	fmadd.s	ft2,fa4,ft3,ft4,rup
-  28:	2e38                	fld	fa4,88(a2)
-  2a:	2e34                	fld	fa3,88(a2)
-  2c:	2030                	fld	fa2,64(s0)
-  2e:	6d2d                	lui	s10,0xb
-  30:	6261                	lui	tp,0x18
-  32:	3d69                	jal	fffffecc <__stack_top+0xffbfeecc>
-  34:	6c69                	lui	s8,0x1a
-  36:	3370                	fld	fa2,224(a4)
-  38:	6532                	flw	fa0,12(sp)
-  3a:	2d20                	fld	fs0,88(a0)
-  3c:	616d                	addi	sp,sp,240
-  3e:	6372                	flw	ft6,28(sp)
-  40:	3d68                	fld	fa0,248(a0)
-  42:	7672                	flw	fa2,60(sp)
-  44:	63653233          	0x63653233
-  48:	7478                	flw	fa4,108(s0)
-  4a:	6568                	flw	fa0,76(a0)
-  4c:	6461                	lui	s0,0x18
-  4e:	2d20                	fld	fs0,88(a0)
-  50:	4f2d2067          	0x4f2d2067
-  54:	0030                	addi	a2,sp,8
-  56:	616d                	addi	sp,sp,240
+   0:	20554e47          	fmsub.s	ft8,fa0,ft5,ft4,rmm
+   4:	20373143          	fmadd.s	ft2,fa4,ft3,ft4,rup
+   8:	2e38                	fld	fa4,88(a2)
+   a:	2e34                	fld	fa3,88(a2)
+   c:	2030                	fld	fa2,64(s0)
+   e:	6d2d                	lui	s10,0xb
+  10:	6261                	lui	tp,0x18
+  12:	3d69                	jal	fffffeac <__stack_top+0xffbfeeac>
+  14:	6c69                	lui	s8,0x1a
+  16:	3370                	fld	fa2,224(a4)
+  18:	6532                	flw	fa0,12(sp)
+  1a:	2d20                	fld	fs0,88(a0)
+  1c:	616d                	addi	sp,sp,240
+  1e:	6372                	flw	ft6,28(sp)
+  20:	3d68                	fld	fa0,248(a0)
+  22:	7672                	flw	fa2,60(sp)
+  24:	63653233          	0x63653233
+  28:	7478                	flw	fa4,108(s0)
+  2a:	6568                	flw	fa0,76(a0)
+  2c:	6461                	lui	s0,0x18
+  2e:	2d20                	fld	fs0,88(a0)
+  30:	4f2d2067          	0x4f2d2067
+  34:	0030                	addi	a2,sp,8
+  36:	3a44                	fld	fs1,176(a2)
+  38:	635c                	flw	fa5,4(a4)
+  3a:	32636363          	bltu	t1,t1,360 <_start+0x338>
+  3e:	3230                	fld	fa2,96(a2)
+  40:	5c30                	lw	a2,120(s0)
+  42:	45444f43          	fmadd.h	ft10,fs0,fs4,fs0,rmm
+  46:	655c                	flw	fa5,12(a0)
+  48:	3039                	jal	fffff856 <__stack_top+0xffbfe856>
+  4a:	5c32                	lw	s8,44(sp)
+  4c:	5c637273          	csrrci	tp,shint,6
+  50:	6568                	flw	fa0,76(a0)
+  52:	6c6c                	flw	fa1,92(s0)
+  54:	616d006f          	j	d066a <_start+0xd0642>
   58:	6e69                	lui	t3,0x1a
   5a:	632e                	flw	ft6,200(sp)
   5c:	6d00                	flw	fs0,24(a0)
