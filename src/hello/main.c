@@ -6,9 +6,7 @@ int main()
     int a = 4;
     int b = 12;
 	
-    while (1) {
-        c = a + b;
-    }
+    c = a + b;
 	
     return 0;
 }
