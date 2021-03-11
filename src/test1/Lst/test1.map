@@ -1,0 +1,336 @@
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           RISC-V
+  Version:                           0x1
+  Entry point address:               0x4000e4
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          17992 (bytes into file)
+  Flags:                             0x9, RVC, RVE, soft-float ABI
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         1
+  Size of section headers:           40 (bytes)
+  Number of section headers:         17
+  Section header string table index: 16
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .text             PROGBITS        00400000 001000 000130 00  AX  0   0 64
+  [ 2] .rodata           PROGBITS        00400130 001130 000000 00  WA  0   0  1
+  [ 3] .data             PROGBITS        00400130 001130 000000 00  WA  0   0  1
+  [ 4] .bss              NOBITS          00400130 001130 000100 00  WA  0   0  4
+  [ 5] .comment          PROGBITS        00000000 001130 000032 01  MS  0   0  1
+  [ 6] .riscv.attributes RISCV_ATTRIBUTE 00000000 001162 000029 00      0   0  1
+  [ 7] .debug_aranges    PROGBITS        00000000 001190 000040 00      0   0  8
+  [ 8] .debug_info       PROGBITS        00000000 0011d0 0000d9 00      0   0  1
+  [ 9] .debug_abbrev     PROGBITS        00000000 0012a9 000071 00      0   0  1
+  [10] .debug_line       PROGBITS        00000000 00131a 00012d 00      0   0  1
+  [11] .debug_frame      PROGBITS        00000000 001448 000020 00      0   0  4
+  [12] .debug_str        PROGBITS        00000000 001468 002678 01  MS  0   0  1
+  [13] .debug_macro      PROGBITS        00000000 003ae0 0007b4 00      0   0  1
+  [14] .symtab           SYMTAB          00000000 004294 000240 10     15  19  4
+  [15] .strtab           STRTAB          00000000 0044d4 0000c8 00      0   0  1
+  [16] .shstrtab         STRTAB          00000000 00459c 0000a9 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  p (processor specific)
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  LOAD           0x001000 0x00400000 0x00400000 0x00130 0x00230 RWE 0x1000
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .text .bss 
+======================================================================
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 Obj/crt0.o
+ .data          0x0000000000000000        0x0 Obj/crt0.o
+ .bss           0x0000000000000000        0x0 Obj/crt0.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .bss           0x0000000000000000        0x0 Obj/main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+MEM              0x0000000000400000 0x0000000000001000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD Obj/crt0.o
+LOAD Obj/main.o
+LOAD d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a
+                [!provide]                        PROVIDE (__origin = 0x400000)
+                [!provide]                        PROVIDE (__length = 0x1000)
+                [!provide]                        PROVIDE (__stack = 0x401000)
+
+.text           0x0000000000400000      0x130
+                0x0000000000400000                . = ALIGN (0x4)
+ *crt0.o(.exp_table)
+ .exp_table     0x0000000000400000       0xc0 Obj/crt0.o
+                0x0000000000400000                __Vectors
+                0x00000000004000c0                __stext = .
+ *(.text)
+ .text          0x00000000004000c0       0x24 Obj/main.o
+                0x00000000004000c0                main
+ *(.text*)
+ .text.init     0x00000000004000e4       0x3e Obj/crt0.o
+                0x00000000004000e4                Reset_Handler
+ *(.text.*)
+ *(.gnu.warning)
+ *(.stub)
+ *(.gnu.linkonce.t*)
+ *(.glue_7t)
+ *(.glue_7)
+ *(.jcr)
+ *(.init)
+ *(.fini)
+                0x0000000000400124                . = ALIGN (0x4)
+ *fill*         0x0000000000400122        0x2 
+                [!provide]                        PROVIDE (__ctbp = .)
+ *(.call_table_data)
+ *(.call_table_text)
+                0x0000000000400130                . = ALIGN (0x10)
+ *fill*         0x0000000000400124        0xc 
+                0x0000000000400130                __etext = .
+
+.rodata         0x0000000000400130        0x0
+                0x0000000000400130                . = ALIGN (0x4)
+                0x0000000000400130                __srodata = .
+ *(.rdata)
+ *(.rdata*)
+ *(.rdata1)
+ *(.rdata.*)
+ *(.rodata)
+ *(.rodata1)
+ *(.rodata*)
+ *(.rodata.*)
+ *(.rodata.str1.4)
+                0x0000000000400130                . = ALIGN (0x10)
+                0x0000000000400130                __erodata = .
+
+.data           0x0000000000400130        0x0
+                0x0000000000400130                . = ALIGN (0x4)
+                0x0000000000400130                __sdata = .
+                0x0000000000400130                __data_start = .
+                0x0000000000400130                data_start = .
+ *main.o(.data)
+ .data          0x0000000000400130        0x0 Obj/main.o
+ *(.got.plt)
+ *(.got)
+ *(.gnu.linkonce.r*)
+ *(.data)
+ *(.data*)
+ *(.data1)
+ *(.data.*)
+ *(.gnu.linkonce.d*)
+ *(.data1)
+ *(.gcc_except_table)
+ *(.gcc_except_table*)
+ *(.sdata)
+ *(.sdata.*)
+ *(.gnu.linkonce.s.*)
+ *(__libc_atexit)
+ *(__libc_subinit)
+ *(__libc_subfreeres)
+ *(.note.ABI-tag)
+                0x0000000000400130                . = ALIGN (0x10)
+                0x0000000000400130                __edata = .
+
+.bss            0x0000000000400130      0x100
+                0x0000000000400130                . = ALIGN (0x4)
+                0x0000000000400130                __sbss = ALIGN (0x4)
+                0x0000000000400130                __s_ram_bss_1 = .
+ *(.dynsbss)
+ *(.sbss)
+ *(.sbss.*)
+ *(.scommon)
+ *(.dynbss)
+ *(.bss)
+ *(.bss.*)
+ *(COMMON)
+                0x0000000000400130                . = ALIGN (0x10)
+                0x0000000000400130                __e_ram_bss_1 = .
+ *crt0.o(.app_stack)
+ .app_stack     0x0000000000400130      0x100 Obj/crt0.o
+                0x0000000000400230                __initial_sp
+                0x0000000000400230                __end = .
+                0x0000000000400230                end = .
+
+.eh_frame
+ *(.eh_frame)
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+
+.eh_frame
+ *(.eh_frame)
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.preinit_array  0x0000000000000000        0x0
+                [!provide]                        PROVIDE (__preinit_array_start = .)
+ *(.preinit_array)
+                [!provide]                        PROVIDE (__preinit_array_end = .)
+
+.init_array     0x0000000000000000        0x0
+                [!provide]                        PROVIDE (__init_array_start = .)
+ *(SORT_BY_NAME(.init_array.*))
+ *(.init_array)
+                [!provide]                        PROVIDE (__init_array_end = .)
+
+.fini_array     0x0000000000000000        0x0
+                [!provide]                        PROVIDE (__fini_array_start = .)
+ *(.fini_array)
+ *(SORT_BY_NAME(.fini_array.*))
+                [!provide]                        PROVIDE (__fini_array_end = .)
+
+.ctors
+ *crtbegin.o(.ctors)
+ *crtbegin?.o(.ctors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
+ *(SORT_BY_NAME(.ctors.*))
+ *(.ctors)
+
+.dtors
+ *crtbegin.o(.dtors)
+ *crtbegin?.o(.dtors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
+ *(SORT_BY_NAME(.dtors.*))
+ *(.dtors)
+
+.junk
+ *(.rel*)
+ *(.rela*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x0000000000000000       0x32
+ *(.comment)
+ .comment       0x0000000000000000       0x32 Obj/main.o
+                                         0x33 (size before relaxing)
+
+.riscv.attributes
+                0x0000000000000000       0x29
+ .riscv.attributes
+                0x0000000000000000       0x29 Obj/crt0.o
+ .riscv.attributes
+                0x0000000000000029       0x29 Obj/main.o
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x0000000000000000       0x40
+ *(.debug_aranges)
+ .debug_aranges
+                0x0000000000000000       0x20 Obj/crt0.o
+ .debug_aranges
+                0x0000000000000020       0x20 Obj/main.o
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x0000000000000000       0xd9
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x0000000000000000       0x26 Obj/crt0.o
+ .debug_info    0x0000000000000026       0xb3 Obj/main.o
+
+.debug_abbrev   0x0000000000000000       0x71
+ *(.debug_abbrev)
+ .debug_abbrev  0x0000000000000000       0x14 Obj/crt0.o
+ .debug_abbrev  0x0000000000000014       0x5d Obj/main.o
+
+.debug_line     0x0000000000000000      0x12d
+ *(.debug_line)
+ .debug_line    0x0000000000000000       0x86 Obj/crt0.o
+ .debug_line    0x0000000000000086       0xa7 Obj/main.o
+
+.debug_frame    0x0000000000000000       0x20
+ *(.debug_frame)
+ .debug_frame   0x0000000000000000       0x20 Obj/main.o
+
+.debug_str      0x0000000000000000     0x2678
+ *(.debug_str)
+ .debug_str     0x0000000000000000       0x33 Obj/crt0.o
+ .debug_str     0x0000000000000033     0x2645 Obj/main.o
+                                       0x2693 (size before relaxing)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges
+ *(.debug_ranges)
+
+.gnu.attributes
+ *(.gnu.attributes)
+
+/DISCARD/
+ *(.note.GNU-stack)
+ *(.gnu_debuglink)
+ *(.gnu.lto_*)
+OUTPUT(Obj/test1.elf elf32-littleriscv)
+
+.debug_macro    0x0000000000000000      0x7b4
+ .debug_macro   0x0000000000000000       0x20 Obj/main.o
+ .debug_macro   0x0000000000000020      0x74e Obj/main.o
+ .debug_macro   0x000000000000076e       0x46 Obj/main.o
