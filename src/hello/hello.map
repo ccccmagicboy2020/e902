@@ -2,7 +2,6 @@
 Discarded input sections
 
  .data          0x0000000000000000        0x0 main.o
- .bss           0x0000000000000000        0x0 main.o
  .text          0x0000000000000000        0x0 crt0.o
  .data          0x0000000000000000        0x0 crt0.o
  .bss           0x0000000000000000        0x0 crt0.o
@@ -47,23 +46,26 @@ LOAD crt0.o
                 0x0000000000400000                . = ALIGN (0x8)
                 [!provide]                        PROVIDE (_edata = ABSOLUTE (.))
 
-.bss            0x0000000000400000        0x0
+.bss            0x0000000000400000        0x8
                 [!provide]                        PROVIDE (_bss = ABSOLUTE (.))
  *(.bss .bss.*)
+ .bss           0x0000000000400000        0x4 main.o
+                0x0000000000400000                c
  *(COMMON)
-                0x0000000000400000                . = ALIGN (0x8)
+                0x0000000000400008                . = ALIGN (0x8)
+ *fill*         0x0000000000400004        0x4 
                 [!provide]                        PROVIDE (_ebss = ABSOLUTE (.))
-                0x0000000000400000                . = ALIGN (0x40)
+                0x0000000000400040                . = ALIGN (0x40)
                 [!provide]                        PROVIDE (_end = ABSOLUTE (.))
 OUTPUT(hello elf32-littleriscv)
 
-.debug_info     0x0000000000000000       0x95
- .debug_info    0x0000000000000000       0x6f main.o
- .debug_info    0x000000000000006f       0x26 crt0.o
+.debug_info     0x0000000000000000       0x94
+ .debug_info    0x0000000000000000       0x6e main.o
+ .debug_info    0x000000000000006e       0x26 crt0.o
 
-.debug_abbrev   0x0000000000000000       0x60
- .debug_abbrev  0x0000000000000000       0x4c main.o
- .debug_abbrev  0x000000000000004c       0x14 crt0.o
+.debug_abbrev   0x0000000000000000       0x71
+ .debug_abbrev  0x0000000000000000       0x5d main.o
+ .debug_abbrev  0x000000000000005d       0x14 crt0.o
 
 .debug_aranges  0x0000000000000000       0x40
  .debug_aranges
@@ -71,9 +73,9 @@ OUTPUT(hello elf32-littleriscv)
  .debug_aranges
                 0x0000000000000020       0x20 crt0.o
 
-.debug_line     0x0000000000000000       0x9a
- .debug_line    0x0000000000000000       0x59 main.o
- .debug_line    0x0000000000000059       0x41 crt0.o
+.debug_line     0x0000000000000000       0x9e
+ .debug_line    0x0000000000000000       0x5d main.o
+ .debug_line    0x000000000000005d       0x41 crt0.o
 
 .debug_str      0x0000000000000000       0x75
  .debug_str     0x0000000000000000       0x62 main.o

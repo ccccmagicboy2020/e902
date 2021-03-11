@@ -5,6 +5,7 @@ XTOOLS = riscv64-unknown-elf-
 X_GCC = $(XTOOLS)gcc
 X_OBJCOPY = $(XTOOLS)objcopy
 X_OBJDUMP = $(XTOOLS)objdump
+X_NM = $(XTOOLS)nm
 
 SRC = main.c
 
@@ -39,6 +40,8 @@ all: $(OBJ)
 	$(X_OBJDUMP) -h $(OUTPUT)
 	$(X_OBJDUMP) -D -m riscv $(OUTPUT) > $(OUTPUT).dis
 	$(X_OBJDUMP) -h -b binary -m riscv $(OUTPUT).bin
+	$(X_NM) -A -g $(OUTPUT) > $(OUTPUT).map2
+	$(X_NM) -A -g $(OBJ) > $(OUTPUT).map3
 	mv $(OUTPUT).bin ../../bin/$(OUTPUT).bin
 
 clean:

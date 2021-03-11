@@ -1,10 +1,10 @@
 #include "../../include/xbr820_reg.h"
+int c = 0;
 
 int main() 
 {
     int a = 4;
     int b = 12;
-	int c = 0;
 	
     while (1) {
         c = a + b;

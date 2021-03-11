@@ -1,0 +1,4 @@
+hello:00401000 T __stack_top
+hello:00000028 T _start
+hello:00400000 B c
+hello:00000000 T main

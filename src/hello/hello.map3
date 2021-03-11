@@ -1,0 +1,5 @@
+main.o:00000000 B c
+main.o:00000000 T main
+crt0.o:         U __stack_top
+crt0.o:00000000 T _start
+crt0.o:         U main
