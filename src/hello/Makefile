@@ -7,6 +7,7 @@ X_OBJCOPY = $(XTOOLS)objcopy
 X_OBJDUMP = $(XTOOLS)objdump
 X_NM = $(XTOOLS)nm
 X_GDB = $(XTOOLS)gdb
+X_READELF = $(XTOOLS)readelf
 
 SRC = main.c
 
@@ -14,7 +15,7 @@ OBJ = $(patsubst %.c, %.o, $(SRC))
 OBJ += crt0.o
 
 # include paths
-INCLUDE =
+INCLUDE = ../../include
 
 # defines
 DEFINE =
@@ -22,7 +23,7 @@ DEFINE =
 # compiler flags
 X_CFLAGS = -mabi=ilp32e -march=rv32ecxtheadse -mtune=e902
 # X_CFLAGS += -Wall -Wstrict-prototypes -Werror -O0 -g -v
-X_CFLAGS += -Wall -Wstrict-prototypes -O0 -g -v
+X_CFLAGS += -Wall -O0 -g -v
 
 # linker flags
 LDSCRIPT = xbr820.ld
@@ -43,13 +44,12 @@ all: $(OBJ)
 	$(X_OBJDUMP) -h -b binary -m riscv $(OUTPUT).bin
 	$(X_NM) -A -g $(OUTPUT).elf > $(OUTPUT).map2
 	$(X_NM) -A -g $(OBJ) > $(OUTPUT).map3
+	$(X_READELF) -s $(OUTPUT).elf > $(OUTPUT).map4
 	mv $(OUTPUT).bin ../../bin/$(OUTPUT).bin
 
 clean:
 	-rm $(OBJ)	
 	-rm $(OUTPUT)
-	-rm $(OUTPUT).elf
-	-rm ../../bin/$(OUTPUT).bin
 	
 debug:
 	$(X_GDB) $(OUTPUT).elf
