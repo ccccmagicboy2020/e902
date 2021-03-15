@@ -22,22 +22,22 @@ LOAD crt0.o
                 [!provide]                        PROVIDE (_ram_end = (ORIGIN (ram) + LENGTH (ram)))
                 0x0000000000401000                PROVIDE (__stack_top = (ORIGIN (ram) + LENGTH (ram)))
 
-.text           0x0000000000000000       0xa0
+.text           0x0000000000000000       0xa8
  *(.text.start)
  *(.text .text.*)
- .text          0x0000000000000000       0x9e main.o
+ .text          0x0000000000000000       0xa6 main.o
                 0x0000000000000000                func_xxx
                 0x000000000000002e                main
-                0x00000000000000a0                . = ALIGN (0x8)
- *fill*         0x000000000000009e        0x2 
+                0x00000000000000a8                . = ALIGN (0x8)
+ *fill*         0x00000000000000a6        0x2 
                 [!provide]                        PROVIDE (_etext = ABSOLUTE (.))
 
-.init           0x00000000000000a0       0x10
- .init          0x00000000000000a0       0x10 crt0.o
-                0x00000000000000a0                _start
+.init           0x00000000000000a8       0x10
+ .init          0x00000000000000a8       0x10 crt0.o
+                0x00000000000000a8                _start
 
-.rela.dyn       0x00000000000000b0        0x0
- .rela.init     0x00000000000000b0        0x0 main.o
+.rela.dyn       0x00000000000000b8        0x0
+ .rela.init     0x00000000000000b8        0x0 main.o
 
 .rodata
  *(.rodata .rodata.*)
@@ -74,14 +74,14 @@ OUTPUT(hello.elf elf32-littleriscv)
  .debug_aranges
                 0x0000000000000020       0x20 crt0.o
 
-.debug_line     0x0000000000000000      0x1e7
- .debug_line    0x0000000000000000      0x1a6 main.o
- .debug_line    0x00000000000001a6       0x41 crt0.o
+.debug_line     0x0000000000000000      0x1ef
+ .debug_line    0x0000000000000000      0x1ae main.o
+ .debug_line    0x00000000000001ae       0x41 crt0.o
 
-.debug_str      0x0000000000000000      0x4c8
- .debug_str     0x0000000000000000      0x4b5 main.o
-                                        0x507 (size before relaxing)
- .debug_str     0x00000000000004b5       0x13 crt0.o
+.debug_str      0x0000000000000000      0x4cf
+ .debug_str     0x0000000000000000      0x4bc main.o
+                                        0x50e (size before relaxing)
+ .debug_str     0x00000000000004bc       0x13 crt0.o
                                          0x33 (size before relaxing)
 
 .comment        0x0000000000000000       0x32

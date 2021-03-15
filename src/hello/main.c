@@ -31,7 +31,8 @@ int main()
 		d += 1;
 	}
 	d = func_xxx(10, 56);
-	//printf("this is hello at %d", c);
+	
+	i = 100;
 	
     return 0;
 }

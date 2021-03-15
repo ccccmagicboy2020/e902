@@ -21,7 +21,7 @@ INCLUDE = ../../include
 DEFINE =
 
 # compiler flags
-X_CFLAGS = -mabi=ilp32e -march=rv32ecxtheadse -mtune=e902
+X_CFLAGS = -mabi=ilp32e -march=rv32ecxtheadse -mtune=e902 -mccrt
 # X_CFLAGS += -Wall -Wstrict-prototypes -Werror -O0 -g -v
 X_CFLAGS += -Wall -O0 -g -v
 
@@ -52,7 +52,7 @@ clean:
 	-rm $(OUTPUT)
 	
 debug:
-	$(X_GDB) $(OUTPUT).elf
+	$(X_GDB) $(OUTPUT).elf -ex "target remote localhost:1234"
 	
 qemu:
 	qemu-system-riscv32 -machine smartl -cpu e902 -kernel $(OUTPUT).elf -nographic -gdb tcp::1234 -S
