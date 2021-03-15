@@ -52,10 +52,12 @@ clean:
 	-rm $(OUTPUT)
 	
 debug:
-	$(X_GDB) $(OUTPUT).elf -ex "target remote localhost:1234"
-	
+	$(X_GDB) $(OUTPUT).elf -ex "target remote localhost:1234" -ex "set arch riscv:rv32"
+		
 qemu:
 	qemu-system-riscv32 -machine smartl -cpu e902 -kernel $(OUTPUT).elf -nographic -gdb tcp::1234 -S
 	
+debugserver:
+	DebugServerConsole –stclk 13000k –port 1234 --debug all -arch csky
 	
 	
