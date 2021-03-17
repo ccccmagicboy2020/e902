@@ -21,6 +21,7 @@ INCLUDE = ../../include
 DEFINE =
 
 # compiler flags
+# X_CFLAGS = -mabi=ilp32e -march=rv32emcxtheadse -mtune=e902 -mccrt
 X_CFLAGS = -mabi=ilp32e -march=rv32ecxtheadse -mtune=e902 -mccrt
 # X_CFLAGS += -Wall -Wstrict-prototypes -Werror -O0 -g -v
 X_CFLAGS += -Wall -O0 -g -v
@@ -34,7 +35,7 @@ X_LDFLAGS = -T$(LDSCRIPT) -Wl,-Map,$(OUTPUT).map -Wl,--gc-sections -nostdlib
 .c.o:
 	$(X_GCC) $(INCLUDE) $(DEFINE) $(X_CFLAGS) -c $< -o $@
 
-.PHONY: all clean debug qemu
+.PHONY: all clean debug qemu debugserver
 
 all: $(OBJ)
 	$(X_GCC) $(X_CFLAGS) $(X_LDFLAGS) $(OBJ) -o $(OUTPUT).elf
