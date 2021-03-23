@@ -24,6 +24,29 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 
+extern __IO uint16_t ADC_ConvertedValue;
+
+union
+{
+	uint16_t	value;
+	struct
+	{
+		BitAction	adc0:1;
+		BitAction	adc1:1;
+		BitAction	adc2:1;
+		BitAction	adc3:1;
+		BitAction	adc4:1;
+		BitAction	adc5:1;
+		BitAction	adc6:1;
+		BitAction	adc7:1;
+		BitAction	adc8:1;
+		BitAction	adc9:1;
+		BitAction	adc10:1;
+		BitAction	adc11:1;
+		BitAction	temp:4;		
+	}bits;
+}test_data1;
+
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -148,13 +171,29 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-/*void PPP_IRQHandler(void)
-{
-}*/
-
-/**
-  * @}
-  */ 
+void EXTI1_IRQHandler(void)
+{		
+	 if(EXTI_GetITStatus(EXTI_Line1) != RESET)
+   {
+		 EXTI_ClearITPendingBit(EXTI_Line1);		//«Â÷–∂œ
+		 
+			//ADC_ConvertedValue
+		 test_data1.value = ADC_ConvertedValue;
+		 
+		 GPIO_WriteBit(GPIOB, GPIO_Pin_0, test_data1.bits.adc0);
+		 GPIO_WriteBit(GPIOB, GPIO_Pin_1, test_data1.bits.adc1);
+		 GPIO_WriteBit(GPIOB, GPIO_Pin_2, test_data1.bits.adc2);
+		 GPIO_WriteBit(GPIOB, GPIO_Pin_3, test_data1.bits.adc3);
+		 GPIO_WriteBit(GPIOB, GPIO_Pin_4, test_data1.bits.adc4);
+		 GPIO_WriteBit(GPIOB, GPIO_Pin_5, test_data1.bits.adc5);
+		 GPIO_WriteBit(GPIOB, GPIO_Pin_6, test_data1.bits.adc6);
+		 GPIO_WriteBit(GPIOB, GPIO_Pin_7, test_data1.bits.adc7);
+		 GPIO_WriteBit(GPIOB, GPIO_Pin_8, test_data1.bits.adc8);
+		 GPIO_WriteBit(GPIOB, GPIO_Pin_9, test_data1.bits.adc9);
+		 GPIO_WriteBit(GPIOB, GPIO_Pin_10, test_data1.bits.adc10);
+		 GPIO_WriteBit(GPIOB, GPIO_Pin_11, test_data1.bits.adc11);
+   }
+}
 
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
