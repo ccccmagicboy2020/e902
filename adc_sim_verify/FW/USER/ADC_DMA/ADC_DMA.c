@@ -81,10 +81,5 @@ void ADCx_Init(void)
 	ADCx_GPIO_Config();
 	ADCx_Mode_Config();
 }
-//提取转换后的电压值
-double ADC1_Voltage()
-{
-    return  (double)ADC_ConvertedValue/4096*3.3; // 读取转换的AD值
-}
 
 

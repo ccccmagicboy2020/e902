@@ -19,7 +19,6 @@
 #define    ADC_DMA_CHANNEL               DMA1_Channel1
 
 void ADCx_Init(void);
-double ADC1_Voltage(void);
 
 
 
