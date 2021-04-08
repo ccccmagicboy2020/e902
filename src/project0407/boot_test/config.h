@@ -1,0 +1,9 @@
+#ifndef __CONFIG_H__
+#define __CONFIG_H__
+#define CONFIG_ARCH_RV32 1
+#define CONFIG_CPU_E902 1
+#define CONFIG_KERNEL_NONE 1
+#define CONFIG_HAVE_VECTORS 0
+#define CONFIG_BSS_INIT 0
+#define CONFIG_ARCH_INTERRUPTSTACK 256
+#endif

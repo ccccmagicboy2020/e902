@@ -1,0 +1,1 @@
+Obj/startup.o Obj/init.o Obj/main.o 

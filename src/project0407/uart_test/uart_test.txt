@@ -1,0 +1,1 @@
+Obj/startup.o Obj/main.o Obj/boot_fifo.o Obj/boot_stc.o Obj/boot_uart.o Obj/boot_system.o Obj/boot_board_init.o Obj/boot_console.o Obj/boot_shell.o 
