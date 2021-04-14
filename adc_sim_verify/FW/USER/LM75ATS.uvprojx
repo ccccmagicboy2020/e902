@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER;..\FWlib\inc;..\FWlib\src;..\CMSIS\CM3\CoreSupport;.\ADC_DMA;.\TIMER</IncludePath>
+              <IncludePath>..\USER;..\FWlib\inc;..\FWlib\src;..\CMSIS\CM3\CoreSupport;.\ADC_DMA;.\TIMER;.\rtt;.\delay;.\sys</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -407,6 +407,36 @@
               <FileName>ADC_DMA.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ADC_DMA\ADC_DMA.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\rtt\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\rtt\SEGGER_RTT_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_SYSVIEW.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\rtt\SEGGER_SYSVIEW.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_SYSVIEW_Conf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\rtt\SEGGER_SYSVIEW_Conf.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\delay\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\sys\sys.c</FilePath>
             </File>
           </Files>
         </Group>

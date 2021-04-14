@@ -23,6 +23,10 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
+#include "SEGGER_RTT.h"
+#include "SEGGER_RTT_Conf.h"
+#include "SEGGER_SYSVIEW.h"
+#include "delay.h"
 
 extern __IO uint16_t ADC_ConvertedValue;
 
@@ -177,7 +181,6 @@ void EXTI1_IRQHandler(void)
    {
 		 EXTI_ClearITPendingBit(EXTI_Line1);		//«Â÷–∂œ
 		 
-			//ADC_ConvertedValue
 		 test_data1.value = ADC_ConvertedValue;
 		 
 		 GPIO_WriteBit(GPIOB, GPIO_Pin_0, test_data1.bits.adc0);
@@ -192,6 +195,29 @@ void EXTI1_IRQHandler(void)
 		 GPIO_WriteBit(GPIOB, GPIO_Pin_9, test_data1.bits.adc9);
 		 GPIO_WriteBit(GPIOB, GPIO_Pin_10, test_data1.bits.adc10);
 		 GPIO_WriteBit(GPIOB, GPIO_Pin_11, test_data1.bits.adc11);
+		 
+		 delay_us(10);
+		 
+		 GPIO_SetBits(GPIOA, GPIO_Pin_2);
+		 
+		 delay_us(10);
+		 
+		 GPIO_ResetBits(GPIOA, GPIO_Pin_2);
+		 
+		 SEGGER_RTT_printf(0, "%d %d %d %d %d %d %d %d %d %d %d %d \r\n", 
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_0),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_1),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_2),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_3),		 
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_4),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_5),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_6),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_7),		
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_8),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_9),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_10),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_11)										
+		 );
    }
 }
 
