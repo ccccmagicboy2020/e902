@@ -1,0 +1,212 @@
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           RISC-V
+  Version:                           0x1
+  Entry point address:               0x10001b0
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          17672 (bytes into file)
+  Flags:                             0x9, RVC, RVE, soft-float ABI
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         1
+  Size of section headers:           40 (bytes)
+  Number of section headers:         17
+  Section header string table index: 16
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .text             PROGBITS        01000000 001000 000250 00  AX  0   0 64
+  [ 2] .rodata           PROGBITS        01000250 001250 000000 00  WA  0   0  1
+  [ 3] .data             PROGBITS        01000250 001250 000000 00  WA  0   0  1
+  [ 4] .bss              NOBITS          01000250 001250 000310 00  WA  0   0  4
+  [ 5] .riscv.attributes RISCV_ATTRIBUTE 00000000 001250 000029 00      0   0  1
+  [ 6] .comment          PROGBITS        00000000 001279 000032 01  MS  0   0  1
+  [ 7] .debug_line       PROGBITS        00000000 0012ab 0008b1 00      0   0  1
+  [ 8] .debug_info       PROGBITS        00000000 001b5c 0017a8 00      0   0  1
+  [ 9] .debug_abbrev     PROGBITS        00000000 003304 000578 00      0   0  1
+  [10] .debug_aranges    PROGBITS        00000000 003880 000060 00      0   0  8
+  [11] .debug_str        PROGBITS        00000000 0038e0 0006e7 01  MS  0   0  1
+  [12] .debug_loc        PROGBITS        00000000 003fc7 000082 00      0   0  1
+  [13] .debug_frame      PROGBITS        00000000 00404c 000058 00      0   0  4
+  [14] .symtab           SYMTAB          00000000 0040a4 0002a0 10     15  20  4
+  [15] .strtab           STRTAB          00000000 004344 00011a 00      0   0  1
+  [16] .shstrtab         STRTAB          00000000 00445e 0000a7 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  p (processor specific)
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  LOAD           0x001000 0x01000000 0x01000000 0x00250 0x00560 RWE 0x1000
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .text .bss 
+======================================================================
+
+Allocating common symbols
+Common symbol       size              file
+
+uart_buffer         0x100             Obj/irq.o
+uart_buf_pos        0x4               Obj/irq.o
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 Obj/crt0.o
+ .data          0x0000000000000000        0x0 Obj/crt0.o
+ .bss           0x0000000000000000        0x0 Obj/crt0.o
+ .data          0x0000000000000000        0x0 Obj/main.o
+ .bss           0x0000000000000000        0x0 Obj/main.o
+ .data          0x0000000000000000        0x0 Obj/irq.o
+ .bss           0x0000000000000000        0x0 Obj/irq.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+MEM              0x0000000001000000 0x0000000000001000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD Obj/crt0.o
+LOAD Obj/main.o
+LOAD Obj/irq.o
+LOAD c:/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a
+START GROUP
+LOAD c:/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a
+LOAD c:/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libgloss.a
+END GROUP
+LOAD c:/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a
+
+.text           0x0000000001000000      0x250
+                0x0000000001000000                . = ALIGN (0x4)
+ *crt0.o(.exp_table)
+ .exp_table     0x0000000001000000       0xc0 Obj/crt0.o
+                0x0000000001000000                __Vectors
+                0x00000000010000c0                __stext = .
+ *(.text)
+ .text          0x00000000010000c0       0x62 Obj/main.o
+                0x00000000010000c0                main
+ .text          0x0000000001000122       0x8e Obj/irq.o
+                0x0000000001000122                uart_init
+                0x000000000100015c                handle_trap
+ *(.text*)
+ *fill*         0x00000000010001b0        0x0 
+ .text.init     0x00000000010001b0       0x9c Obj/crt0.o
+                0x00000000010001b0                Reset_Handler
+ *(.text.*)
+                0x0000000001000250                . = ALIGN (0x10)
+ *fill*         0x000000000100024c        0x4 
+                0x0000000001000250                __etext = .
+
+.rodata         0x0000000001000250        0x0
+                0x0000000001000250                . = ALIGN (0x4)
+                0x0000000001000250                __srodata = .
+ *(.rdata)
+ *(.rdata*)
+ *(.rdata.*)
+ *(.rodata)
+ *(.rodata*)
+ *(.rodata.*)
+                0x0000000001000250                . = ALIGN (0x10)
+                0x0000000001000250                __erodata = .
+
+.data           0x0000000001000250        0x0
+                0x0000000001000250                . = ALIGN (0x4)
+                0x0000000001000250                __sdata = .
+                0x0000000001000250                __data_start = .
+ *(.data)
+ *(.data*)
+ *(.data.*)
+                0x0000000001000250                __global_pointer$ = .
+ *(.sdata)
+ *(.sdata.*)
+                0x0000000001000250                . = ALIGN (0x10)
+                0x0000000001000250                __data_end__ = .
+                0x0000000001000250                __edata = .
+
+.bss            0x0000000001000250      0x310
+                0x0000000001000250                . = ALIGN (0x4)
+                0x0000000001000250                __sbss = ALIGN (0x4)
+                0x0000000001000250                __bss_start__ = .
+ *(.bss)
+ *(.bss.*)
+ *(COMMON)
+ COMMON         0x0000000001000250      0x104 Obj/irq.o
+                0x0000000001000250                uart_buffer
+                0x0000000001000350                uart_buf_pos
+                0x0000000001000360                . = ALIGN (0x10)
+ *fill*         0x0000000001000354        0xc 
+                0x0000000001000360                __bss_end__ = .
+ *crt0.o(.app_stack)
+ .app_stack     0x0000000001000360      0x200 Obj/crt0.o
+                0x0000000001000560                __initial_sp
+                0x0000000001000560                __end = .
+                0x0000000001000560                end = .
+OUTPUT(Obj/irq_test.elf elf32-littleriscv)
+
+.rela.dyn       0x0000000001000560        0x0
+ .rela.text.init
+                0x0000000001000560        0x0 Obj/crt0.o
+ .rela.text     0x0000000001000560        0x0 Obj/crt0.o
+
+.riscv.attributes
+                0x0000000000000000       0x29
+ .riscv.attributes
+                0x0000000000000000       0x29 Obj/crt0.o
+ .riscv.attributes
+                0x0000000000000029       0x29 Obj/main.o
+ .riscv.attributes
+                0x0000000000000052       0x29 Obj/irq.o
+
+.comment        0x0000000000000000       0x32
+ .comment       0x0000000000000000       0x32 Obj/main.o
+                                         0x33 (size before relaxing)
+ .comment       0x0000000000000032       0x33 Obj/irq.o
+
+.debug_line     0x0000000000000000      0x8b1
+ .debug_line    0x0000000000000000      0x16a Obj/crt0.o
+ .debug_line    0x000000000000016a      0x37c Obj/main.o
+ .debug_line    0x00000000000004e6      0x3cb Obj/irq.o
+
+.debug_info     0x0000000000000000     0x17a8
+ .debug_info    0x0000000000000000       0x26 Obj/crt0.o
+ .debug_info    0x0000000000000026      0xb4c Obj/main.o
+ .debug_info    0x0000000000000b72      0xc36 Obj/irq.o
+
+.debug_abbrev   0x0000000000000000      0x578
+ .debug_abbrev  0x0000000000000000       0x14 Obj/crt0.o
+ .debug_abbrev  0x0000000000000014      0x2a5 Obj/main.o
+ .debug_abbrev  0x00000000000002b9      0x2bf Obj/irq.o
+
+.debug_aranges  0x0000000000000000       0x60
+ .debug_aranges
+                0x0000000000000000       0x20 Obj/crt0.o
+ .debug_aranges
+                0x0000000000000020       0x20 Obj/main.o
+ .debug_aranges
+                0x0000000000000040       0x20 Obj/irq.o
+
+.debug_str      0x0000000000000000      0x6e7
+ .debug_str     0x0000000000000000       0x39 Obj/crt0.o
+ .debug_str     0x0000000000000039      0x608 Obj/main.o
+                                        0x69c (size before relaxing)
+ .debug_str     0x0000000000000641       0xa6 Obj/irq.o
+                                        0x72a (size before relaxing)
+
+.debug_loc      0x0000000000000000       0x82
+ .debug_loc     0x0000000000000000       0x32 Obj/main.o
+ .debug_loc     0x0000000000000032       0x50 Obj/irq.o
+
+.debug_frame    0x0000000000000000       0x58
+ .debug_frame   0x0000000000000000       0x28 Obj/main.o
+ .debug_frame   0x0000000000000028       0x30 Obj/irq.o
