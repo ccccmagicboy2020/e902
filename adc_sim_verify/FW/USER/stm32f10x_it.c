@@ -196,27 +196,29 @@ void EXTI1_IRQHandler(void)
 		 GPIO_WriteBit(GPIOB, GPIO_Pin_10, test_data1.bits.adc10);
 		 GPIO_WriteBit(GPIOB, GPIO_Pin_11, test_data1.bits.adc11);
 		 
+		 SEGGER_RTT_printf(0, "radar_if_raw: 0x%x(%d)\r\n", test_data1.value, test_data1.value);
+		 
 		 delay_us(10);
-		 
+		 SEGGER_RTT_printf(0, "PA2: %d\r\n", GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_2));
 		 GPIO_SetBits(GPIOA, GPIO_Pin_2);
-		 
+		 SEGGER_RTT_printf(0, "PA2: %d\r\n", GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_2));
 		 delay_us(10);
 		 
 		 GPIO_ResetBits(GPIOA, GPIO_Pin_2);
-		 
+		 SEGGER_RTT_printf(0, "PA2: %d\r\n", GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_2));
 		 SEGGER_RTT_printf(0, "%d %d %d %d %d %d %d %d %d %d %d %d \r\n", 
-												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_0),
-												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_1),
-												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_2),
-												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_3),		 
-												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_4),
-												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_5),
-												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_6),
-												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_7),		
-												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_8),
-												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_9),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_11),
 												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_10),
-												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_11)										
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_9),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_8),		 
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_7),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_6),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_5),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_4),		
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_3),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_2),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_1),
+												GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_0)										
 		 );
    }
 }
