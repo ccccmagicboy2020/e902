@@ -24,6 +24,8 @@ void GPIO_Config()
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);  
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+		//
+		GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
     //≈‰÷√GPIOŒ™Õ∆ÕÏ ‰≥ˆ
     GPIO_InitStruct.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_10|GPIO_Pin_11;
     GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;
