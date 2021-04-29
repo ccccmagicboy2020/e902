@@ -238,7 +238,7 @@ int i2c1_send_byte(unsigned char val)
 	return 1;
 }
 
-int i2c2_send_byte(unsigned char val)
+int i2c2_send_bytes(unsigned char val)
 {	
 	int timeout = 0;
 	
@@ -289,7 +289,7 @@ int i2c2_send_byte(unsigned char val)
 	/* 检测 EV8 事件并清除标志*/
 	while (!I2C_CheckEvent(I2C2,	I2C_EVENT_MASTER_BYTE_TRANSMITTED))
 	{
-		if ((timeout--) == 0) return I2C_TIMEOUT_UserCallback(6);
+		if ((timeout--) == 0) return I2C_TIMEOUT_UserCallback(7);
 	}	
 	
 	/* 发送一字节要写入的数据 */
@@ -299,7 +299,7 @@ int i2c2_send_byte(unsigned char val)
 	/* 检测 EV8 事件并清除标志*/
 	while (!I2C_CheckEvent(I2C2,	I2C_EVENT_MASTER_BYTE_TRANSMITTED))
 	{
-		if ((timeout--) == 0) return I2C_TIMEOUT_UserCallback(6);
+		if ((timeout--) == 0) return I2C_TIMEOUT_UserCallback(8);
 	}		
 	
 	/* 发送一字节要写入的数据 */
@@ -309,11 +309,70 @@ int i2c2_send_byte(unsigned char val)
 	/* 检测 EV8 事件并清除标志*/
 	while (!I2C_CheckEvent(I2C2,	I2C_EVENT_MASTER_BYTE_TRANSMITTED))
 	{
-		if ((timeout--) == 0) return I2C_TIMEOUT_UserCallback(6);
+		if ((timeout--) == 0) return I2C_TIMEOUT_UserCallback(9);
 	}		
 	
 	/* 发送停止信号 */
 	I2C_GenerateSTOP(I2C2, ENABLE);
+	
+	return 1;
+}
+
+int i2c2_rev_bytes(unsigned char NumByteToRead)
+{
+	int timeout = 0;
+	unsigned char temp = 0;
+	
+	I2C_GenerateSTART(I2C2, ENABLE);
+	
+	/*设置超时等待时间*/
+	timeout = I2CT_FLAG_TIMEOUT;
+	
+	while (!I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_MODE_SELECT))
+	{
+		if ((timeout--) == 0) return I2C_TIMEOUT_UserCallback(10);
+	}	
+	
+	/* 发送 EEPROM 设备地址 */
+	I2C_Send7bitAddress(I2C2, SLAVE_ADDRESS, I2C_Direction_Receiver);
+	
+	timeout = I2CT_FLAG_TIMEOUT;
+	/* 检测 EV6 事件并清除标志*/
+	while (!I2C_CheckEvent(I2C2,	I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED))
+	{
+		if ((timeout--) == 0) return I2C_TIMEOUT_UserCallback(11);
+	}
+	
+	while(NumByteToRead)  
+  {
+    if(NumByteToRead == 1)
+    {
+      /* Disable Acknowledgement */
+      I2C_AcknowledgeConfig(I2C2, DISABLE);
+      
+      /* Send STOP Condition */
+      I2C_GenerateSTOP(I2C2, ENABLE);
+    }
+		
+    /* Test on EV7 and clear it */
+    timeout = I2CT_LONG_TIMEOUT;
+    
+		while(I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_BYTE_RECEIVED)==0)  
+		{
+			if((timeout--) == 0) return I2C_TIMEOUT_UserCallback(12);
+		}
+		
+		/* Read a byte from the EEPROM */
+		temp = I2C_ReceiveData(I2C2);
+		
+		SEGGER_RTT_printf(0, "i2c master rev: 0x%02x - %d\r\n", temp, NumByteToRead);
+		
+		/* Decrement the read bytes counter */
+		NumByteToRead--;
+	}
+	
+	/* Enable Acknowledgement to be ready for another reception */
+  I2C_AcknowledgeConfig(I2C2, ENABLE);
 	
 	return 1;
 }
@@ -335,20 +394,12 @@ int main(void)
   {
 		free_runner++;
 		//adc_value.Val1 = ADC_ConvertedValue;
-		//SEGGER_RTT_Write(1, &adc_value, sizeof(adc_value));
-		
-		if (SEGGER_RTT_HasKey()) 
-		{
-			int c = SEGGER_RTT_GetKey();
-			SEGGER_RTT_SetTerminal(0); 
-			SEGGER_RTT_Write (0, &c, 1);
-			SEGGER_RTT_printf(0,"\n");
-		}		
+		//SEGGER_RTT_Write(1, &adc_value, sizeof(adc_value));	
 		
 		c = SEGGER_RTT_WaitKey();
+		i2c2_send_bytes(c);
 		SEGGER_RTT_printf(0, "i2c master trigger: 0x%02x 0x%02x 0x%02x 0x%02x 0x%02x\r\n", c, c+2, c+4, c+6, c+8);
-
-		i2c2_send_byte(c);
+		i2c2_rev_bytes(5);
 		
 		if (free_runner%300 == 0)
 		{
