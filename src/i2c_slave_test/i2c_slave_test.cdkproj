@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project Name="i2c_slave_test" Version="1" Language="C">
   <VirtualDirectory Name="inc">
-    <File Name="../nos/xbr820.h">
+    <File Name="config.h">
       <FileOption/>
     </File>
-    <File Name="config.h">
+    <File Name="xbr820.h">
       <FileOption/>
     </File>
   </VirtualDirectory>
@@ -133,7 +133,7 @@
         <Undefine/>
         <Optim>Optimize (-Og)</Optim>
         <DebugLevel>Default (-g)</DebugLevel>
-        <IncludePath>$(ProjectPath);$(CDKPath)/CSKY/Flash;$(CDKPath)/CSKY/csi/csi_core/include/;$(CDKPath)/CSKY/csi/csi_core/csi_cdk/;$(CDKPath)/CSKY/csi/csi_driver/include/;$(ProjectPath)/../nos/</IncludePath>
+        <IncludePath>$(ProjectPath);$(CDKPath)/CSKY/Flash;$(CDKPath)/CSKY/csi/csi_core/include/;$(CDKPath)/CSKY/csi/csi_core/csi_cdk/;$(CDKPath)/CSKY/csi/csi_driver/include/</IncludePath>
         <OtherFlags>-fno-isolate-erroneous-paths-dereference</OtherFlags>
         <Verbose>no</Verbose>
         <Ansi>no</Ansi>
@@ -218,8 +218,8 @@
     </BuildConfig>
   </BuildConfigs>
   <DebugSessions>
-    <watchExpressions/>
-    <memoryExpressions>;;;</memoryExpressions>
+    <watchExpressions>i2c_slave_buffer[0]:1;i2c_slave_buffer[1]:1;i2c_slave_buffer[2]:1;i2c_slave_buffer[3]:1;i2c_slave_buffer[4]:1</watchExpressions>
+    <memoryExpressions>0x1f040000;;;</memoryExpressions>
     <statistics>;;MHZ;</statistics>
     <peripheralTabs/>
     <WatchDisplayFormat>1</WatchDisplayFormat>

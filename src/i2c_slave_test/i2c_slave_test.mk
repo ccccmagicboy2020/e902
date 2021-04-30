@@ -3,14 +3,14 @@
 ## Do not modify this file, and any manual changes will be erased!!!   
 ##
 ## BuildSet
-ProjectName            :=uirq_test
+ProjectName            :=i2c_slave_test
 ConfigurationName      :=BuildSet
 WorkspacePath          :=./
 ProjectPath            :=./
 IntermediateDirectory  :=Obj
 OutDir                 :=$(IntermediateDirectory)
 User                   :=phosense
-Date                   :=29/04/2021
+Date                   :=30/04/2021
 CDKPath                :=../../../../../C-Sky/CDK/
 LinkerName             :=riscv64-unknown-elf-gcc
 LinkerNameoption       :=
@@ -42,12 +42,12 @@ OutputFile             :=$(ProjectName)
 ObjectSwitch           :=-o 
 ArchiveOutputSwitch    := 
 PreprocessOnlySwitch   :=-E
-ObjectsFileList        :=uirq_test.txt
+ObjectsFileList        :=i2c_slave_test.txt
 MakeDirCommand         :=mkdir
 LinkOptions            := -mabi=ilp32e -march=rv32ecxthead  -nostdlib  -lgcc  -nostartfiles -Wl,--gc-sections -T$(ProjectPath)/ckcpu.ld
 LinkOtherFlagsOption   :=
 IncludePackagePath     :=
-IncludeCPath           :=$(IncludeSwitch). $(IncludeSwitch)../../../../../C-Sky/CDK/CSKY/Flash $(IncludeSwitch)../../../../../C-Sky/CDK/CSKY/csi/csi_core/include/ $(IncludeSwitch)../../../../../C-Sky/CDK/CSKY/csi/csi_core/csi_cdk/ $(IncludeSwitch)../../../../../C-Sky/CDK/CSKY/csi/csi_driver/include/ $(IncludeSwitch)../nos/ 
+IncludeCPath           :=$(IncludeSwitch). $(IncludeSwitch)../../../../../C-Sky/CDK/CSKY/Flash $(IncludeSwitch)../../../../../C-Sky/CDK/CSKY/csi/csi_core/include/ $(IncludeSwitch)../../../../../C-Sky/CDK/CSKY/csi/csi_core/csi_cdk/ $(IncludeSwitch)../../../../../C-Sky/CDK/CSKY/csi/csi_driver/include/ 
 IncludeAPath           :=$(IncludeSwitch). $(IncludeSwitch)../../../../../C-Sky/CDK/CSKY/csi/csi_core/include/ $(IncludeSwitch)../../../../../C-Sky/CDK/CSKY/csi/csi_core/csi_cdk/ $(IncludeSwitch)../../../../../C-Sky/CDK/CSKY/csi/csi_driver/include/ 
 Libs                   := -Wl,--whole-archive  -Wl,--no-whole-archive  
 ArLibs                 := 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CDK_Workspace Name="i2c_slave_test" Database="">
+<CDK_Workspace Name="i2c_slave_test" Database="" DoubleClick="Yes">
   <Project Name="i2c_slave_test" Path="i2c_slave_test.cdkproj" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">

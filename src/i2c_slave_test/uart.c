@@ -16,6 +16,8 @@ typedef struct {
     __IOM uint32_t rfifo;
 } uart_reg_t;
 
+
+
 #if CONFIG_CONSOLE_HANDLE
  #define XBR820_UART	((uart_reg_t *)XBR820_UART1_BASE)
  #define UART_RX_IRQn	UART1_RX_IRQn
@@ -30,6 +32,9 @@ typedef struct {
 #define UART_RFIFO_MASK	(UART_RFIFO_GET - 1)
 
 uint8_t fifo[256];
+
+uint8_t i2c_slave_buffer[5];
+
 uint8_t rp, wp;
 void uart_init(void) {
 	uint32_t divisor;
@@ -45,21 +50,52 @@ void uart_init(void) {
 }
 
 void handle_irq(uint32_t vec) {
-	if (vec == UART_RX_IRQn) {
-		uint32_t iflag;
+	static unsigned char pos = 0;
+	
+	
+	if (I2C_SLAVE_IRQn == vec)
+	{		
+		//SLAVEB_CLEAR = 0x00000005;
+		//SLAVEB_CLEAR = 0x00000000;
+		if (0x00000008 & SLAVEB_STATUS)		//addr
+		{
+			SLAVEB_CLEAR |= 0x00000008;
+			//SLAVEB_CLEAR &= 0xFFFFFFF7;			
+			i2c_slave_buffer[0] = (SLAVEB_DATA >> 8) & 0x000000FF;
+			pos = 1;
+		}
 		
-		for (iflag = XBR820_UART->int_err; iflag & 0x10; iflag = XBR820_UART->int_err) {
-			if (0 == (iflag & 0x60)) {
-				while (UART_RFIFO_MASK & XBR820_UART->rfifo) {
-					uint32_t data;
-
-					XBR820_UART->rfifo = UART_RFIFO_GET;
-					data = XBR820_UART->rx_data;
-					fifo[wp++] = (char)data;
-				}
+		if (0x00000001 & SLAVEB_STATUS)		//rw int
+		{
+			SLAVEB_CLEAR |= 0x00000001;
+			SLAVEB_CLEAR &= 0xFFFFFFFE;			
+			if (0x00000010 & SLAVEB_STATUS)
+			{
+				//transmit
+			}
+			else		
+			{
+				//rev
+				i2c_slave_buffer[pos] = (SLAVEB_DATA) & 0x000000FF;
+				pos++;
+			}			
+		}
+		
+		if (0x00000004 & SLAVEB_STATUS)		//stop
+		{
+			SLAVEB_CLEAR |= 0x00000004;
+			SLAVEB_CLEAR &= 0xFFFFFFFB;			
+			if (0x00000010 & SLAVEB_STATUS)
+			{
+				//transmit
+			}
+			else		
+			{
+				//rev
+				pos = 0;
+				SLAVEB_CLEAR &= 0xFFFFFFF7;
 			}
 		}
-		XBR820_UART->int_err |= 0x08;
 	}
 }
 
