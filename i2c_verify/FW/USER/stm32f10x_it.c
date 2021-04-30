@@ -224,4 +224,64 @@ void EXTI1_IRQHandler(void)
 }
 
 
+void I2C1_ER_IRQHandler(void) 
+{ 
+	/* Check on I2C1 AF flag and clear it */ 
+	if (I2C_GetITStatus(I2C1, I2C_IT_AF)) 
+	{ 
+		I2C_ClearITPendingBit(I2C1, I2C_IT_AF); 
+		//do some thing
+		SEGGER_RTT_printf(0, "i2c slave error1 I2C_IT_AF\r\n");
+		//
+	} 
+ 
+	/* Check on I2C1 AF flag and clear it */
+	if (I2C_GetITStatus(I2C1, I2C_IT_BERR))  
+	{ 
+		I2C_ClearITPendingBit(I2C1, I2C_IT_BERR);
+		//do some thing
+		SEGGER_RTT_printf(0, "i2c slave error2 I2C_IT_BERR\r\n");
+		//
+	}
+}
+
+void I2C1_EV_IRQHandler(void)     
+{
+	unsigned char ch = 0;
+	
+	switch (I2C_GetLastEvent(I2C1))
+	{ 
+		/* Slave Transmitter ---------------------------------------------------*/ 
+		case I2C_EVENT_SLAVE_BYTE_TRANSMITTING:             /* EV3 */  
+			/* Transmit I2C1 data */
+			I2C_SendData(I2C1, 0xAA);
+			SEGGER_RTT_printf(0, "i2c slave EV3: send 0x%02x!\r\n", 0xAA);
+			break; 
+
+		/* Slave Receiver ------------------------------------------------------*/ 
+		case I2C_EVENT_SLAVE_RECEIVER_ADDRESS_MATCHED:     /* EV1 */
+			//do some thing
+			SEGGER_RTT_printf(0, "i2c slave EV1: address matched!\r\n");
+			break; 
+ 
+		case I2C_EVENT_SLAVE_BYTE_RECEIVED:                /* EV2 */ 
+			/* Store I2C1 received data */
+			ch = I2C_ReceiveData(I2C1);
+			//do some thing
+			SEGGER_RTT_printf(0, "i2c slave EV2: byte rev 0x%02x\r\n", ch);
+			//
+			break; 
+ 
+		case I2C_EVENT_SLAVE_STOP_DETECTED:                /* EV4 */
+			//do some thing
+			SEGGER_RTT_printf(0, "i2c slave EV4: stop detected!\r\n");
+			I2C_Cmd(I2C1,ENABLE);
+			break; 
+ 
+		default: 
+			break;    
+ 
+	}
+}
+
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
