@@ -55,23 +55,23 @@ void handle_irq(uint32_t vec) {
 	
 	if (I2C_SLAVE_IRQn == vec)
 	{		
-		//SLAVEB_CLEAR = 0x00000005;
-		//SLAVEB_CLEAR = 0x00000000;
+		SLAVEB_CLEAR |= 0x00000010;
+		
 		if (0x00000008 & SLAVEB_STATUS)		//addr
 		{
-			SLAVEB_CLEAR |= 0x00000008;
-			//SLAVEB_CLEAR &= 0xFFFFFFF7;			
+			SLAVEB_CLEAR |= 0x00000008;		
 			i2c_slave_buffer[0] = (SLAVEB_DATA >> 8) & 0x000000FF;
 			pos = 1;
 		}
 		
 		if (0x00000001 & SLAVEB_STATUS)		//rw int
 		{
-			SLAVEB_CLEAR |= 0x00000001;
-			SLAVEB_CLEAR &= 0xFFFFFFFE;			
+			SLAVEB_CLEAR |= 0x00000001;			
 			if (0x00000010 & SLAVEB_STATUS)
 			{
 				//transmit
+				SLAVEB_DATA_2_IIC = i2c_slave_buffer[pos];
+				pos++;
 			}
 			else		
 			{
@@ -81,10 +81,14 @@ void handle_irq(uint32_t vec) {
 			}			
 		}
 		
+		if (0x00000002 & SLAVEB_STATUS)		//nack
+		{
+			SLAVEB_CLEAR |= 0x00000002;
+			
+		}
 		if (0x00000004 & SLAVEB_STATUS)		//stop
 		{
-			SLAVEB_CLEAR |= 0x00000004;
-			SLAVEB_CLEAR &= 0xFFFFFFFB;			
+			SLAVEB_CLEAR |= 0x00000004;		
 			if (0x00000010 & SLAVEB_STATUS)
 			{
 				//transmit
@@ -93,7 +97,6 @@ void handle_irq(uint32_t vec) {
 			{
 				//rev
 				pos = 0;
-				SLAVEB_CLEAR &= 0xFFFFFFF7;
 			}
 		}
 	}

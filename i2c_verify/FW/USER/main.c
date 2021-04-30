@@ -322,6 +322,7 @@ int i2c2_rev_bytes(unsigned char NumByteToRead)
 {
 	int timeout = 0;
 	unsigned char temp = 0;
+	unsigned char dummy_byte_flag = 0;
 	
 	I2C_GenerateSTART(I2C2, ENABLE);
 	
@@ -365,8 +366,16 @@ int i2c2_rev_bytes(unsigned char NumByteToRead)
 		/* Read a byte from the EEPROM */
 		temp = I2C_ReceiveData(I2C2);
 		
-		SEGGER_RTT_printf(0, "i2c master rev: 0x%02x - %d\r\n", temp, NumByteToRead);
-		
+		if (dummy_byte_flag < 2)
+		{
+			dummy_byte_flag++;
+			SEGGER_RTT_printf(0, "i2c master rev dummy: 0x%02x - %d\r\n", temp, NumByteToRead);
+		}
+		else
+		{
+			SEGGER_RTT_printf(0, "i2c master rev: 0x%02x - %d\r\n", temp, NumByteToRead);
+		}
+				
 		/* Decrement the read bytes counter */
 		NumByteToRead--;
 	}
@@ -400,8 +409,8 @@ int main(void)
 		i2c2_send_bytes(c);
 		SEGGER_RTT_printf(0, "i2c master trigger: 0x%02x 0x%02x 0x%02x 0x%02x 0x%02x\r\n", c, c+2, c+4, c+6, c+8);
 		
-		//c = SEGGER_RTT_WaitKey();
-		//i2c2_rev_bytes(5);
+		c = SEGGER_RTT_WaitKey();
+		i2c2_rev_bytes(7);//add two dummy
 		
 		if (free_runner%300 == 0)
 		{

@@ -218,7 +218,7 @@
     </BuildConfig>
   </BuildConfigs>
   <DebugSessions>
-    <watchExpressions>i2c_slave_buffer[0]:1;i2c_slave_buffer[1]:1;i2c_slave_buffer[2]:1;i2c_slave_buffer[3]:1;i2c_slave_buffer[4]:1</watchExpressions>
+    <watchExpressions>i2c_slave_buffer[0]:1;i2c_slave_buffer[1]:1;i2c_slave_buffer[2]:1;i2c_slave_buffer[3]:1;i2c_slave_buffer[4]:1;pos:1;SLAVEB_DATA_2_IIC:1</watchExpressions>
     <memoryExpressions>0x1f040000;;;</memoryExpressions>
     <statistics>;;MHZ;</statistics>
     <peripheralTabs/>

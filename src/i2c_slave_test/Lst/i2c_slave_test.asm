@@ -19,7 +19,7 @@ Reset_Handler:
 .option norelax
     la      gp, __global_pointer$
  1000008:	00000197          	auipc	gp,0x0
- 100000c:	36818193          	addi	gp,gp,872 # 1000370 <__etext>
+ 100000c:	39818193          	addi	gp,gp,920 # 10003a0 <__etext>
 .option pop
 
     la      a0, Default_Handler
@@ -31,12 +31,12 @@ Reset_Handler:
  100001c:	30551073          	csrw	mtvec,a0
 
     la      a0, __Vectors
- 1000020:	cd018513          	addi	a0,gp,-816 # 1000040 <__Vectors>
+ 1000020:	ca018513          	addi	a0,gp,-864 # 1000040 <__Vectors>
     csrw    mtvt, a0
  1000024:	30751073          	csrw	mtvt,a0
 
     la      sp, __initial_sp
- 1000028:	20418113          	addi	sp,gp,516 # 1000574 <__initial_sp>
+ 1000028:	20418113          	addi	sp,gp,516 # 10005a4 <__initial_sp>
     csrw    mscratch, sp
  100002c:	34011073          	csrw	mscratch,sp
 
@@ -122,7 +122,7 @@ Default_IRQHandler:
     /* clear pending */
     li      a2, 0xE000E100
  1000138:	e000e637          	lui	a2,0xe000e
- 100013c:	10060613          	addi	a2,a2,256 # e000e100 <__bss_end__+0xdf00d870>
+ 100013c:	10060613          	addi	a2,a2,256 # e000e100 <__bss_end__+0xdf00d840>
     add     a2, a2, a0
  1000140:	962a                	add	a2,a2,a0
     lb      a3, 0(a2)
@@ -193,7 +193,7 @@ ExceptionHandler:
  1000190:	0111                	addi	sp,sp,4
 
     la      t0, g_trap_sp
- 1000192:	40418293          	addi	t0,gp,1028 # 1000774 <g_trap_sp>
+ 1000192:	40418293          	addi	t0,gp,1028 # 10007a4 <g_trap_sp>
     addi    t0, t0, -68
  1000196:	fbc28293          	addi	t0,t0,-68
     sw      x1, 0(t0)
@@ -289,7 +289,7 @@ __STATIC_INLINE void csi_vic_enable_irq(int32_t IRQn)
 {
     CLIC->CLICINT[IRQn].IE |= CLIC_INTIE_IE_Msk;
  1000210:	e0801737          	lui	a4,0xe0801
- 1000214:	05d74783          	lbu	a5,93(a4) # e080105d <__bss_end__+0xdf8007cd>
+ 1000214:	05d74783          	lbu	a5,93(a4) # e080105d <__bss_end__+0xdf80079d>
  1000218:	0ff7f793          	andi	a5,a5,255
  100021c:	0017e793          	ori	a5,a5,1
  1000220:	04f70ea3          	sb	a5,93(a4)
@@ -327,11 +327,11 @@ void uart_init(void) {
 	uint32_t divisor;
 
 	rp = wp = 0;
- 1000232:	50018a23          	sb	zero,1300(gp) # 1000884 <wp>
- 1000236:	50018aa3          	sb	zero,1301(gp) # 1000885 <rp>
+ 1000232:	50018a23          	sb	zero,1300(gp) # 10008b4 <wp>
+ 1000236:	50018aa3          	sb	zero,1301(gp) # 10008b5 <rp>
 	XBR820_UART->enable = 0;
  100023a:	1f0507b7          	lui	a5,0x1f050
- 100023e:	0007a023          	sw	zero,0(a5) # 1f050000 <__bss_end__+0x1e04f770>
+ 100023e:	0007a023          	sw	zero,0(a5) # 1f050000 <__bss_end__+0x1e04f740>
 	XBR820_UART->config = UART_CONFIG;
  1000242:	470d                	li	a4,3
  1000244:	c3d8                	sw	a4,4(a5)
@@ -347,7 +347,7 @@ void uart_init(void) {
  1000250:	0b076713          	ori	a4,a4,176
  1000254:	c398                	sw	a4,0(a5)
  1000256:	e0801737          	lui	a4,0xe0801
- 100025a:	04974783          	lbu	a5,73(a4) # e0801049 <__bss_end__+0xdf8007b9>
+ 100025a:	04974783          	lbu	a5,73(a4) # e0801049 <__bss_end__+0xdf800789>
  100025e:	0ff7f793          	andi	a5,a5,255
  1000262:	0017e793          	ori	a5,a5,1
  1000266:	04f704a3          	sb	a5,73(a4)
@@ -364,148 +364,160 @@ void handle_irq(uint32_t vec) {
 	if (I2C_SLAVE_IRQn == vec)
  100026c:	47dd                	li	a5,23
  100026e:	00f50363          	beq	a0,a5,1000274 <handle_irq+0x8>
+				//rev
 				pos = 0;
-				SLAVEB_CLEAR &= 0xFFFFFFF7;
 			}
 		}
 	}
 }
  1000272:	8082                	ret
-		if (0x00000008 & SLAVEB_STATUS)		//addr
+		SLAVEB_CLEAR |= 0x00000010;
  1000274:	1f0407b7          	lui	a5,0x1f040
- 1000278:	4b9c                	lw	a5,16(a5)
- 100027a:	8ba1                	andi	a5,a5,8
- 100027c:	cf91                	beqz	a5,1000298 <handle_irq+0x2c>
-			SLAVEB_CLEAR |= 0x00000008;
- 100027e:	1f0407b7          	lui	a5,0x1f040
- 1000282:	4bd8                	lw	a4,20(a5)
- 1000284:	00876713          	ori	a4,a4,8
- 1000288:	cbd8                	sw	a4,20(a5)
+ 1000278:	4bd8                	lw	a4,20(a5)
+ 100027a:	01076713          	ori	a4,a4,16
+ 100027e:	cbd8                	sw	a4,20(a5)
+		if (0x00000008 & SLAVEB_STATUS)		//addr
+ 1000280:	4b9c                	lw	a5,16(a5)
+ 1000282:	8ba1                	andi	a5,a5,8
+ 1000284:	cf91                	beqz	a5,10002a0 <handle_irq+0x34>
+			SLAVEB_CLEAR |= 0x00000008;		
+ 1000286:	1f0407b7          	lui	a5,0x1f040
+ 100028a:	4bd8                	lw	a4,20(a5)
+ 100028c:	00876713          	ori	a4,a4,8
+ 1000290:	cbd8                	sw	a4,20(a5)
 			i2c_slave_buffer[0] = (SLAVEB_DATA >> 8) & 0x000000FF;
- 100028a:	479c                	lw	a5,8(a5)
- 100028c:	87a1                	srai	a5,a5,0x8
- 100028e:	40f18623          	sb	a5,1036(gp) # 100077c <i2c_slave_buffer>
+ 1000292:	479c                	lw	a5,8(a5)
+ 1000294:	87a1                	srai	a5,a5,0x8
+ 1000296:	40f18623          	sb	a5,1036(gp) # 10007ac <i2c_slave_buffer>
 			pos = 1;
- 1000292:	4705                	li	a4,1
- 1000294:	00e18023          	sb	a4,0(gp) # 1000370 <__etext>
+ 100029a:	4705                	li	a4,1
+ 100029c:	00e18023          	sb	a4,0(gp) # 10003a0 <__etext>
 		if (0x00000001 & SLAVEB_STATUS)		//rw int
- 1000298:	1f0407b7          	lui	a5,0x1f040
- 100029c:	4b9c                	lw	a5,16(a5)
- 100029e:	8b85                	andi	a5,a5,1
- 10002a0:	cf85                	beqz	a5,10002d8 <handle_irq+0x6c>
-			SLAVEB_CLEAR |= 0x00000001;
- 10002a2:	1f0407b7          	lui	a5,0x1f040
- 10002a6:	4bd8                	lw	a4,20(a5)
- 10002a8:	00176713          	ori	a4,a4,1
- 10002ac:	cbd8                	sw	a4,20(a5)
-			SLAVEB_CLEAR &= 0xFFFFFFFE;			
+ 10002a0:	1f0407b7          	lui	a5,0x1f040
+ 10002a4:	4b9c                	lw	a5,16(a5)
+ 10002a6:	8b85                	andi	a5,a5,1
+ 10002a8:	cb9d                	beqz	a5,10002de <handle_irq+0x72>
+			SLAVEB_CLEAR |= 0x00000001;			
+ 10002aa:	1f0407b7          	lui	a5,0x1f040
  10002ae:	4bd8                	lw	a4,20(a5)
- 10002b0:	9b79                	andi	a4,a4,-2
- 10002b2:	cbd8                	sw	a4,20(a5)
+ 10002b0:	00176713          	ori	a4,a4,1
+ 10002b4:	cbd8                	sw	a4,20(a5)
 			if (0x00000010 & SLAVEB_STATUS)
- 10002b4:	4b9c                	lw	a5,16(a5)
- 10002b6:	8bc1                	andi	a5,a5,16
- 10002b8:	e385                	bnez	a5,10002d8 <handle_irq+0x6c>
-				i2c_slave_buffer[pos] = (SLAVEB_DATA) & 0x000000FF;
- 10002ba:	1f0407b7          	lui	a5,0x1f040
- 10002be:	4790                	lw	a2,8(a5)
- 10002c0:	00018713          	mv	a4,gp
- 10002c4:	00074683          	lbu	a3,0(a4)
- 10002c8:	40c18793          	addi	a5,gp,1036 # 100077c <i2c_slave_buffer>
- 10002cc:	97b6                	add	a5,a5,a3
- 10002ce:	00c78023          	sb	a2,0(a5) # 1f040000 <__bss_end__+0x1e03f770>
+ 10002b6:	4b9c                	lw	a5,16(a5)
+ 10002b8:	8bc1                	andi	a5,a5,16
+ 10002ba:	cfb1                	beqz	a5,1000316 <handle_irq+0xaa>
+				SLAVEB_DATA_2_IIC = i2c_slave_buffer[pos];
+ 10002bc:	00018793          	mv	a5,gp
+ 10002c0:	0007c703          	lbu	a4,0(a5) # 1f040000 <__bss_end__+0x1e03f740>
+ 10002c4:	40c18693          	addi	a3,gp,1036 # 10007ac <i2c_slave_buffer>
+ 10002c8:	9736                	add	a4,a4,a3
+ 10002ca:	00074683          	lbu	a3,0(a4)
+ 10002ce:	1f040737          	lui	a4,0x1f040
+ 10002d2:	c754                	sw	a3,12(a4)
 				pos++;
- 10002d2:	0685                	addi	a3,a3,1
- 10002d4:	00d70023          	sb	a3,0(a4)
+ 10002d4:	0007c703          	lbu	a4,0(a5)
+ 10002d8:	0705                	addi	a4,a4,1
+ 10002da:	00e78023          	sb	a4,0(a5)
+		if (0x00000002 & SLAVEB_STATUS)		//nack
+ 10002de:	1f0407b7          	lui	a5,0x1f040
+ 10002e2:	4b9c                	lw	a5,16(a5)
+ 10002e4:	8b89                	andi	a5,a5,2
+ 10002e6:	c799                	beqz	a5,10002f4 <handle_irq+0x88>
+			SLAVEB_CLEAR |= 0x00000002;
+ 10002e8:	1f040737          	lui	a4,0x1f040
+ 10002ec:	4b5c                	lw	a5,20(a4)
+ 10002ee:	0027e793          	ori	a5,a5,2
+ 10002f2:	cb5c                	sw	a5,20(a4)
 		if (0x00000004 & SLAVEB_STATUS)		//stop
- 10002d8:	1f0407b7          	lui	a5,0x1f040
- 10002dc:	4b9c                	lw	a5,16(a5)
- 10002de:	8b91                	andi	a5,a5,4
- 10002e0:	dbc9                	beqz	a5,1000272 <handle_irq+0x6>
-			SLAVEB_CLEAR |= 0x00000004;
- 10002e2:	1f0407b7          	lui	a5,0x1f040
- 10002e6:	4bd8                	lw	a4,20(a5)
- 10002e8:	00476713          	ori	a4,a4,4
- 10002ec:	cbd8                	sw	a4,20(a5)
-			SLAVEB_CLEAR &= 0xFFFFFFFB;			
- 10002ee:	4bd8                	lw	a4,20(a5)
- 10002f0:	9b6d                	andi	a4,a4,-5
- 10002f2:	cbd8                	sw	a4,20(a5)
+ 10002f4:	1f0407b7          	lui	a5,0x1f040
+ 10002f8:	4b9c                	lw	a5,16(a5)
+ 10002fa:	8b91                	andi	a5,a5,4
+ 10002fc:	dbbd                	beqz	a5,1000272 <handle_irq+0x6>
+			SLAVEB_CLEAR |= 0x00000004;		
+ 10002fe:	1f0407b7          	lui	a5,0x1f040
+ 1000302:	4bd8                	lw	a4,20(a5)
+ 1000304:	00476713          	ori	a4,a4,4
+ 1000308:	cbd8                	sw	a4,20(a5)
 			if (0x00000010 & SLAVEB_STATUS)
- 10002f4:	4b9c                	lw	a5,16(a5)
- 10002f6:	8bc1                	andi	a5,a5,16
- 10002f8:	ffad                	bnez	a5,1000272 <handle_irq+0x6>
+ 100030a:	4b9c                	lw	a5,16(a5)
+ 100030c:	8bc1                	andi	a5,a5,16
+ 100030e:	f3b5                	bnez	a5,1000272 <handle_irq+0x6>
 				pos = 0;
- 10002fa:	00018023          	sb	zero,0(gp) # 1000370 <__etext>
-				SLAVEB_CLEAR &= 0xFFFFFFF7;
- 10002fe:	1f040737          	lui	a4,0x1f040
- 1000302:	4b5c                	lw	a5,20(a4)
- 1000304:	9bdd                	andi	a5,a5,-9
- 1000306:	cb5c                	sw	a5,20(a4)
+ 1000310:	00018023          	sb	zero,0(gp) # 10003a0 <__etext>
 }
- 1000308:	b7ad                	j	1000272 <handle_irq+0x6>
+ 1000314:	bfb9                	j	1000272 <handle_irq+0x6>
+				i2c_slave_buffer[pos] = (SLAVEB_DATA) & 0x000000FF;
+ 1000316:	1f0407b7          	lui	a5,0x1f040
+ 100031a:	4790                	lw	a2,8(a5)
+ 100031c:	00018713          	mv	a4,gp
+ 1000320:	00074683          	lbu	a3,0(a4) # 1f040000 <__bss_end__+0x1e03f740>
+ 1000324:	40c18793          	addi	a5,gp,1036 # 10007ac <i2c_slave_buffer>
+ 1000328:	97b6                	add	a5,a5,a3
+ 100032a:	00c78023          	sb	a2,0(a5) # 1f040000 <__bss_end__+0x1e03f740>
+				pos++;
+ 100032e:	0685                	addi	a3,a3,1
+ 1000330:	00d70023          	sb	a3,0(a4)
+ 1000334:	b76d                	j	10002de <handle_irq+0x72>
 
-0100030a <getchar>:
+01000336 <getchar>:
 	XBR820_UART->int_err |= 0x02;
 	XBR820_UART->tx_data = ch;
 }
 
 int getchar(void) {
 	if (rp == wp)
- 100030a:	5151c783          	lbu	a5,1301(gp) # 1000885 <rp>
- 100030e:	5141c703          	lbu	a4,1300(gp) # 1000884 <wp>
- 1000312:	00e78c63          	beq	a5,a4,100032a <getchar+0x20>
+ 1000336:	5151c783          	lbu	a5,1301(gp) # 10008b5 <rp>
+ 100033a:	5141c703          	lbu	a4,1300(gp) # 10008b4 <wp>
+ 100033e:	00e78c63          	beq	a5,a4,1000356 <getchar+0x20>
 		return -1;
 	return (int)fifo[rp++];
- 1000316:	00178693          	addi	a3,a5,1 # 1f040001 <__bss_end__+0x1e03f771>
- 100031a:	50d18aa3          	sb	a3,1301(gp) # 1000885 <rp>
- 100031e:	41418713          	addi	a4,gp,1044 # 1000784 <fifo>
- 1000322:	97ba                	add	a5,a5,a4
- 1000324:	0007c503          	lbu	a0,0(a5)
- 1000328:	8082                	ret
+ 1000342:	00178693          	addi	a3,a5,1
+ 1000346:	50d18aa3          	sb	a3,1301(gp) # 10008b5 <rp>
+ 100034a:	41418713          	addi	a4,gp,1044 # 10007b4 <fifo>
+ 100034e:	97ba                	add	a5,a5,a4
+ 1000350:	0007c503          	lbu	a0,0(a5)
+ 1000354:	8082                	ret
 		return -1;
- 100032a:	557d                	li	a0,-1
+ 1000356:	557d                	li	a0,-1
 }
- 100032c:	8082                	ret
+ 1000358:	8082                	ret
 
-0100032e <_putchar>:
+0100035a <_putchar>:
 
 void _putchar(int ch) {
 	if (ch == '\n') {
- 100032e:	47a9                	li	a5,10
- 1000330:	00f50f63          	beq	a0,a5,100034e <_putchar+0x20>
+ 100035a:	47a9                	li	a5,10
+ 100035c:	00f50f63          	beq	a0,a5,100037a <_putchar+0x20>
 	while (XBR820_UART->state & 0x07); // TX not idle
- 1000334:	1f0507b7          	lui	a5,0x1f050
- 1000338:	4bdc                	lw	a5,20(a5)
- 100033a:	8b9d                	andi	a5,a5,7
- 100033c:	ffe5                	bnez	a5,1000334 <_putchar+0x6>
+ 1000360:	1f0507b7          	lui	a5,0x1f050
+ 1000364:	4bdc                	lw	a5,20(a5)
+ 1000366:	8b9d                	andi	a5,a5,7
+ 1000368:	ffe5                	bnez	a5,1000360 <_putchar+0x6>
 	XBR820_UART->int_err |= 0x02;
- 100033e:	1f0507b7          	lui	a5,0x1f050
- 1000342:	4b98                	lw	a4,16(a5)
- 1000344:	00276713          	ori	a4,a4,2
- 1000348:	cb98                	sw	a4,16(a5)
+ 100036a:	1f0507b7          	lui	a5,0x1f050
+ 100036e:	4b98                	lw	a4,16(a5)
+ 1000370:	00276713          	ori	a4,a4,2
+ 1000374:	cb98                	sw	a4,16(a5)
 	XBR820_UART->tx_data = ch;
- 100034a:	c7c8                	sw	a0,12(a5)
+ 1000376:	c7c8                	sw	a0,12(a5)
 		_putc('\r');
 	}
 	_putc(ch);
 }
- 100034c:	8082                	ret
+ 1000378:	8082                	ret
 	while (XBR820_UART->state & 0x07); // TX not idle
- 100034e:	1f0507b7          	lui	a5,0x1f050
- 1000352:	4bdc                	lw	a5,20(a5)
- 1000354:	8b9d                	andi	a5,a5,7
- 1000356:	ffe5                	bnez	a5,100034e <_putchar+0x20>
+ 100037a:	1f0507b7          	lui	a5,0x1f050
+ 100037e:	4bdc                	lw	a5,20(a5)
+ 1000380:	8b9d                	andi	a5,a5,7
+ 1000382:	ffe5                	bnez	a5,100037a <_putchar+0x20>
 	XBR820_UART->int_err |= 0x02;
- 1000358:	1f0507b7          	lui	a5,0x1f050
- 100035c:	4b98                	lw	a4,16(a5)
- 100035e:	00276713          	ori	a4,a4,2
- 1000362:	cb98                	sw	a4,16(a5)
+ 1000384:	1f0507b7          	lui	a5,0x1f050
+ 1000388:	4b98                	lw	a4,16(a5)
+ 100038a:	00276713          	ori	a4,a4,2
+ 100038e:	cb98                	sw	a4,16(a5)
 	XBR820_UART->tx_data = ch;
- 1000364:	4735                	li	a4,13
- 1000366:	c7d8                	sw	a4,12(a5)
+ 1000390:	4735                	li	a4,13
+ 1000392:	c7d8                	sw	a4,12(a5)
 	while (XBR820_UART->state & 0x07); // TX not idle
- 1000368:	b7f1                	j	1000334 <_putchar+0x6>
- 100036a:	0000                	unimp
- 100036c:	0000                	unimp
+ 1000394:	b7f1                	j	1000360 <_putchar+0x6>
 	...
