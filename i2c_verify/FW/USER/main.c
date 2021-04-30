@@ -10,14 +10,14 @@
 
 /* STM32 I2C 快速模式 */
 //#define I2C_Speed 400000
-#define I2C_Speed 200000
+#define I2C_Speed 10000
 
 /* 这个地址只要与 STM32 外挂的 I2C 器件地址不一样即可 */
 #define I2Cx_OWN_ADDRESS7 0x0A
 #define SLAVE_ADDRESS			0x0C
 
 /*通讯等待超时时间*/
-#define I2CT_FLAG_TIMEOUT ((uint32_t)0x1000)
+#define I2CT_FLAG_TIMEOUT ((uint32_t)0x100000)
 #define I2CT_LONG_TIMEOUT ((uint32_t)(10 * I2CT_FLAG_TIMEOUT))
 
 typedef struct Val
@@ -266,7 +266,7 @@ int i2c2_send_bytes(unsigned char val)
 	I2C_SendData(I2C2, val);
 	
 	timeout = I2CT_FLAG_TIMEOUT;
-	/* 检测 EV6 事件并清除标志*/
+	/* 检测 EV8 事件并清除标志*/
 	while (!I2C_CheckEvent(I2C2,	I2C_EVENT_MASTER_BYTE_TRANSMITTED))
 	{
 		if ((timeout--) == 0) return I2C_TIMEOUT_UserCallback(5);
@@ -399,7 +399,9 @@ int main(void)
 		c = SEGGER_RTT_WaitKey();
 		i2c2_send_bytes(c);
 		SEGGER_RTT_printf(0, "i2c master trigger: 0x%02x 0x%02x 0x%02x 0x%02x 0x%02x\r\n", c, c+2, c+4, c+6, c+8);
-		i2c2_rev_bytes(5);
+		
+		//c = SEGGER_RTT_WaitKey();
+		//i2c2_rev_bytes(5);
 		
 		if (free_runner%300 == 0)
 		{
