@@ -5,15 +5,22 @@
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
       <wxString Value="D:\cccc2020\CODE\e902\src\i2c_master_test\main.c" Name="FileName"/>
-      <int Value="61" Name="FirstVisibleLine"/>
-      <int Value="80" Name="CurrentLine"/>
+      <int Value="139" Name="FirstVisibleLine"/>
+      <int Value="160" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
       <wxString Value="D:\cccc2020\CODE\e902\src\i2c_master_test\xbr820.h" Name="FileName"/>
-      <int Value="76" Name="FirstVisibleLine"/>
-      <int Value="87" Name="CurrentLine"/>
+      <int Value="70" Name="FirstVisibleLine"/>
+      <int Value="83" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="D:\cccc2020\CODE\e902\src\i2c_master_test\uart.c" Name="FileName"/>
+      <int Value="6" Name="FirstVisibleLine"/>
+      <int Value="29" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>

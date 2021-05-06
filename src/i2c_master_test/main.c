@@ -1,8 +1,8 @@
 
 #include <xbr820.h>
 
-uint8_t i2c_master_send_buffer[8];
-uint8_t i2c_master_rev_buffer[8];
+uint8_t i2c_master_send_buffer[200];
+uint8_t i2c_master_rev_buffer[200];
 
 extern volatile uint32_t tm_count;
 
@@ -10,6 +10,7 @@ void __bkpt_label();
 
 void i2c_master_init(void)
 {
+	unsigned int i = 0;   //index
 	//
 	SLAVE_ADDR = 0x0000000AUL;	//stm32 slave
 	
@@ -18,6 +19,8 @@ void i2c_master_init(void)
 	//MAST_CLK = 0x00000008UL;		//I2C CLK: 16000000/8/8 = 250K  not ok!
 	
 	MAST_EN = 0x00000001UL;			//enable master clock
+	
+	MAST_MISC = 0x00000002UL;		//enable last ack
 	
 	csi_vic_enable_irq(I2C_MASTER_IRQn);
 	
@@ -28,7 +31,12 @@ void i2c_master_init(void)
 	i2c_master_send_buffer[4] = 0x90;
 	i2c_master_send_buffer[5] = 0x99;
 	i2c_master_send_buffer[6] = 0x2A;
-	i2c_master_send_buffer[7] = 0xBE;	
+	i2c_master_send_buffer[7] = 0xBE;
+	
+	for (i = 8;i<200;i++)
+	{
+		i2c_master_send_buffer[i] = i;
+	}
 }
 
 void timer0_init(unsigned int init_val)
@@ -36,6 +44,7 @@ void timer0_init(unsigned int init_val)
 	tm_count = 0;
 	TIMER0_REG = init_val;	//load the initial value
 	TIMER_CR |= 0x00000010;//enable timer0
+	MAST_INT_EN |= 0x0000000f;//enable int source
 	
 	csi_vic_enable_irq(TIM0_IRQn);
 }
@@ -86,78 +95,87 @@ int main()
 	
 	while(1)
 	{
-		//transmit
-		i2c_master_transmit();
-		delay(5000);
-		
-		
-		//rev
-		i2c_master_rev();
-		
-		while(1)
+		if (1)
 		{
-			if (0x00000008 & MAST_STATUS)//check idle
-			{
-				break;
-			}
+			//transmit
+			i2c_master_transmit();
+			delay(5000);			
 		}
 		
-		i2c_master_rev_buffer[0] = IICM_2_DATA0 & 0x000000ff;
-		i2c_master_rev_buffer[1] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
-		i2c_master_rev_buffer[2] = (IICM_2_DATA0 & 0x00ff0000) >> 16;
-		i2c_master_rev_buffer[3] = (IICM_2_DATA0 & 0xff000000) >> 24;
-		i2c_master_rev_buffer[4] = IICM_2_DATA1 & 0x000000ff;
-		i2c_master_rev_buffer[5] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
-		i2c_master_rev_buffer[6] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
-		i2c_master_rev_buffer[7] = (IICM_2_DATA1 & 0xff000000) >> 24;		
-		
-		delay(5000);
-		
-		//restart rev mode1
-		i2c_master_restart_rev1(0x55);
-		
-		while(1)
+		if (0)
 		{
-			if (0x00000008 & MAST_STATUS)//check idle
+			//rev
+			i2c_master_rev();
+			
+			while(1)
 			{
-				break;
+				if (0x00000008 & MAST_STATUS)//check idle
+				{
+					break;
+				}
 			}
+			
+			i2c_master_rev_buffer[0] = IICM_2_DATA0 & 0x000000ff;
+			i2c_master_rev_buffer[1] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
+			i2c_master_rev_buffer[2] = (IICM_2_DATA0 & 0x00ff0000) >> 16;
+			i2c_master_rev_buffer[3] = (IICM_2_DATA0 & 0xff000000) >> 24;
+			i2c_master_rev_buffer[4] = IICM_2_DATA1 & 0x000000ff;
+			i2c_master_rev_buffer[5] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
+			i2c_master_rev_buffer[6] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
+			i2c_master_rev_buffer[7] = (IICM_2_DATA1 & 0xff000000) >> 24;		
+			
+			delay(5000);			
 		}
 		
-		i2c_master_rev_buffer[0] = IICM_2_DATA0 & 0x000000ff;
-		i2c_master_rev_buffer[1] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
-		i2c_master_rev_buffer[2] = (IICM_2_DATA0 & 0x00ff0000) >> 16;
-		i2c_master_rev_buffer[3] = (IICM_2_DATA0 & 0xff000000) >> 24;
-		i2c_master_rev_buffer[4] = IICM_2_DATA1 & 0x000000ff;
-		i2c_master_rev_buffer[5] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
-		i2c_master_rev_buffer[6] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
-		i2c_master_rev_buffer[7] = (IICM_2_DATA1 & 0xff000000) >> 24;		
-		
-		delay(5000);
-		
-		
-		//restart rev mode2
-		i2c_master_restart_rev2(0x5872);
-		
-		while(1)
+		if (0)
 		{
-			if (0x00000008 & MAST_STATUS)//check idle
+			//restart rev mode1
+			i2c_master_restart_rev1(0x55);
+			
+			while(1)
 			{
-				break;
+				if (0x00000008 & MAST_STATUS)//check idle
+				{
+					break;
+				}
 			}
+			
+			i2c_master_rev_buffer[0] = IICM_2_DATA0 & 0x000000ff;
+			i2c_master_rev_buffer[1] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
+			i2c_master_rev_buffer[2] = (IICM_2_DATA0 & 0x00ff0000) >> 16;
+			i2c_master_rev_buffer[3] = (IICM_2_DATA0 & 0xff000000) >> 24;
+			i2c_master_rev_buffer[4] = IICM_2_DATA1 & 0x000000ff;
+			i2c_master_rev_buffer[5] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
+			i2c_master_rev_buffer[6] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
+			i2c_master_rev_buffer[7] = (IICM_2_DATA1 & 0xff000000) >> 24;		
+			
+			delay(5000);			
 		}
 		
-		i2c_master_rev_buffer[0] = IICM_2_DATA0 & 0x000000ff;
-		i2c_master_rev_buffer[1] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
-		i2c_master_rev_buffer[2] = (IICM_2_DATA0 & 0x00ff0000) >> 16;
-		i2c_master_rev_buffer[3] = (IICM_2_DATA0 & 0xff000000) >> 24;
-		i2c_master_rev_buffer[4] = IICM_2_DATA1 & 0x000000ff;
-		i2c_master_rev_buffer[5] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
-		i2c_master_rev_buffer[6] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
-		i2c_master_rev_buffer[7] = (IICM_2_DATA1 & 0xff000000) >> 24;				
-		
-		delay(5000);
-		
+		if (0)
+		{
+			//restart rev mode2
+			i2c_master_restart_rev2(0x5872);
+			
+			while(1)
+			{
+				if (0x00000008 & MAST_STATUS)//check idle
+				{
+					break;
+				}
+			}
+			
+			i2c_master_rev_buffer[0] = IICM_2_DATA0 & 0x000000ff;
+			i2c_master_rev_buffer[1] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
+			i2c_master_rev_buffer[2] = (IICM_2_DATA0 & 0x00ff0000) >> 16;
+			i2c_master_rev_buffer[3] = (IICM_2_DATA0 & 0xff000000) >> 24;
+			i2c_master_rev_buffer[4] = IICM_2_DATA1 & 0x000000ff;
+			i2c_master_rev_buffer[5] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
+			i2c_master_rev_buffer[6] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
+			i2c_master_rev_buffer[7] = (IICM_2_DATA1 & 0xff000000) >> 24;				
+			
+			delay(5000);			
+		}
 		
 		//__bkpt_label();
 	}
