@@ -248,14 +248,16 @@ void I2C1_ER_IRQHandler(void)
 void I2C1_EV_IRQHandler(void)     
 {
 	unsigned char ch = 0;
+	static unsigned char temp = 0x55;
 	
 	switch (I2C_GetLastEvent(I2C1))
 	{ 
 		/* Slave Transmitter ---------------------------------------------------*/ 
 		case I2C_EVENT_SLAVE_BYTE_TRANSMITTING:             /* EV3 */  
 			/* Transmit I2C1 data */
-			I2C_SendData(I2C1, 0xAA);
-			SEGGER_RTT_printf(0, "i2c slave EV3: send 0x%02x!\r\n", 0xAA);
+			I2C_SendData(I2C1, temp);
+			SEGGER_RTT_printf(0, "i2c slave EV3: load 0x%02x!\r\n", temp);
+			temp++;
 			break; 
 
 		/* Slave Receiver ------------------------------------------------------*/ 
