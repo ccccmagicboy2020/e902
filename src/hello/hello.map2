@@ -1,5 +1,0 @@
-hello.elf:00401000 T __stack_top
-hello.elf:000000a8 T _start
-hello.elf:00400000 B c
-hello.elf:00000000 T func_xxx
-hello.elf:0000002e T main
