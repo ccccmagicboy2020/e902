@@ -2,10 +2,12 @@
 #include <xbr820.h>
 
 uint8_t i2c_master_send_buffer[200];
+volatile uint8_t i2c_master_sended_buffer[16];
 uint8_t i2c_master_rev_buffer[200];
 
 extern volatile uint32_t tm_count;
-
+extern volatile unsigned int ii;
+extern volatile unsigned int ii2;
 void __bkpt_label();
 
 void i2c_master_init(void)
@@ -20,7 +22,10 @@ void i2c_master_init(void)
 	
 	MAST_EN = 0x00000001UL;			//enable master clock
 	
-	MAST_MISC = 0x00000002UL;		//enable last ack
+	//MAST_MISC = 0x00000002UL;		//enable last ack
+	
+	MAST_INT_EN |= 0x0000000f;//enable int source
+	//MAST_INT_EN |= 0x00000008;//enable int source	
 	
 	csi_vic_enable_irq(I2C_MASTER_IRQn);
 	
@@ -44,14 +49,14 @@ void timer0_init(unsigned int init_val)
 	tm_count = 0;
 	TIMER0_REG = init_val;	//load the initial value
 	TIMER_CR |= 0x00000010;//enable timer0
-	MAST_INT_EN |= 0x0000000f;//enable int source
 	
 	csi_vic_enable_irq(TIM0_IRQn);
 }
 
 void i2c_master_transmit()
 {
-	NWORD = 0x00000009UL;	//send 10 bytes
+	//WORD = 0x00000009UL;	//send 10 bytes
+	NWORD = 0x00000007UL;	//send 8 bytes
 	DATA_2_IICM0 = (i2c_master_send_buffer[3] << 24) | (i2c_master_send_buffer[2] << 16) | (i2c_master_send_buffer[1] << 8) | (i2c_master_send_buffer[0]);
 	DATA_2_IICM1 = (i2c_master_send_buffer[7] << 24) | (i2c_master_send_buffer[6] << 16) | (i2c_master_send_buffer[5] << 8) | (i2c_master_send_buffer[4]);
 	MASTER_CPU_CMD = 0x00000011UL;
@@ -59,21 +64,24 @@ void i2c_master_transmit()
 
 void i2c_master_rev()
 {
-	NWORD = 0x00000009UL;	//rev 10 bytes
+	//NWORD = 0x00000009UL;	//rev 10 bytes
+	NWORD = 0x00000007UL;	//send 8 bytes
 	MASTER_CPU_CMD = 0x00000012UL;
 }
 
 void i2c_master_restart_rev1(unsigned char address)
 {
 	MAST_READ_ADDR = address;
-	NWORD = 0x00000009UL;	//rev 10 bytes
+	//NWORD = 0x00000009UL;	//rev 10 bytes
+	NWORD = 0x00000007UL;	//send 8 bytes
 	MASTER_CPU_CMD = 0x00000017UL;
 }
 
 void i2c_master_restart_rev2(unsigned short address)
 {
 	MAST_READ_ADDR = address;
-	NWORD = 0x00000009UL;	//rev 10 bytes
+	//NWORD = 0x00000009UL;	//rev 10 bytes
+	NWORD = 0x00000007UL;	//send 8 bytes
 	MASTER_CPU_CMD = 0x0000001FUL;
 }
 
@@ -87,11 +95,13 @@ void delay(unsigned int val)
 }
 
 int main() 
-{
-    __enable_excp_irq();
-	
+{	
 	i2c_master_init();
-	timer0_init(16000);
+	timer0_init(16000);	
+	ii = 0;
+	ii2 = 0;
+	
+    __enable_excp_irq();	
 	
 	while(1)
 	{
@@ -99,7 +109,18 @@ int main()
 		{
 			//transmit
 			i2c_master_transmit();
-			delay(5000);			
+			
+//			while(1)
+//			{
+//				if (0x00000008 & MAST_STATUS)//check idle
+//				{
+//					break;
+//				}
+//			}
+
+
+			delay(1000);
+			delay(5000);
 		}
 		
 		if (0)

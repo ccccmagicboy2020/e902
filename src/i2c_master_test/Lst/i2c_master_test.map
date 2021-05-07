@@ -10,7 +10,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x1000000
   Start of program headers:          52 (bytes into file)
-  Start of section headers:          19648 (bytes into file)
+  Start of section headers:          20020 (bytes into file)
   Flags:                             0x9, RVC, RVE, soft-float ABI
   Size of this header:               52 (bytes)
   Size of program headers:           32 (bytes)
@@ -22,23 +22,23 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .text             PROGBITS        01000000 001000 000430 00  AX  0   0 64
-  [ 2] .rodata           PROGBITS        01000430 001430 000000 00  WA  0   0  1
-  [ 3] .data             PROGBITS        01000430 001430 000000 00  WA  0   0  1
-  [ 4] .bss              NOBITS          01000430 001430 0005a0 00  WA  0   0  4
-  [ 5] .riscv.attributes RISCV_ATTRIBUTE 00000000 001430 000029 00      0   0  1
-  [ 6] .comment          PROGBITS        00000000 001459 000032 01  MS  0   0  1
-  [ 7] .debug_line       PROGBITS        00000000 00148b 000c6a 00      0   0  1
-  [ 8] .debug_info       PROGBITS        00000000 0020f5 0016fe 00      0   0  1
-  [ 9] .debug_abbrev     PROGBITS        00000000 0037f3 00057a 00      0   0  1
-  [10] .debug_aranges    PROGBITS        00000000 003d70 000068 00      0   0  8
-  [11] .debug_str        PROGBITS        00000000 003dd8 000735 01  MS  0   0  1
-  [12] .debug_ranges     PROGBITS        00000000 004510 000020 00      0   0  8
-  [13] .debug_loc        PROGBITS        00000000 004530 000053 00      0   0  1
-  [14] .debug_frame      PROGBITS        00000000 004584 0000b8 00      0   0  4
-  [15] .symtab           SYMTAB          00000000 00463c 0003b0 10     16  22  4
-  [16] .strtab           STRTAB          00000000 0049ec 00021c 00      0   0  1
-  [17] .shstrtab         STRTAB          00000000 004c08 0000b5 00      0   0  1
+  [ 1] .text             PROGBITS        01000000 001000 000460 00  AX  0   0 64
+  [ 2] .rodata           PROGBITS        01000460 001460 000000 00  WA  0   0  1
+  [ 3] .data             PROGBITS        01000460 001460 000000 00  WA  0   0  1
+  [ 4] .bss              NOBITS          01000460 001460 0005c0 00  WA  0   0  4
+  [ 5] .riscv.attributes RISCV_ATTRIBUTE 00000000 001460 000029 00      0   0  1
+  [ 6] .comment          PROGBITS        00000000 001489 000032 01  MS  0   0  1
+  [ 7] .debug_line       PROGBITS        00000000 0014bb 000cb4 00      0   0  1
+  [ 8] .debug_info       PROGBITS        00000000 00216f 00178d 00      0   0  1
+  [ 9] .debug_abbrev     PROGBITS        00000000 0038fc 0005a0 00      0   0  1
+  [10] .debug_aranges    PROGBITS        00000000 003ea0 000068 00      0   0  8
+  [11] .debug_str        PROGBITS        00000000 003f08 000745 01  MS  0   0  1
+  [12] .debug_ranges     PROGBITS        00000000 004650 000020 00      0   0  8
+  [13] .debug_loc        PROGBITS        00000000 004670 000053 00      0   0  1
+  [14] .debug_frame      PROGBITS        00000000 0046c4 0000b8 00      0   0  4
+  [15] .symtab           SYMTAB          00000000 00477c 0003d0 10     16  22  4
+  [16] .strtab           STRTAB          00000000 004b4c 000233 00      0   0  1
+  [17] .shstrtab         STRTAB          00000000 004d7f 0000b5 00      0   0  1
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -47,7 +47,7 @@ Key to Flags:
 
 Program Headers:
   Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
-  LOAD           0x001000 0x01000000 0x01000000 0x00430 0x009d0 RWE 0x1000
+  LOAD           0x001000 0x01000000 0x01000000 0x00460 0x00a20 RWE 0x1000
 
  Section to Segment mapping:
   Segment Sections...
@@ -62,7 +62,8 @@ i2c_master_send_buffer
 tm_count            0x4               Obj/uart.o
 i2c_master_rev_buffer
                     0xc8              Obj/main.o
-data_num            0x1               Obj/uart.o
+i2c_master_sended_buffer
+                    0x10              Obj/main.o
 
 Discarded input sections
 
@@ -71,7 +72,6 @@ Discarded input sections
  .data          0x0000000000000000        0x0 Obj/main.o
  .bss           0x0000000000000000        0x0 Obj/main.o
  .data          0x0000000000000000        0x0 Obj/uart.o
- .bss           0x0000000000000000        0x0 Obj/uart.o
 
 Memory Configuration
 
@@ -86,7 +86,7 @@ LOAD Obj/main.o
 LOAD Obj/uart.o
 LOAD d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a
 
-.text           0x0000000001000000      0x430
+.text           0x0000000001000000      0x460
                 0x0000000001000000                . = ALIGN (0x4)
  *crt0.o(.text.init)
  .text.init     0x0000000001000000       0x36 Obj/crt0.o
@@ -101,86 +101,89 @@ LOAD d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv6
                 0x0000000001000100                __bkpt_label
                 0x0000000001000104                Default_IRQHandler
                 0x00000000010001c0                Default_Handler
- .text          0x0000000001000234      0x15e Obj/main.o
+ .text          0x0000000001000234      0x164 Obj/main.o
                 0x0000000001000234                i2c_master_init
-                0x00000000010002b6                timer0_init
-                0x00000000010002ea                i2c_master_transmit
-                0x0000000001000338                i2c_master_rev
-                0x0000000001000346                i2c_master_restart_rev1
-                0x0000000001000356                i2c_master_restart_rev2
-                0x0000000001000366                delay
-                0x0000000001000374                main
- .text          0x0000000001000392       0x9c Obj/uart.o
-                0x0000000001000392                handle_irq
+                0x00000000010002ba                timer0_init
+                0x00000000010002e2                i2c_master_transmit
+                0x0000000001000330                i2c_master_rev
+                0x000000000100033e                i2c_master_restart_rev1
+                0x000000000100034e                i2c_master_restart_rev2
+                0x000000000100035e                delay
+                0x000000000100036c                main
+ .text          0x0000000001000398       0xba Obj/uart.o
+                0x0000000001000398                handle_irq
  *(.text*)
  *(.text.*)
-                0x0000000001000430                . = ALIGN (0x10)
- *fill*         0x000000000100042e        0x2 
-                0x0000000001000430                __etext = .
+                0x0000000001000460                . = ALIGN (0x10)
+ *fill*         0x0000000001000452        0xe 
+                0x0000000001000460                __etext = .
 
-.rodata         0x0000000001000430        0x0
-                0x0000000001000430                . = ALIGN (0x4)
-                0x0000000001000430                __srodata = .
+.rodata         0x0000000001000460        0x0
+                0x0000000001000460                . = ALIGN (0x4)
+                0x0000000001000460                __srodata = .
  *(.rdata)
  *(.rdata*)
  *(.rdata.*)
  *(.rodata)
  *(.rodata*)
  *(.rodata.*)
-                0x0000000001000430                . = ALIGN (0x10)
-                0x0000000001000430                __erodata = .
+                0x0000000001000460                . = ALIGN (0x10)
+                0x0000000001000460                __erodata = .
 
-.data           0x0000000001000430        0x0
-                0x0000000001000430                . = ALIGN (0x4)
-                0x0000000001000430                __sdata = .
-                0x0000000001000430                __data_start = .
+.data           0x0000000001000460        0x0
+                0x0000000001000460                . = ALIGN (0x4)
+                0x0000000001000460                __sdata = .
+                0x0000000001000460                __data_start = .
  *(.data)
  *(.data*)
  *(.data.*)
-                0x0000000001000430                __global_pointer$ = .
+                0x0000000001000460                __global_pointer$ = .
  *(.sdata)
  *(.sdata.*)
-                0x0000000001000430                . = ALIGN (0x10)
-                0x0000000001000430                __data_end__ = .
-                0x0000000001000430                __edata = .
+                0x0000000001000460                . = ALIGN (0x10)
+                0x0000000001000460                __data_end__ = .
+                0x0000000001000460                __edata = .
 
-.bss            0x0000000001000430      0x5a0
-                0x0000000001000430                . = ALIGN (0x4)
-                0x0000000001000430                __sbss = ALIGN (0x4)
-                0x0000000001000430                __bss_start__ = .
+.bss            0x0000000001000460      0x5c0
+                0x0000000001000460                . = ALIGN (0x4)
+                0x0000000001000460                __sbss = ALIGN (0x4)
+                0x0000000001000460                __bss_start__ = .
  *(.bss)
+ .bss           0x0000000001000460        0x8 Obj/uart.o
+                0x0000000001000460                ii2
+                0x0000000001000464                ii
  *(.bss.*)
  .bss.app_stack
-                0x0000000001000430      0x200 Obj/crt0.o
-                0x0000000001000630                __initial_sp
+                0x0000000001000468      0x200 Obj/crt0.o
+                0x0000000001000668                __initial_sp
  .bss.trap_stack
-                0x0000000001000630      0x208 Obj/crt0.o
-                0x0000000001000630                g_trapstackbase
-                0x0000000001000630                g_trapstackalloc
-                0x0000000001000830                g_trap_sp
-                0x0000000001000830                g_top_trapstack
+                0x0000000001000668      0x208 Obj/crt0.o
+                0x0000000001000668                g_trapstackbase
+                0x0000000001000668                g_trapstackalloc
+                0x0000000001000868                g_trap_sp
+                0x0000000001000868                g_top_trapstack
  *(COMMON)
- COMMON         0x0000000001000838      0x190 Obj/main.o
-                0x0000000001000838                i2c_master_send_buffer
-                0x0000000001000900                i2c_master_rev_buffer
- COMMON         0x00000000010009c8        0x5 Obj/uart.o
-                0x00000000010009c8                tm_count
-                0x00000000010009cc                data_num
-                0x00000000010009d0                . = ALIGN (0x10)
- *fill*         0x00000000010009cd        0x3 
-                0x00000000010009d0                __bss_end__ = .
+ COMMON         0x0000000001000870      0x1a0 Obj/main.o
+                0x0000000001000870                i2c_master_send_buffer
+                0x0000000001000938                i2c_master_rev_buffer
+                0x0000000001000a00                i2c_master_sended_buffer
+ COMMON         0x0000000001000a10        0x4 Obj/uart.o
+                0x0000000001000a10                tm_count
+                0x0000000001000a20                . = ALIGN (0x10)
+ *fill*         0x0000000001000a14        0xc 
+                0x0000000001000a20                __bss_end__ = .
  *crt0.o(.bss.app_stack)
  *crt0.o(.bss.trap_stack)
-                0x00000000010009d0                __end = .
-                0x00000000010009d0                end = .
+                0x0000000001000a20                __end = .
+                0x0000000001000a20                end = .
 OUTPUT(Obj/i2c_master_test.elf elf32-littleriscv)
 
-.rela.dyn       0x00000000010009d0        0x0
- .rela.text     0x00000000010009d0        0x0 Obj/crt0.o
+.rela.dyn       0x0000000001000a20        0x0
+ .rela.text     0x0000000001000a20        0x0 Obj/crt0.o
  .rela.exp_table
-                0x00000000010009d0        0x0 Obj/crt0.o
+                0x0000000001000a20        0x0 Obj/crt0.o
  .rela.text.init
-                0x00000000010009d0        0x0 Obj/crt0.o
+                0x0000000001000a20        0x0 Obj/crt0.o
 
 .riscv.attributes
                 0x0000000000000000       0x29
@@ -196,20 +199,20 @@ OUTPUT(Obj/i2c_master_test.elf elf32-littleriscv)
                                          0x33 (size before relaxing)
  .comment       0x0000000000000032       0x33 Obj/uart.o
 
-.debug_line     0x0000000000000000      0xc6a
+.debug_line     0x0000000000000000      0xcb4
  .debug_line    0x0000000000000000      0x25f Obj/crt0.o
- .debug_line    0x000000000000025f      0x683 Obj/main.o
- .debug_line    0x00000000000008e2      0x388 Obj/uart.o
+ .debug_line    0x000000000000025f      0x69b Obj/main.o
+ .debug_line    0x00000000000008fa      0x3ba Obj/uart.o
 
-.debug_info     0x0000000000000000     0x16fe
+.debug_info     0x0000000000000000     0x178d
  .debug_info    0x0000000000000000       0x22 Obj/crt0.o
- .debug_info    0x0000000000000022      0xcbc Obj/main.o
- .debug_info    0x0000000000000cde      0xa20 Obj/uart.o
+ .debug_info    0x0000000000000022      0xd14 Obj/main.o
+ .debug_info    0x0000000000000d36      0xa57 Obj/uart.o
 
-.debug_abbrev   0x0000000000000000      0x57a
+.debug_abbrev   0x0000000000000000      0x5a0
  .debug_abbrev  0x0000000000000000       0x12 Obj/crt0.o
- .debug_abbrev  0x0000000000000012      0x350 Obj/main.o
- .debug_abbrev  0x0000000000000362      0x218 Obj/uart.o
+ .debug_abbrev  0x0000000000000012      0x363 Obj/main.o
+ .debug_abbrev  0x0000000000000375      0x22b Obj/uart.o
 
 .debug_aranges  0x0000000000000000       0x68
  .debug_aranges
@@ -219,12 +222,12 @@ OUTPUT(Obj/i2c_master_test.elf elf32-littleriscv)
  .debug_aranges
                 0x0000000000000048       0x20 Obj/uart.o
 
-.debug_str      0x0000000000000000      0x735
+.debug_str      0x0000000000000000      0x745
  .debug_str     0x0000000000000000       0x3d Obj/crt0.o
- .debug_str     0x000000000000003d      0x6dd Obj/main.o
-                                        0x777 (size before relaxing)
- .debug_str     0x000000000000071a       0x1b Obj/uart.o
-                                        0x642 (size before relaxing)
+ .debug_str     0x000000000000003d      0x6f6 Obj/main.o
+                                        0x790 (size before relaxing)
+ .debug_str     0x0000000000000733       0x12 Obj/uart.o
+                                        0x652 (size before relaxing)
 
 .debug_ranges   0x0000000000000000       0x20
  .debug_ranges  0x0000000000000000       0x20 Obj/crt0.o
