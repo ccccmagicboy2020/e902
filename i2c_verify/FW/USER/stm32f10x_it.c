@@ -51,6 +51,8 @@ union
 	}bits;
 }test_data1;
 
+void i2c1_initial(void);
+
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -226,22 +228,13 @@ void EXTI1_IRQHandler(void)
 
 void I2C1_ER_IRQHandler(void) 
 { 
-	/* Check on I2C1 AF flag and clear it */ 
-	if (I2C_GetITStatus(I2C1, I2C_IT_AF)) 
+	switch (I2C_GetLastEvent(I2C1))
 	{ 
-		I2C_ClearITPendingBit(I2C1, I2C_IT_AF); 
-		//do some thing
-		SEGGER_RTT_printf(0, "i2c slave error1 I2C_IT_AF\r\n");
-		//
-	} 
- 
-	/* Check on I2C1 AF flag and clear it */
-	if (I2C_GetITStatus(I2C1, I2C_IT_BERR))  
-	{ 
-		I2C_ClearITPendingBit(I2C1, I2C_IT_BERR);
-		//do some thing
-		SEGGER_RTT_printf(0, "i2c slave error2 I2C_IT_BERR\r\n");
-		//
+			case I2C_EVENT_SLAVE_ACK_FAILURE:				//EV3_2
+				I2C_ClearITPendingBit(I2C1, I2C_IT_AF);
+				SEGGER_RTT_printf(0, "i2c slave last byte nack\r\n");
+				i2c1_initial();
+			break;
 	}
 }
 
@@ -252,6 +245,7 @@ void I2C1_EV_IRQHandler(void)
 	
 	switch (I2C_GetLastEvent(I2C1))
 	{ 
+		//EV1！>EV3-1！>EV3！>EV3-2
 		/* Slave Transmitter ---------------------------------------------------*/ 
 		case I2C_EVENT_SLAVE_BYTE_TRANSMITTING:             /* EV3 */  
 			/* Transmit I2C1 data */
@@ -260,6 +254,7 @@ void I2C1_EV_IRQHandler(void)
 			temp++;
 			break; 
 
+		//EV1！>EV2！>EV4
 		/* Slave Receiver ------------------------------------------------------*/ 
 		case I2C_EVENT_SLAVE_RECEIVER_ADDRESS_MATCHED:     /* EV1 */
 			//do some thing

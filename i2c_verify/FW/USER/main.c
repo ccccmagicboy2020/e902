@@ -14,6 +14,8 @@
 #define I2CT_FLAG_TIMEOUT ((uint32_t)0x100000)
 #define I2CT_LONG_TIMEOUT ((uint32_t)(10 * I2CT_FLAG_TIMEOUT))
 
+void i2c1_initial(void);
+
 typedef struct Val
 {
 	unsigned short Val1;		//radar if
@@ -52,7 +54,8 @@ void i2c1_initial(void)
 	I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;
 	
 	/* 高电平数据稳定，低电平数据变化 SCL 时钟线的占空比 */
-	I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_16_9;
+	//I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_16_9;
+	I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_2;
 	
 	I2C_InitStructure.I2C_OwnAddress1 =I2Cx_OWN_ADDRESS7;
 	I2C_InitStructure.I2C_Ack = I2C_Ack_Enable ;
@@ -84,7 +87,9 @@ void NVIC_Configuration(void)
 	NVIC_Init(&NVIC_InitStructure);
 	
 	NVIC_InitStructure.NVIC_IRQChannel = I2C1_ER_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;	
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;	
 	NVIC_Init(&NVIC_InitStructure);
 }
 

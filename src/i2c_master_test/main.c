@@ -4,6 +4,7 @@
 uint8_t i2c_master_send_buffer[200];
 volatile uint8_t i2c_master_sended_buffer[16];
 uint8_t i2c_master_rev_buffer[200];
+uint8_t master_work_flag = 0;
 
 extern volatile uint32_t tm_count;
 extern volatile unsigned int ii;
@@ -24,8 +25,9 @@ void i2c_master_init(void)
 	
 	//MAST_MISC = 0x00000002UL;		//enable last ack
 	
-	MAST_INT_EN |= 0x0000000f;//enable int source
-	//MAST_INT_EN |= 0x00000008;//enable int source	
+	//MAST_INT_EN |= 0x0000000f;//enable int source
+	//MAST_INT_EN |= 0x00000008;//enable int source
+	MAST_INT_EN |= 0x0000000A;  //enable int source
 	
 	csi_vic_enable_irq(I2C_MASTER_IRQn);
 	
@@ -100,6 +102,7 @@ int main()
 	timer0_init(16000);	
 	ii = 0;
 	ii2 = 0;
+	master_work_flag = 0;
 	
     __enable_excp_irq();	
 	
@@ -110,31 +113,25 @@ int main()
 			//transmit
 			i2c_master_transmit();
 			
-//			while(1)
-//			{
-//				if (0x00000008 & MAST_STATUS)//check idle
-//				{
-//					break;
-//				}
-//			}
+			while(master_work_flag==0)
+			{
+				//
+			}
+			master_work_flag = 0;
 
-
-			delay(1000);
 			delay(5000);
 		}
 		
-		if (0)
+		if (1)
 		{
 			//rev
 			i2c_master_rev();
 			
-			while(1)
+			while(master_work_flag==0)
 			{
-				if (0x00000008 & MAST_STATUS)//check idle
-				{
-					break;
-				}
+				//
 			}
+			master_work_flag = 0;
 			
 			i2c_master_rev_buffer[0] = IICM_2_DATA0 & 0x000000ff;
 			i2c_master_rev_buffer[1] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
@@ -148,18 +145,16 @@ int main()
 			delay(5000);			
 		}
 		
-		if (0)
+		if (1)
 		{
 			//restart rev mode1
 			i2c_master_restart_rev1(0x55);
 			
-			while(1)
+			while(master_work_flag==0)
 			{
-				if (0x00000008 & MAST_STATUS)//check idle
-				{
-					break;
-				}
+				//
 			}
+			master_work_flag = 0;
 			
 			i2c_master_rev_buffer[0] = IICM_2_DATA0 & 0x000000ff;
 			i2c_master_rev_buffer[1] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
@@ -173,18 +168,16 @@ int main()
 			delay(5000);			
 		}
 		
-		if (0)
+		if (1)
 		{
 			//restart rev mode2
 			i2c_master_restart_rev2(0x5872);
 			
-			while(1)
+			while(master_work_flag==0)
 			{
-				if (0x00000008 & MAST_STATUS)//check idle
-				{
-					break;
-				}
+				//
 			}
+			master_work_flag = 0;
 			
 			i2c_master_rev_buffer[0] = IICM_2_DATA0 & 0x000000ff;
 			i2c_master_rev_buffer[1] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
