@@ -242,6 +242,8 @@ void I2C1_EV_IRQHandler(void)
 {
 	unsigned char ch = 0;
 	static unsigned char temp = 0x55;
+	static unsigned char byte_counter = 0;
+	static unsigned char byte_counter2 = 0;
 	
 	switch (I2C_GetLastEvent(I2C1))
 	{ 
@@ -250,7 +252,8 @@ void I2C1_EV_IRQHandler(void)
 		case I2C_EVENT_SLAVE_BYTE_TRANSMITTING:             /* EV3 */  
 			/* Transmit I2C1 data */
 			I2C_SendData(I2C1, temp);
-			SEGGER_RTT_printf(0, "i2c slave EV3: load 0x%02x!\r\n", temp);
+			byte_counter2++;
+			SEGGER_RTT_printf(0, "i2c slave EV3: load 0x%02x@%02d\r\n", temp, byte_counter2);
 			temp++;
 			break; 
 
@@ -259,13 +262,16 @@ void I2C1_EV_IRQHandler(void)
 		case I2C_EVENT_SLAVE_RECEIVER_ADDRESS_MATCHED:     /* EV1 */
 			//do some thing
 			SEGGER_RTT_printf(0, "i2c slave EV1: address matched!\r\n");
+			byte_counter = 0;
+			byte_counter2 = 0;
 			break; 
  
 		case I2C_EVENT_SLAVE_BYTE_RECEIVED:                /* EV2 */ 
 			/* Store I2C1 received data */
 			ch = I2C_ReceiveData(I2C1);
 			//do some thing
-			SEGGER_RTT_printf(0, "i2c slave EV2: byte rev 0x%02x\r\n", ch);
+			byte_counter++;
+			SEGGER_RTT_printf(0, "EV2: rev 0x%02x@%02d\r\n", ch, byte_counter);
 			//
 			break; 
  

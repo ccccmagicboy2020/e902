@@ -19,7 +19,7 @@ Reset_Handler:
 .option norelax
     la      gp, __global_pointer$
  1000008:	00000197          	auipc	gp,0x0
- 100000c:	57818193          	addi	gp,gp,1400 # 1000580 <__etext>
+ 100000c:	6d818193          	addi	gp,gp,1752 # 10006e0 <__etext>
 .option pop
 
     la      a0, Default_Handler
@@ -31,17 +31,17 @@ Reset_Handler:
  100001c:	30551073          	csrw	mtvec,a0
 
     la      a0, __Vectors
- 1000020:	ac018513          	addi	a0,gp,-1344 # 1000040 <__Vectors>
+ 1000020:	96018513          	addi	a0,gp,-1696 # 1000040 <__Vectors>
     csrw    mtvt, a0
  1000024:	30751073          	csrw	mtvt,a0
 
     la      sp, __initial_sp
- 1000028:	20c18113          	addi	sp,gp,524 # 100078c <__initial_sp>
+ 1000028:	21c18113          	addi	sp,gp,540 # 10008fc <__initial_sp>
     csrw    mscratch, sp
  100002c:	34011073          	csrw	mscratch,sp
 
     jal     main
- 1000030:	33c000ef          	jal	ra,100036c <main>
+ 1000030:	334000ef          	jal	ra,1000364 <main>
 
 01000034 <__exit>:
 
@@ -114,7 +114,7 @@ Default_IRQHandler:
     andi    a0, t1, 0x3FF
  100012a:	3ff37513          	andi	a0,t1,1023
     jal    handle_irq
- 100012e:	386000ef          	jal	ra,10004b4 <handle_irq>
+ 100012e:	308000ef          	jal	ra,1000436 <handle_irq>
 
     csrc    mstatus, 8
  1000132:	30047073          	csrci	mstatus,8
@@ -127,7 +127,7 @@ Default_IRQHandler:
     /* clear pending */
     li      a2, 0xE000E100
  100013c:	e000e637          	lui	a2,0xe000e
- 1000140:	10060613          	addi	a2,a2,256 # e000e100 <__bss_end__+0xdf00d5c0>
+ 1000140:	10060613          	addi	a2,a2,256 # e000e100 <__bss_end__+0xdf00d450>
     add     a2, a2, a0
  1000144:	962a                	add	a2,a2,a0
     lb      a3, 0(a2)
@@ -212,7 +212,7 @@ Default_Handler:
  10001cc:	0111                	addi	sp,sp,4
 
     la      t0, g_trap_sp
- 10001ce:	40c18293          	addi	t0,gp,1036 # 100098c <g_trap_sp>
+ 10001ce:	41c18293          	addi	t0,gp,1052 # 1000afc <g_trap_sp>
     addi    t0, t0, -68
  10001d2:	fbc28293          	addi	t0,t0,-68
     sw      x1, 0(t0)
@@ -287,488 +287,613 @@ void i2c_master_init(void)
  1000238:	4729                	li	a4,10
  100023a:	c398                	sw	a4,0(a5)
 	
-	//MAST_CLK = 0x00000020UL;		//I2C CLK: 16000000/32/8 = 62.5K  pass!
-	MAST_CLK = 0x00000010UL;		//I2C CLK: 16000000/16/8 = 125K  pass!
- 100023c:	4741                	li	a4,16
- 100023e:	dbd8                	sw	a4,52(a5)
+	MAST_CLK = 0x00000020UL;		//I2C CLK: 16000000/32/8 = 62.5K  pass!
+ 100023c:	02000713          	li	a4,32
+ 1000240:	dbd8                	sw	a4,52(a5)
+	//MAST_CLK = 0x00000010UL;		//I2C CLK: 16000000/16/8 = 125K  pass!
 	//MAST_CLK = 0x00000008UL;		//I2C CLK: 16000000/8/8 = 250K  not ok!
 	
 	MAST_EN = 0x00000001UL;			//enable master clock
- 1000240:	4705                	li	a4,1
- 1000242:	df98                	sw	a4,56(a5)
+ 1000242:	4705                	li	a4,1
+ 1000244:	df98                	sw	a4,56(a5)
 	
-	//MAST_MISC = 0x00000002UL;		//enable last ack
+	MAST_MISC = 0x00000002UL;		//enable last ack
+ 1000246:	4709                	li	a4,2
+ 1000248:	cb98                	sw	a4,16(a5)
 	
 	//MAST_INT_EN |= 0x0000000f;//enable int source
 	//MAST_INT_EN |= 0x00000008;//enable int source
 	MAST_INT_EN |= 0x0000000A;  //enable int source
- 1000244:	57d8                	lw	a4,44(a5)
- 1000246:	00a76713          	ori	a4,a4,10
- 100024a:	d7d8                	sw	a4,44(a5)
+ 100024a:	57d8                	lw	a4,44(a5)
+ 100024c:	00a76713          	ori	a4,a4,10
+ 1000250:	d7d8                	sw	a4,44(a5)
   \details Enable a device-specific interrupt in the VIC interrupt controller.
   \param [in]      IRQn  External interrupt number. Value cannot be negative.
  */
 __STATIC_INLINE void csi_vic_enable_irq(int32_t IRQn)
 {
     CLIC->CLICINT[IRQn].IE |= CLIC_INTIE_IE_Msk;
- 100024c:	e0801737          	lui	a4,0xe0801
- 1000250:	05974783          	lbu	a5,89(a4) # e0801059 <__bss_end__+0xdf800519>
- 1000254:	0ff7f793          	andi	a5,a5,255
- 1000258:	0017e793          	ori	a5,a5,1
- 100025c:	04f70ca3          	sb	a5,89(a4)
+ 1000252:	e0801737          	lui	a4,0xe0801
+ 1000256:	05974783          	lbu	a5,89(a4) # e0801059 <__bss_end__+0xdf8003a9>
+ 100025a:	0ff7f793          	andi	a5,a5,255
+ 100025e:	0017e793          	ori	a5,a5,1
+ 1000262:	04f70ca3          	sb	a5,89(a4)
 	
 	csi_vic_enable_irq(I2C_MASTER_IRQn);
 	
 	i2c_master_send_buffer[0] = 0x12;
- 1000260:	4749                	li	a4,18
- 1000262:	40e18a23          	sb	a4,1044(gp) # 1000994 <i2c_master_send_buffer>
+ 1000266:	4749                	li	a4,18
+ 1000268:	42e18223          	sb	a4,1060(gp) # 1000b04 <i2c_master_send_buffer>
 	i2c_master_send_buffer[1] = 0x55;
- 1000266:	41418793          	addi	a5,gp,1044 # 1000994 <i2c_master_send_buffer>
- 100026a:	05500713          	li	a4,85
- 100026e:	00e780a3          	sb	a4,1(a5) # 1f030001 <__bss_end__+0x1e02f4c1>
+ 100026c:	42418793          	addi	a5,gp,1060 # 1000b04 <i2c_master_send_buffer>
+ 1000270:	05500713          	li	a4,85
+ 1000274:	00e780a3          	sb	a4,1(a5) # 1f030001 <__bss_end__+0x1e02f351>
 	i2c_master_send_buffer[2] = 0xAA;
- 1000272:	faa00713          	li	a4,-86
- 1000276:	00e78123          	sb	a4,2(a5)
+ 1000278:	faa00713          	li	a4,-86
+ 100027c:	00e78123          	sb	a4,2(a5)
 	i2c_master_send_buffer[3] = 0xEB;
- 100027a:	572d                	li	a4,-21
- 100027c:	00e781a3          	sb	a4,3(a5)
+ 1000280:	572d                	li	a4,-21
+ 1000282:	00e781a3          	sb	a4,3(a5)
 	i2c_master_send_buffer[4] = 0x90;
- 1000280:	f9000713          	li	a4,-112
- 1000284:	00e78223          	sb	a4,4(a5)
+ 1000286:	f9000713          	li	a4,-112
+ 100028a:	00e78223          	sb	a4,4(a5)
 	i2c_master_send_buffer[5] = 0x99;
- 1000288:	f9900713          	li	a4,-103
- 100028c:	00e782a3          	sb	a4,5(a5)
+ 100028e:	f9900713          	li	a4,-103
+ 1000292:	00e782a3          	sb	a4,5(a5)
 	i2c_master_send_buffer[6] = 0x2A;
- 1000290:	02a00713          	li	a4,42
- 1000294:	00e78323          	sb	a4,6(a5)
+ 1000296:	02a00713          	li	a4,42
+ 100029a:	00e78323          	sb	a4,6(a5)
 	i2c_master_send_buffer[7] = 0xBE;
- 1000298:	fbe00713          	li	a4,-66
- 100029c:	00e783a3          	sb	a4,7(a5)
+ 100029e:	fbe00713          	li	a4,-66
+ 10002a2:	00e783a3          	sb	a4,7(a5)
 	
 	for (i = 8;i<200;i++)
- 10002a0:	4721                	li	a4,8
- 10002a2:	0c700793          	li	a5,199
- 10002a6:	00e7e963          	bltu	a5,a4,10002b8 <i2c_master_init+0x84>
+ 10002a6:	4721                	li	a4,8
+ 10002a8:	0c700793          	li	a5,199
+ 10002ac:	00e7eb63          	bltu	a5,a4,10002c2 <i2c_master_init+0x8e>
 	{
 		i2c_master_send_buffer[i] = i;
- 10002aa:	41418793          	addi	a5,gp,1044 # 1000994 <i2c_master_send_buffer>
- 10002ae:	97ba                	add	a5,a5,a4
- 10002b0:	00e78023          	sb	a4,0(a5)
+ 10002b0:	0ff77693          	andi	a3,a4,255
+ 10002b4:	42418793          	addi	a5,gp,1060 # 1000b04 <i2c_master_send_buffer>
+ 10002b8:	97ba                	add	a5,a5,a4
+ 10002ba:	00d78023          	sb	a3,0(a5)
 	for (i = 8;i<200;i++)
- 10002b4:	0705                	addi	a4,a4,1
- 10002b6:	b7f5                	j	10002a2 <i2c_master_init+0x6e>
+ 10002be:	0705                	addi	a4,a4,1
+ 10002c0:	b7e5                	j	10002a8 <i2c_master_init+0x74>
 	}
 }
- 10002b8:	8082                	ret
+ 10002c2:	8082                	ret
 
-010002ba <timer0_init>:
+010002c4 <timer0_init>:
 
 void timer0_init(unsigned int init_val)
 {
 	tm_count = 0;
- 10002ba:	5a01aa23          	sw	zero,1460(gp) # 1000b34 <tm_count>
+ 10002c4:	5c01a223          	sw	zero,1476(gp) # 1000ca4 <tm_count>
 	TIMER0_REG = init_val;	//load the initial value
- 10002be:	1f0207b7          	lui	a5,0x1f020
- 10002c2:	c788                	sw	a0,8(a5)
+ 10002c8:	1f0207b7          	lui	a5,0x1f020
+ 10002cc:	c788                	sw	a0,8(a5)
 	TIMER_CR |= 0x00000010;//enable timer0
- 10002c4:	4398                	lw	a4,0(a5)
- 10002c6:	01076713          	ori	a4,a4,16
- 10002ca:	c398                	sw	a4,0(a5)
- 10002cc:	e0801737          	lui	a4,0xe0801
- 10002d0:	06974783          	lbu	a5,105(a4) # e0801069 <__bss_end__+0xdf800529>
- 10002d4:	0ff7f793          	andi	a5,a5,255
- 10002d8:	0017e793          	ori	a5,a5,1
- 10002dc:	06f704a3          	sb	a5,105(a4)
+ 10002ce:	4398                	lw	a4,0(a5)
+ 10002d0:	01076713          	ori	a4,a4,16
+ 10002d4:	c398                	sw	a4,0(a5)
+ 10002d6:	e0801737          	lui	a4,0xe0801
+ 10002da:	06974783          	lbu	a5,105(a4) # e0801069 <__bss_end__+0xdf8003b9>
+ 10002de:	0ff7f793          	andi	a5,a5,255
+ 10002e2:	0017e793          	ori	a5,a5,1
+ 10002e6:	06f704a3          	sb	a5,105(a4)
 	
 	csi_vic_enable_irq(TIM0_IRQn);
 }
- 10002e0:	8082                	ret
+ 10002ea:	8082                	ret
 
-010002e2 <i2c_master_transmit>:
+010002ec <i2c_master_transmit>:
 
-void i2c_master_transmit()
+void i2c_master_transmit(unsigned int trans_num)
 {
-	//WORD = 0x00000009UL;	//send 10 bytes
-	NWORD = 0x00000007UL;	//send 8 bytes
- 10002e2:	1f030737          	lui	a4,0x1f030
- 10002e6:	479d                	li	a5,7
- 10002e8:	c35c                	sw	a5,4(a4)
+	NWORD = trans_num - 1;
+ 10002ec:	157d                	addi	a0,a0,-1
+ 10002ee:	1f0306b7          	lui	a3,0x1f030
+ 10002f2:	c2c8                	sw	a0,4(a3)
 	DATA_2_IICM0 = (i2c_master_send_buffer[3] << 24) | (i2c_master_send_buffer[2] << 16) | (i2c_master_send_buffer[1] << 8) | (i2c_master_send_buffer[0]);
- 10002ea:	41418693          	addi	a3,gp,1044 # 1000994 <i2c_master_send_buffer>
- 10002ee:	0036c783          	lbu	a5,3(a3)
- 10002f2:	07e2                	slli	a5,a5,0x18
- 10002f4:	0026c603          	lbu	a2,2(a3)
- 10002f8:	0642                	slli	a2,a2,0x10
- 10002fa:	8fd1                	or	a5,a5,a2
- 10002fc:	0016c603          	lbu	a2,1(a3)
- 1000300:	0622                	slli	a2,a2,0x8
- 1000302:	8fd1                	or	a5,a5,a2
- 1000304:	4141c603          	lbu	a2,1044(gp) # 1000994 <i2c_master_send_buffer>
- 1000308:	8fd1                	or	a5,a5,a2
- 100030a:	cf1c                	sw	a5,24(a4)
-	DATA_2_IICM1 = (i2c_master_send_buffer[7] << 24) | (i2c_master_send_buffer[6] << 16) | (i2c_master_send_buffer[5] << 8) | (i2c_master_send_buffer[4]);
- 100030c:	0076c783          	lbu	a5,7(a3)
- 1000310:	07e2                	slli	a5,a5,0x18
- 1000312:	0066c603          	lbu	a2,6(a3)
- 1000316:	0642                	slli	a2,a2,0x10
- 1000318:	8fd1                	or	a5,a5,a2
- 100031a:	0056c603          	lbu	a2,5(a3)
- 100031e:	0622                	slli	a2,a2,0x8
- 1000320:	8fd1                	or	a5,a5,a2
- 1000322:	0046c683          	lbu	a3,4(a3)
- 1000326:	8fd5                	or	a5,a5,a3
- 1000328:	cf5c                	sw	a5,28(a4)
+ 10002f4:	42418593          	addi	a1,gp,1060 # 1000b04 <i2c_master_send_buffer>
+ 10002f8:	0035c783          	lbu	a5,3(a1)
+ 10002fc:	07e2                	slli	a5,a5,0x18
+ 10002fe:	0025c703          	lbu	a4,2(a1)
+ 1000302:	0ff77713          	andi	a4,a4,255
+ 1000306:	0742                	slli	a4,a4,0x10
+ 1000308:	8fd9                	or	a5,a5,a4
+ 100030a:	0015c703          	lbu	a4,1(a1)
+ 100030e:	0ff77713          	andi	a4,a4,255
+ 1000312:	0722                	slli	a4,a4,0x8
+ 1000314:	8fd9                	or	a5,a5,a4
+ 1000316:	4241c703          	lbu	a4,1060(gp) # 1000b04 <i2c_master_send_buffer>
+ 100031a:	0ff77713          	andi	a4,a4,255
+ 100031e:	8fd9                	or	a5,a5,a4
+ 1000320:	ce9c                	sw	a5,24(a3)
 	MASTER_CPU_CMD = 0x00000011UL;
- 100032a:	47c5                	li	a5,17
- 100032c:	c71c                	sw	a5,8(a4)
+ 1000322:	47c5                	li	a5,17
+ 1000324:	c69c                	sw	a5,8(a3)
 }
- 100032e:	8082                	ret
+ 1000326:	8082                	ret
 
-01000330 <i2c_master_rev>:
+01000328 <i2c_master_rev>:
 
-void i2c_master_rev()
+void i2c_master_rev(unsigned int rev_num)
 {
-	//NWORD = 0x00000009UL;	//rev 10 bytes
-	NWORD = 0x00000007UL;	//send 8 bytes
- 1000330:	1f0307b7          	lui	a5,0x1f030
- 1000334:	471d                	li	a4,7
- 1000336:	c3d8                	sw	a4,4(a5)
+	NWORD = rev_num - 1;	
+ 1000328:	157d                	addi	a0,a0,-1
+ 100032a:	1f0307b7          	lui	a5,0x1f030
+ 100032e:	c3c8                	sw	a0,4(a5)
 	MASTER_CPU_CMD = 0x00000012UL;
- 1000338:	4749                	li	a4,18
- 100033a:	c798                	sw	a4,8(a5)
+ 1000330:	4749                	li	a4,18
+ 1000332:	c798                	sw	a4,8(a5)
 }
- 100033c:	8082                	ret
+ 1000334:	8082                	ret
 
-0100033e <i2c_master_restart_rev1>:
+01000336 <i2c_master_restart_rev1>:
 
-void i2c_master_restart_rev1(unsigned char address)
+void i2c_master_restart_rev1(unsigned char address, unsigned int rev_num)
 {
 	MAST_READ_ADDR = address;
- 100033e:	1f0307b7          	lui	a5,0x1f030
- 1000342:	cbc8                	sw	a0,20(a5)
-	//NWORD = 0x00000009UL;	//rev 10 bytes
-	NWORD = 0x00000007UL;	//send 8 bytes
- 1000344:	471d                	li	a4,7
- 1000346:	c3d8                	sw	a4,4(a5)
+ 1000336:	1f0307b7          	lui	a5,0x1f030
+ 100033a:	cbc8                	sw	a0,20(a5)
+	NWORD = rev_num - 1;
+ 100033c:	15fd                	addi	a1,a1,-1
+ 100033e:	c3cc                	sw	a1,4(a5)
 	MASTER_CPU_CMD = 0x00000017UL;
- 1000348:	475d                	li	a4,23
- 100034a:	c798                	sw	a4,8(a5)
+ 1000340:	475d                	li	a4,23
+ 1000342:	c798                	sw	a4,8(a5)
 }
- 100034c:	8082                	ret
+ 1000344:	8082                	ret
 
-0100034e <i2c_master_restart_rev2>:
+01000346 <i2c_master_restart_rev2>:
 
-void i2c_master_restart_rev2(unsigned short address)
+void i2c_master_restart_rev2(unsigned short address, unsigned int rev_num)
 {
 	MAST_READ_ADDR = address;
- 100034e:	1f0307b7          	lui	a5,0x1f030
- 1000352:	cbc8                	sw	a0,20(a5)
-	//NWORD = 0x00000009UL;	//rev 10 bytes
-	NWORD = 0x00000007UL;	//send 8 bytes
- 1000354:	471d                	li	a4,7
- 1000356:	c3d8                	sw	a4,4(a5)
+ 1000346:	1f0307b7          	lui	a5,0x1f030
+ 100034a:	cbc8                	sw	a0,20(a5)
+	NWORD = rev_num - 1;
+ 100034c:	15fd                	addi	a1,a1,-1
+ 100034e:	c3cc                	sw	a1,4(a5)
 	MASTER_CPU_CMD = 0x0000001FUL;
- 1000358:	477d                	li	a4,31
- 100035a:	c798                	sw	a4,8(a5)
+ 1000350:	477d                	li	a4,31
+ 1000352:	c798                	sw	a4,8(a5)
 }
- 100035c:	8082                	ret
+ 1000354:	8082                	ret
 
-0100035e <delay>:
+01000356 <delay>:
 
 void delay(unsigned int val)
 {
 	tm_count = 0;
- 100035e:	5a01aa23          	sw	zero,1460(gp) # 1000b34 <tm_count>
+ 1000356:	5c01a223          	sw	zero,1476(gp) # 1000ca4 <tm_count>
 	while(tm_count < val)
- 1000362:	5b41a783          	lw	a5,1460(gp) # 1000b34 <tm_count>
- 1000366:	fea7eee3          	bltu	a5,a0,1000362 <delay+0x4>
+ 100035a:	5c41a783          	lw	a5,1476(gp) # 1000ca4 <tm_count>
+ 100035e:	fea7eee3          	bltu	a5,a0,100035a <delay+0x4>
 	{
 		//
 	}	
 }
- 100036a:	8082                	ret
+ 1000362:	8082                	ret
 
-0100036c <main>:
+01000364 <main>:
 
 int main() 
 {	
- 100036c:	1151                	addi	sp,sp,-12
- 100036e:	c406                	sw	ra,8(sp)
+ 1000364:	1151                	addi	sp,sp,-12
+ 1000366:	c406                	sw	ra,8(sp)
+ 1000368:	c222                	sw	s0,4(sp)
+	unsigned int i = 0;
 	i2c_master_init();
- 1000370:	35d1                	jal	1000234 <i2c_master_init>
+ 100036a:	35e9                	jal	1000234 <i2c_master_init>
 	timer0_init(16000);	
- 1000372:	6511                	lui	a0,0x4
- 1000374:	e8050513          	addi	a0,a0,-384 # 3e80 <Reset_Handler-0xffc180>
- 1000378:	3789                	jal	10002ba <timer0_init>
+ 100036c:	6511                	lui	a0,0x4
+ 100036e:	e8050513          	addi	a0,a0,-384 # 3e80 <Reset_Handler-0xffc180>
+ 1000372:	3f89                	jal	10002c4 <timer0_init>
 	ii = 0;
- 100037a:	0001a423          	sw	zero,8(gp) # 1000588 <ii>
+ 1000374:	0001a823          	sw	zero,16(gp) # 10006f0 <ii>
 	ii2 = 0;
- 100037e:	0001a223          	sw	zero,4(gp) # 1000584 <ii2>
+ 1000378:	0001a223          	sw	zero,4(gp) # 10006e4 <ii2>
 	master_work_flag = 0;
- 1000382:	00018023          	sb	zero,0(gp) # 1000580 <__etext>
+ 100037c:	00018023          	sb	zero,0(gp) # 10006e0 <__etext>
+	buffer_pointer = 0;
+ 1000380:	0001a423          	sw	zero,8(gp) # 10006e8 <buffer_pointer>
+	buffer_cycle = 0;
+ 1000384:	0001aa23          	sw	zero,20(gp) # 10006f4 <buffer_cycle>
+	
+	buffer_pointer2 = 0;
+ 1000388:	0001a623          	sw	zero,12(gp) # 10006ec <buffer_pointer2>
+	buffer_cycle2 = 0;	
+ 100038c:	0001ac23          	sw	zero,24(gp) # 10006f8 <buffer_cycle2>
   \details Enables IRQ interrupts by setting the IE-bit in the PSR.
            Can only be executed in Privileged modes.
  */
 __ALWAYS_STATIC_INLINE void __enable_irq(void)
 {
     __ASM volatile("csrs mstatus, 8");
- 1000386:	30046073          	csrsi	mstatus,8
- 100038a:	a889                	j	10003dc <main+0x70>
+ 1000390:	30046073          	csrsi	mstatus,8
+		}
+		
+		if (1)
+		{
+			//restart rev mode1
+			i2c_master_restart_rev1(0x55, 128);
+ 1000394:	08000593          	li	a1,128
+ 1000398:	05500513          	li	a0,85
+ 100039c:	3f69                	jal	1000336 <i2c_master_restart_rev1>
 			
 			while(master_work_flag==0)
+ 100039e:	0001c783          	lbu	a5,0(gp) # 10006e0 <__etext>
+ 10003a2:	dff5                	beqz	a5,100039e <main+0x3a>
 			{
 				//
 			}
 			master_work_flag = 0;
- 100038c:	00018023          	sb	zero,0(gp) # 1000580 <__etext>
+ 10003a4:	00018023          	sb	zero,0(gp) # 10006e0 <__etext>
+			i2c_master_rev_buffer[4+(buffer_cycle2-1)*8] = IICM_2_DATA1 & 0x000000ff;
+ 10003a8:	1f030637          	lui	a2,0x1f030
+ 10003ac:	524c                	lw	a1,36(a2)
+ 10003ae:	0181a783          	lw	a5,24(gp) # 10006f8 <buffer_cycle2>
+ 10003b2:	200006b7          	lui	a3,0x20000
+ 10003b6:	16fd                	addi	a3,a3,-1
+ 10003b8:	97b6                	add	a5,a5,a3
+ 10003ba:	078e                	slli	a5,a5,0x3
+ 10003bc:	0791                	addi	a5,a5,4
+ 10003be:	0ff5f593          	andi	a1,a1,255
+ 10003c2:	4ec18713          	addi	a4,gp,1260 # 1000bcc <i2c_master_rev_buffer>
+ 10003c6:	97ba                	add	a5,a5,a4
+ 10003c8:	00b78023          	sb	a1,0(a5) # 1f030000 <__bss_end__+0x1e02f350>
+			i2c_master_rev_buffer[5+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
+ 10003cc:	524c                	lw	a1,36(a2)
+ 10003ce:	85a1                	srai	a1,a1,0x8
+ 10003d0:	0181a783          	lw	a5,24(gp) # 10006f8 <buffer_cycle2>
+ 10003d4:	97b6                	add	a5,a5,a3
+ 10003d6:	078e                	slli	a5,a5,0x3
+ 10003d8:	0795                	addi	a5,a5,5
+ 10003da:	0ff5f593          	andi	a1,a1,255
+ 10003de:	97ba                	add	a5,a5,a4
+ 10003e0:	00b78023          	sb	a1,0(a5)
+			i2c_master_rev_buffer[6+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
+ 10003e4:	524c                	lw	a1,36(a2)
+ 10003e6:	85c1                	srai	a1,a1,0x10
+ 10003e8:	0181a783          	lw	a5,24(gp) # 10006f8 <buffer_cycle2>
+ 10003ec:	97b6                	add	a5,a5,a3
+ 10003ee:	078e                	slli	a5,a5,0x3
+ 10003f0:	0799                	addi	a5,a5,6
+ 10003f2:	0ff5f593          	andi	a1,a1,255
+ 10003f6:	97ba                	add	a5,a5,a4
+ 10003f8:	00b78023          	sb	a1,0(a5)
+			i2c_master_rev_buffer[7+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0xff000000) >> 24;				
+ 10003fc:	5250                	lw	a2,36(a2)
+ 10003fe:	0181a783          	lw	a5,24(gp) # 10006f8 <buffer_cycle2>
+ 1000402:	97b6                	add	a5,a5,a3
+ 1000404:	078e                	slli	a5,a5,0x3
+ 1000406:	079d                	addi	a5,a5,7
+ 1000408:	01865693          	srli	a3,a2,0x18
+ 100040c:	97ba                	add	a5,a5,a4
+ 100040e:	00d78023          	sb	a3,0(a5)
+		
+			delay(5000);	
+ 1000412:	6505                	lui	a0,0x1
+ 1000414:	38850513          	addi	a0,a0,904 # 1388 <Reset_Handler-0xffec78>
+ 1000418:	3f3d                	jal	1000356 <delay>
+			buffer_cycle2 = 0;	
+ 100041a:	0001ac23          	sw	zero,24(gp) # 10006f8 <buffer_cycle2>
 			
-			i2c_master_rev_buffer[0] = IICM_2_DATA0 & 0x000000ff;
- 1000390:	1f030737          	lui	a4,0x1f030
- 1000394:	5314                	lw	a3,32(a4)
- 1000396:	4cd18e23          	sb	a3,1244(gp) # 1000a5c <i2c_master_rev_buffer>
-			i2c_master_rev_buffer[1] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
- 100039a:	5314                	lw	a3,32(a4)
- 100039c:	86a1                	srai	a3,a3,0x8
- 100039e:	4dc18793          	addi	a5,gp,1244 # 1000a5c <i2c_master_rev_buffer>
- 10003a2:	00d780a3          	sb	a3,1(a5) # 1f030001 <__bss_end__+0x1e02f4c1>
-			i2c_master_rev_buffer[2] = (IICM_2_DATA0 & 0x00ff0000) >> 16;
- 10003a6:	5314                	lw	a3,32(a4)
- 10003a8:	86c1                	srai	a3,a3,0x10
- 10003aa:	00d78123          	sb	a3,2(a5)
-			i2c_master_rev_buffer[3] = (IICM_2_DATA0 & 0xff000000) >> 24;
- 10003ae:	5314                	lw	a3,32(a4)
- 10003b0:	82e1                	srli	a3,a3,0x18
- 10003b2:	00d781a3          	sb	a3,3(a5)
-			i2c_master_rev_buffer[4] = IICM_2_DATA1 & 0x000000ff;
- 10003b6:	5354                	lw	a3,36(a4)
- 10003b8:	00d78223          	sb	a3,4(a5)
-			i2c_master_rev_buffer[5] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
- 10003bc:	5354                	lw	a3,36(a4)
- 10003be:	86a1                	srai	a3,a3,0x8
- 10003c0:	00d782a3          	sb	a3,5(a5)
-			i2c_master_rev_buffer[6] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
- 10003c4:	5354                	lw	a3,36(a4)
- 10003c6:	86c1                	srai	a3,a3,0x10
- 10003c8:	00d78323          	sb	a3,6(a5)
-			i2c_master_rev_buffer[7] = (IICM_2_DATA1 & 0xff000000) >> 24;				
- 10003cc:	5358                	lw	a4,36(a4)
- 10003ce:	8361                	srli	a4,a4,0x18
- 10003d0:	00e783a3          	sb	a4,7(a5)
-			
-			delay(5000);			
- 10003d4:	6505                	lui	a0,0x1
- 10003d6:	38850513          	addi	a0,a0,904 # 1388 <Reset_Handler-0xffec78>
- 10003da:	3751                	jal	100035e <delay>
-			i2c_master_transmit();
- 10003dc:	3719                	jal	10002e2 <i2c_master_transmit>
-			while(master_work_flag==0)
- 10003de:	0001c783          	lbu	a5,0(gp) # 1000580 <__etext>
- 10003e2:	dff5                	beqz	a5,10003de <main+0x72>
-			master_work_flag = 0;
- 10003e4:	00018023          	sb	zero,0(gp) # 1000580 <__etext>
-			delay(5000);
- 10003e8:	6505                	lui	a0,0x1
- 10003ea:	38850513          	addi	a0,a0,904 # 1388 <Reset_Handler-0xffec78>
- 10003ee:	3f85                	jal	100035e <delay>
-			i2c_master_rev();
- 10003f0:	3781                	jal	1000330 <i2c_master_rev>
-			while(master_work_flag==0)
- 10003f2:	0001c783          	lbu	a5,0(gp) # 1000580 <__etext>
- 10003f6:	dff5                	beqz	a5,10003f2 <main+0x86>
-			master_work_flag = 0;
- 10003f8:	00018023          	sb	zero,0(gp) # 1000580 <__etext>
-			i2c_master_rev_buffer[0] = IICM_2_DATA0 & 0x000000ff;
- 10003fc:	1f030737          	lui	a4,0x1f030
- 1000400:	5314                	lw	a3,32(a4)
- 1000402:	4cd18e23          	sb	a3,1244(gp) # 1000a5c <i2c_master_rev_buffer>
-			i2c_master_rev_buffer[1] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
- 1000406:	5314                	lw	a3,32(a4)
- 1000408:	86a1                	srai	a3,a3,0x8
- 100040a:	4dc18793          	addi	a5,gp,1244 # 1000a5c <i2c_master_rev_buffer>
- 100040e:	00d780a3          	sb	a3,1(a5)
-			i2c_master_rev_buffer[2] = (IICM_2_DATA0 & 0x00ff0000) >> 16;
- 1000412:	5314                	lw	a3,32(a4)
- 1000414:	86c1                	srai	a3,a3,0x10
- 1000416:	00d78123          	sb	a3,2(a5)
-			i2c_master_rev_buffer[3] = (IICM_2_DATA0 & 0xff000000) >> 24;
- 100041a:	5314                	lw	a3,32(a4)
- 100041c:	82e1                	srli	a3,a3,0x18
- 100041e:	00d781a3          	sb	a3,3(a5)
-			i2c_master_rev_buffer[4] = IICM_2_DATA1 & 0x000000ff;
- 1000422:	5354                	lw	a3,36(a4)
- 1000424:	00d78223          	sb	a3,4(a5)
-			i2c_master_rev_buffer[5] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
- 1000428:	5354                	lw	a3,36(a4)
- 100042a:	86a1                	srai	a3,a3,0x8
- 100042c:	00d782a3          	sb	a3,5(a5)
-			i2c_master_rev_buffer[6] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
- 1000430:	5354                	lw	a3,36(a4)
- 1000432:	86c1                	srai	a3,a3,0x10
- 1000434:	00d78323          	sb	a3,6(a5)
-			i2c_master_rev_buffer[7] = (IICM_2_DATA1 & 0xff000000) >> 24;		
- 1000438:	5358                	lw	a4,36(a4)
- 100043a:	8361                	srli	a4,a4,0x18
- 100043c:	00e783a3          	sb	a4,7(a5)
-			delay(5000);			
- 1000440:	6505                	lui	a0,0x1
- 1000442:	38850513          	addi	a0,a0,904 # 1388 <Reset_Handler-0xffec78>
- 1000446:	3f21                	jal	100035e <delay>
-			i2c_master_restart_rev1(0x55);
- 1000448:	05500513          	li	a0,85
- 100044c:	3dcd                	jal	100033e <i2c_master_restart_rev1>
-			while(master_work_flag==0)
- 100044e:	0001c783          	lbu	a5,0(gp) # 1000580 <__etext>
- 1000452:	dff5                	beqz	a5,100044e <main+0xe2>
-			master_work_flag = 0;
- 1000454:	00018023          	sb	zero,0(gp) # 1000580 <__etext>
-			i2c_master_rev_buffer[0] = IICM_2_DATA0 & 0x000000ff;
- 1000458:	1f030737          	lui	a4,0x1f030
- 100045c:	5314                	lw	a3,32(a4)
- 100045e:	4cd18e23          	sb	a3,1244(gp) # 1000a5c <i2c_master_rev_buffer>
-			i2c_master_rev_buffer[1] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
- 1000462:	5314                	lw	a3,32(a4)
- 1000464:	86a1                	srai	a3,a3,0x8
- 1000466:	4dc18793          	addi	a5,gp,1244 # 1000a5c <i2c_master_rev_buffer>
- 100046a:	00d780a3          	sb	a3,1(a5)
-			i2c_master_rev_buffer[2] = (IICM_2_DATA0 & 0x00ff0000) >> 16;
- 100046e:	5314                	lw	a3,32(a4)
- 1000470:	86c1                	srai	a3,a3,0x10
- 1000472:	00d78123          	sb	a3,2(a5)
-			i2c_master_rev_buffer[3] = (IICM_2_DATA0 & 0xff000000) >> 24;
- 1000476:	5314                	lw	a3,32(a4)
- 1000478:	82e1                	srli	a3,a3,0x18
- 100047a:	00d781a3          	sb	a3,3(a5)
-			i2c_master_rev_buffer[4] = IICM_2_DATA1 & 0x000000ff;
- 100047e:	5354                	lw	a3,36(a4)
- 1000480:	00d78223          	sb	a3,4(a5)
-			i2c_master_rev_buffer[5] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
- 1000484:	5354                	lw	a3,36(a4)
- 1000486:	86a1                	srai	a3,a3,0x8
- 1000488:	00d782a3          	sb	a3,5(a5)
-			i2c_master_rev_buffer[6] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
- 100048c:	5354                	lw	a3,36(a4)
- 100048e:	86c1                	srai	a3,a3,0x10
- 1000490:	00d78323          	sb	a3,6(a5)
-			i2c_master_rev_buffer[7] = (IICM_2_DATA1 & 0xff000000) >> 24;		
- 1000494:	5358                	lw	a4,36(a4)
- 1000496:	8361                	srli	a4,a4,0x18
- 1000498:	00e783a3          	sb	a4,7(a5)
-			delay(5000);			
- 100049c:	6505                	lui	a0,0x1
- 100049e:	38850513          	addi	a0,a0,904 # 1388 <Reset_Handler-0xffec78>
- 10004a2:	3d75                	jal	100035e <delay>
-			i2c_master_restart_rev2(0x5872);
- 10004a4:	6519                	lui	a0,0x6
- 10004a6:	87250513          	addi	a0,a0,-1934 # 5872 <Reset_Handler-0xffa78e>
- 10004aa:	3555                	jal	100034e <i2c_master_restart_rev2>
-			while(master_work_flag==0)
- 10004ac:	0001c783          	lbu	a5,0(gp) # 1000580 <__etext>
- 10004b0:	dff5                	beqz	a5,10004ac <main+0x140>
- 10004b2:	bde9                	j	100038c <main+0x20>
+			for (i=0;i<200;i++)
+ 100041e:	4701                	li	a4,0
+ 1000420:	0c700793          	li	a5,199
+ 1000424:	f6e7e8e3          	bltu	a5,a4,1000394 <main+0x30>
+			{
+				i2c_master_rev_buffer[i] = 0x00;
+ 1000428:	4ec18793          	addi	a5,gp,1260 # 1000bcc <i2c_master_rev_buffer>
+ 100042c:	97ba                	add	a5,a5,a4
+ 100042e:	00078023          	sb	zero,0(a5)
+			for (i=0;i<200;i++)
+ 1000432:	0705                	addi	a4,a4,1
+ 1000434:	b7f5                	j	1000420 <main+0xbc>
 
-010004b4 <handle_irq>:
-extern uint8_t master_work_flag;
+01000436 <handle_irq>:
+volatile unsigned int buffer_cycle2 = 0;
 
 void handle_irq(uint32_t vec) 
 {	
 	
 	if (I2C_MASTER_IRQn == vec)
- 10004b4:	47d9                	li	a5,22
- 10004b6:	00f50663          	beq	a0,a5,10004c2 <handle_irq+0xe>
+ 1000436:	47d9                	li	a5,22
+ 1000438:	00f50663          	beq	a0,a5,1000444 <handle_irq+0xe>
 		{
 			MAST_CLEAR |= 0x00000001;
 		}
 	}
 	
 	if (TIM0_IRQn == vec)
- 10004ba:	47e9                	li	a5,26
- 10004bc:	0af50063          	beq	a0,a5,100055c <handle_irq+0xa8>
+ 100043c:	47e9                	li	a5,26
+ 100043e:	28f50063          	beq	a0,a5,10006be <handle_irq+0x288>
 	{
 		tm_count++;
 		TIMER_CR |= 0x00000100;
 	}
 }
- 10004c0:	8082                	ret
+ 1000442:	8082                	ret
 		ii2++;
- 10004c2:	00418793          	addi	a5,gp,4 # 1000584 <ii2>
- 10004c6:	4398                	lw	a4,0(a5)
- 10004c8:	0705                	addi	a4,a4,1
- 10004ca:	c398                	sw	a4,0(a5)
+ 1000444:	00418793          	addi	a5,gp,4 # 10006e4 <ii2>
+ 1000448:	4398                	lw	a4,0(a5)
+ 100044a:	0705                	addi	a4,a4,1
+ 100044c:	c398                	sw	a4,0(a5)
 		if (0x00000010 & MAST_STATUS) // byte done
- 10004cc:	1f0307b7          	lui	a5,0x1f030
- 10004d0:	579c                	lw	a5,40(a5)
- 10004d2:	8bc1                	andi	a5,a5,16
- 10004d4:	cf95                	beqz	a5,1000510 <handle_irq+0x5c>
+ 100044e:	1f0307b7          	lui	a5,0x1f030
+ 1000452:	579c                	lw	a5,40(a5)
+ 1000454:	8bc1                	andi	a5,a5,16
+ 1000456:	c7c1                	beqz	a5,10004de <handle_irq+0xa8>
 			MAST_CLEAR |= 0x00000008;
- 10004d6:	1f0307b7          	lui	a5,0x1f030
- 10004da:	5b98                	lw	a4,48(a5)
- 10004dc:	00876713          	ori	a4,a4,8
- 10004e0:	db98                	sw	a4,48(a5)
+ 1000458:	1f030737          	lui	a4,0x1f030
+ 100045c:	5b1c                	lw	a5,48(a4)
+ 100045e:	0087e793          	ori	a5,a5,8
+ 1000462:	db1c                	sw	a5,48(a4)
+			buffer_pointer = (0x0000ff00 & MAST_STATUS) >> 8;
+ 1000464:	5714                	lw	a3,40(a4)
+ 1000466:	86a1                	srai	a3,a3,0x8
+ 1000468:	0ff6f693          	andi	a3,a3,255
+ 100046c:	00418793          	addi	a5,gp,4 # 10006e4 <ii2>
+ 1000470:	c3d4                	sw	a3,4(a5)
+			buffer_pointer2 = (0x0000ff00 & MAST_STATUS) >> 8;
+ 1000472:	5714                	lw	a3,40(a4)
+ 1000474:	86a1                	srai	a3,a3,0x8
+ 1000476:	0ff6f693          	andi	a3,a3,255
+ 100047a:	c794                	sw	a3,8(a5)
 			i2c_master_sended_buffer[ii] = (0x0000ff00 & MAST_STATUS) >> 8;
- 10004e2:	5798                	lw	a4,40(a5)
- 10004e4:	8721                	srai	a4,a4,0x8
- 10004e6:	00418793          	addi	a5,gp,4 # 1000584 <ii2>
- 10004ea:	43d4                	lw	a3,4(a5)
- 10004ec:	0ff77713          	andi	a4,a4,255
- 10004f0:	5a418613          	addi	a2,gp,1444 # 1000b24 <i2c_master_sended_buffer>
- 10004f4:	96b2                	add	a3,a3,a2
- 10004f6:	00e68023          	sb	a4,0(a3)
+ 100047c:	5718                	lw	a4,40(a4)
+ 100047e:	8721                	srai	a4,a4,0x8
+ 1000480:	47d4                	lw	a3,12(a5)
+ 1000482:	0ff77713          	andi	a4,a4,255
+ 1000486:	5b418613          	addi	a2,gp,1460 # 1000c94 <i2c_master_sended_buffer>
+ 100048a:	96b2                	add	a3,a3,a2
+ 100048c:	00e68023          	sb	a4,0(a3) # 20000000 <__bss_end__+0x1efff350>
 			ii++;
- 10004fa:	43d8                	lw	a4,4(a5)
- 10004fc:	0705                	addi	a4,a4,1
- 10004fe:	c3d8                	sw	a4,4(a5)
+ 1000490:	47d8                	lw	a4,12(a5)
+ 1000492:	0705                	addi	a4,a4,1
+ 1000494:	c7d8                	sw	a4,12(a5)
 			if (16 <= ii)
- 1000500:	43d8                	lw	a4,4(a5)
- 1000502:	47bd                	li	a5,15
- 1000504:	00e7f663          	bgeu	a5,a4,1000510 <handle_irq+0x5c>
+ 1000496:	47d8                	lw	a4,12(a5)
+ 1000498:	47bd                	li	a5,15
+ 100049a:	00e7f663          	bgeu	a5,a4,10004a6 <handle_irq+0x70>
 				ii = 0;
- 1000508:	00418793          	addi	a5,gp,4 # 1000584 <ii2>
- 100050c:	0007a223          	sw	zero,4(a5) # 1f030004 <__bss_end__+0x1e02f4c4>
+ 100049e:	00418793          	addi	a5,gp,4 # 10006e4 <ii2>
+ 10004a2:	0007a623          	sw	zero,12(a5) # 1f03000c <__bss_end__+0x1e02f35c>
+			if (buffer_pointer % 8 == 1)
+ 10004a6:	00418793          	addi	a5,gp,4 # 10006e4 <ii2>
+ 10004aa:	43dc                	lw	a5,4(a5)
+ 10004ac:	8b9d                	andi	a5,a5,7
+ 10004ae:	4705                	li	a4,1
+ 10004b0:	06e78e63          	beq	a5,a4,100052c <handle_irq+0xf6>
+			else if (buffer_pointer % 8 == 4)
+ 10004b4:	00418793          	addi	a5,gp,4 # 10006e4 <ii2>
+ 10004b8:	43dc                	lw	a5,4(a5)
+ 10004ba:	8b9d                	andi	a5,a5,7
+ 10004bc:	4711                	li	a4,4
+ 10004be:	0ce78663          	beq	a5,a4,100058a <handle_irq+0x154>
+			if (buffer_pointer2 % 8 == 1)
+ 10004c2:	00418793          	addi	a5,gp,4 # 10006e4 <ii2>
+ 10004c6:	479c                	lw	a5,8(a5)
+ 10004c8:	8b9d                	andi	a5,a5,7
+ 10004ca:	4705                	li	a4,1
+ 10004cc:	10e78a63          	beq	a5,a4,10005e0 <handle_irq+0x1aa>
+			else if (buffer_pointer2 % 8 == 5)
+ 10004d0:	00418793          	addi	a5,gp,4 # 10006e4 <ii2>
+ 10004d4:	479c                	lw	a5,8(a5)
+ 10004d6:	8b9d                	andi	a5,a5,7
+ 10004d8:	4715                	li	a4,5
+ 10004da:	18e78163          	beq	a5,a4,100065c <handle_irq+0x226>
 		if (0x00000008 & MAST_STATUS)//idle
- 1000510:	1f0307b7          	lui	a5,0x1f030
- 1000514:	5798                	lw	a4,40(a5)
+ 10004de:	1f0307b7          	lui	a5,0x1f030
+ 10004e2:	5798                	lw	a4,40(a5)
 		if (0x00000004 & MAST_STATUS)//timeout
- 1000516:	579c                	lw	a5,40(a5)
- 1000518:	8b91                	andi	a5,a5,4
- 100051a:	c799                	beqz	a5,1000528 <handle_irq+0x74>
+ 10004e4:	579c                	lw	a5,40(a5)
+ 10004e6:	8b91                	andi	a5,a5,4
+ 10004e8:	c799                	beqz	a5,10004f6 <handle_irq+0xc0>
 			MAST_CLEAR |= 0x00000004;
- 100051c:	1f030737          	lui	a4,0x1f030
- 1000520:	5b1c                	lw	a5,48(a4)
- 1000522:	0047e793          	ori	a5,a5,4
- 1000526:	db1c                	sw	a5,48(a4)
+ 10004ea:	1f030737          	lui	a4,0x1f030
+ 10004ee:	5b1c                	lw	a5,48(a4)
+ 10004f0:	0047e793          	ori	a5,a5,4
+ 10004f4:	db1c                	sw	a5,48(a4)
 		if (0x00000002 & MAST_STATUS)//after stop
- 1000528:	1f0307b7          	lui	a5,0x1f030
- 100052c:	579c                	lw	a5,40(a5)
- 100052e:	8b89                	andi	a5,a5,2
- 1000530:	cb91                	beqz	a5,1000544 <handle_irq+0x90>
+ 10004f6:	1f0307b7          	lui	a5,0x1f030
+ 10004fa:	579c                	lw	a5,40(a5)
+ 10004fc:	8b89                	andi	a5,a5,2
+ 10004fe:	cb91                	beqz	a5,1000512 <handle_irq+0xdc>
 			MAST_CLEAR |= 0x00000002;
- 1000532:	1f030737          	lui	a4,0x1f030
- 1000536:	5b1c                	lw	a5,48(a4)
- 1000538:	0027e793          	ori	a5,a5,2
- 100053c:	db1c                	sw	a5,48(a4)
+ 1000500:	1f030737          	lui	a4,0x1f030
+ 1000504:	5b1c                	lw	a5,48(a4)
+ 1000506:	0027e793          	ori	a5,a5,2
+ 100050a:	db1c                	sw	a5,48(a4)
 			master_work_flag = 1;
- 100053e:	4705                	li	a4,1
- 1000540:	00e18023          	sb	a4,0(gp) # 1000580 <__etext>
+ 100050c:	4705                	li	a4,1
+ 100050e:	00e18023          	sb	a4,0(gp) # 10006e0 <__etext>
 		if (0x00000001 & MAST_STATUS)//no ack
- 1000544:	1f0307b7          	lui	a5,0x1f030
- 1000548:	579c                	lw	a5,40(a5)
- 100054a:	8b85                	andi	a5,a5,1
- 100054c:	d7bd                	beqz	a5,10004ba <handle_irq+0x6>
+ 1000512:	1f0307b7          	lui	a5,0x1f030
+ 1000516:	579c                	lw	a5,40(a5)
+ 1000518:	8b85                	andi	a5,a5,1
+ 100051a:	f20781e3          	beqz	a5,100043c <handle_irq+0x6>
 			MAST_CLEAR |= 0x00000001;
- 100054e:	1f030737          	lui	a4,0x1f030
- 1000552:	5b1c                	lw	a5,48(a4)
- 1000554:	0017e793          	ori	a5,a5,1
- 1000558:	db1c                	sw	a5,48(a4)
- 100055a:	b785                	j	10004ba <handle_irq+0x6>
+ 100051e:	1f030737          	lui	a4,0x1f030
+ 1000522:	5b1c                	lw	a5,48(a4)
+ 1000524:	0017e793          	ori	a5,a5,1
+ 1000528:	db1c                	sw	a5,48(a4)
+ 100052a:	bf09                	j	100043c <handle_irq+0x6>
+				DATA_2_IICM1 = (i2c_master_send_buffer[7+buffer_cycle*8] << 24) | (i2c_master_send_buffer[6+buffer_cycle*8] << 16) | (i2c_master_send_buffer[5+buffer_cycle*8] << 8) | (i2c_master_send_buffer[4+buffer_cycle*8]);				
+ 100052c:	00418713          	addi	a4,gp,4 # 10006e4 <ii2>
+ 1000530:	4b1c                	lw	a5,16(a4)
+ 1000532:	078e                	slli	a5,a5,0x3
+ 1000534:	079d                	addi	a5,a5,7
+ 1000536:	42418593          	addi	a1,gp,1060 # 1000b04 <i2c_master_send_buffer>
+ 100053a:	97ae                	add	a5,a5,a1
+ 100053c:	0007c783          	lbu	a5,0(a5) # 1f030000 <__bss_end__+0x1e02f350>
+ 1000540:	07e2                	slli	a5,a5,0x18
+ 1000542:	4b14                	lw	a3,16(a4)
+ 1000544:	068e                	slli	a3,a3,0x3
+ 1000546:	0699                	addi	a3,a3,6
+ 1000548:	96ae                	add	a3,a3,a1
+ 100054a:	0006c683          	lbu	a3,0(a3)
+ 100054e:	0ff6f693          	andi	a3,a3,255
+ 1000552:	06c2                	slli	a3,a3,0x10
+ 1000554:	8fd5                	or	a5,a5,a3
+ 1000556:	4b10                	lw	a2,16(a4)
+ 1000558:	060e                	slli	a2,a2,0x3
+ 100055a:	0615                	addi	a2,a2,5
+ 100055c:	962e                	add	a2,a2,a1
+ 100055e:	00064683          	lbu	a3,0(a2) # 1f030000 <__bss_end__+0x1e02f350>
+ 1000562:	0ff6f693          	andi	a3,a3,255
+ 1000566:	06a2                	slli	a3,a3,0x8
+ 1000568:	8fd5                	or	a5,a5,a3
+ 100056a:	4b14                	lw	a3,16(a4)
+ 100056c:	068e                	slli	a3,a3,0x3
+ 100056e:	0691                	addi	a3,a3,4
+ 1000570:	96ae                	add	a3,a3,a1
+ 1000572:	0006c683          	lbu	a3,0(a3)
+ 1000576:	0ff6f693          	andi	a3,a3,255
+ 100057a:	8fd5                	or	a5,a5,a3
+ 100057c:	1f0306b7          	lui	a3,0x1f030
+ 1000580:	cedc                	sw	a5,28(a3)
+				buffer_cycle++;
+ 1000582:	4b1c                	lw	a5,16(a4)
+ 1000584:	0785                	addi	a5,a5,1
+ 1000586:	cb1c                	sw	a5,16(a4)
+ 1000588:	bf2d                	j	10004c2 <handle_irq+0x8c>
+				DATA_2_IICM0 = (i2c_master_send_buffer[3+buffer_cycle*8] << 24) | (i2c_master_send_buffer[2+buffer_cycle*8] << 16) | (i2c_master_send_buffer[1+buffer_cycle*8] << 8) | (i2c_master_send_buffer[0+buffer_cycle*8]);
+ 100058a:	00418613          	addi	a2,gp,4 # 10006e4 <ii2>
+ 100058e:	4a1c                	lw	a5,16(a2)
+ 1000590:	078e                	slli	a5,a5,0x3
+ 1000592:	078d                	addi	a5,a5,3
+ 1000594:	42418693          	addi	a3,gp,1060 # 1000b04 <i2c_master_send_buffer>
+ 1000598:	97b6                	add	a5,a5,a3
+ 100059a:	0007c783          	lbu	a5,0(a5)
+ 100059e:	07e2                	slli	a5,a5,0x18
+ 10005a0:	4a18                	lw	a4,16(a2)
+ 10005a2:	070e                	slli	a4,a4,0x3
+ 10005a4:	0709                	addi	a4,a4,2
+ 10005a6:	9736                	add	a4,a4,a3
+ 10005a8:	00074703          	lbu	a4,0(a4) # 1f030000 <__bss_end__+0x1e02f350>
+ 10005ac:	0ff77713          	andi	a4,a4,255
+ 10005b0:	0742                	slli	a4,a4,0x10
+ 10005b2:	8fd9                	or	a5,a5,a4
+ 10005b4:	4a18                	lw	a4,16(a2)
+ 10005b6:	070e                	slli	a4,a4,0x3
+ 10005b8:	0705                	addi	a4,a4,1
+ 10005ba:	9736                	add	a4,a4,a3
+ 10005bc:	00074703          	lbu	a4,0(a4)
+ 10005c0:	0ff77713          	andi	a4,a4,255
+ 10005c4:	0722                	slli	a4,a4,0x8
+ 10005c6:	8fd9                	or	a5,a5,a4
+ 10005c8:	4a18                	lw	a4,16(a2)
+ 10005ca:	070e                	slli	a4,a4,0x3
+ 10005cc:	96ba                	add	a3,a3,a4
+ 10005ce:	0006c703          	lbu	a4,0(a3) # 1f030000 <__bss_end__+0x1e02f350>
+ 10005d2:	0ff77713          	andi	a4,a4,255
+ 10005d6:	8fd9                	or	a5,a5,a4
+ 10005d8:	1f030737          	lui	a4,0x1f030
+ 10005dc:	cf1c                	sw	a5,24(a4)
+ 10005de:	b5d5                	j	10004c2 <handle_irq+0x8c>
+				if (buffer_cycle2 != 0)
+ 10005e0:	00418793          	addi	a5,gp,4 # 10006e4 <ii2>
+ 10005e4:	4bdc                	lw	a5,20(a5)
+ 10005e6:	ee078ce3          	beqz	a5,10004de <handle_irq+0xa8>
+					i2c_master_rev_buffer[4+(buffer_cycle2-1)*8] = IICM_2_DATA1 & 0x000000ff;
+ 10005ea:	1f030337          	lui	t1,0x1f030
+ 10005ee:	02432283          	lw	t0,36(t1) # 1f030024 <__bss_end__+0x1e02f374>
+ 10005f2:	00418593          	addi	a1,gp,4 # 10006e4 <ii2>
+ 10005f6:	49dc                	lw	a5,20(a1)
+ 10005f8:	20000637          	lui	a2,0x20000
+ 10005fc:	167d                	addi	a2,a2,-1
+ 10005fe:	97b2                	add	a5,a5,a2
+ 1000600:	078e                	slli	a5,a5,0x3
+ 1000602:	00478713          	addi	a4,a5,4
+ 1000606:	0ff2f293          	andi	t0,t0,255
+ 100060a:	4ec18693          	addi	a3,gp,1260 # 1000bcc <i2c_master_rev_buffer>
+ 100060e:	00d707b3          	add	a5,a4,a3
+ 1000612:	00578023          	sb	t0,0(a5)
+					i2c_master_rev_buffer[5+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
+ 1000616:	02432783          	lw	a5,36(t1)
+ 100061a:	87a1                	srai	a5,a5,0x8
+ 100061c:	49d8                	lw	a4,20(a1)
+ 100061e:	9732                	add	a4,a4,a2
+ 1000620:	070e                	slli	a4,a4,0x3
+ 1000622:	0715                	addi	a4,a4,5
+ 1000624:	0ff7f793          	andi	a5,a5,255
+ 1000628:	9736                	add	a4,a4,a3
+ 100062a:	00f70023          	sb	a5,0(a4) # 1f030000 <__bss_end__+0x1e02f350>
+					i2c_master_rev_buffer[6+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
+ 100062e:	02432783          	lw	a5,36(t1)
+ 1000632:	87c1                	srai	a5,a5,0x10
+ 1000634:	49d8                	lw	a4,20(a1)
+ 1000636:	9732                	add	a4,a4,a2
+ 1000638:	070e                	slli	a4,a4,0x3
+ 100063a:	0719                	addi	a4,a4,6
+ 100063c:	0ff7f793          	andi	a5,a5,255
+ 1000640:	9736                	add	a4,a4,a3
+ 1000642:	00f70023          	sb	a5,0(a4)
+					i2c_master_rev_buffer[7+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0xff000000) >> 24;					
+ 1000646:	02432703          	lw	a4,36(t1)
+ 100064a:	49dc                	lw	a5,20(a1)
+ 100064c:	97b2                	add	a5,a5,a2
+ 100064e:	078e                	slli	a5,a5,0x3
+ 1000650:	079d                	addi	a5,a5,7
+ 1000652:	8361                	srli	a4,a4,0x18
+ 1000654:	97b6                	add	a5,a5,a3
+ 1000656:	00e78023          	sb	a4,0(a5)
+ 100065a:	b551                	j	10004de <handle_irq+0xa8>
+				i2c_master_rev_buffer[0+buffer_cycle2*8] = IICM_2_DATA0 & 0x000000ff;
+ 100065c:	1f0305b7          	lui	a1,0x1f030
+ 1000660:	0205a303          	lw	t1,32(a1) # 1f030020 <__bss_end__+0x1e02f370>
+ 1000664:	00418793          	addi	a5,gp,4 # 10006e4 <ii2>
+ 1000668:	4bd8                	lw	a4,20(a5)
+ 100066a:	00371693          	slli	a3,a4,0x3
+ 100066e:	0ff37313          	andi	t1,t1,255
+ 1000672:	4ec18613          	addi	a2,gp,1260 # 1000bcc <i2c_master_rev_buffer>
+ 1000676:	00c68733          	add	a4,a3,a2
+ 100067a:	00670023          	sb	t1,0(a4)
+				i2c_master_rev_buffer[1+buffer_cycle2*8] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
+ 100067e:	5198                	lw	a4,32(a1)
+ 1000680:	8721                	srai	a4,a4,0x8
+ 1000682:	4bd4                	lw	a3,20(a5)
+ 1000684:	068e                	slli	a3,a3,0x3
+ 1000686:	0685                	addi	a3,a3,1
+ 1000688:	0ff77713          	andi	a4,a4,255
+ 100068c:	96b2                	add	a3,a3,a2
+ 100068e:	00e68023          	sb	a4,0(a3)
+				i2c_master_rev_buffer[2+buffer_cycle2*8] = (IICM_2_DATA0 & 0x00ff0000) >> 16;
+ 1000692:	5198                	lw	a4,32(a1)
+ 1000694:	8741                	srai	a4,a4,0x10
+ 1000696:	4bd4                	lw	a3,20(a5)
+ 1000698:	068e                	slli	a3,a3,0x3
+ 100069a:	0689                	addi	a3,a3,2
+ 100069c:	0ff77713          	andi	a4,a4,255
+ 10006a0:	96b2                	add	a3,a3,a2
+ 10006a2:	00e68023          	sb	a4,0(a3)
+				i2c_master_rev_buffer[3+buffer_cycle2*8] = (IICM_2_DATA0 & 0xff000000) >> 24;
+ 10006a6:	5194                	lw	a3,32(a1)
+ 10006a8:	4bd8                	lw	a4,20(a5)
+ 10006aa:	070e                	slli	a4,a4,0x3
+ 10006ac:	070d                	addi	a4,a4,3
+ 10006ae:	82e1                	srli	a3,a3,0x18
+ 10006b0:	9732                	add	a4,a4,a2
+ 10006b2:	00d70023          	sb	a3,0(a4)
+				buffer_cycle2++;
+ 10006b6:	4bd8                	lw	a4,20(a5)
+ 10006b8:	0705                	addi	a4,a4,1
+ 10006ba:	cbd8                	sw	a4,20(a5)
+ 10006bc:	b50d                	j	10004de <handle_irq+0xa8>
 		tm_count++;
- 100055c:	5b41a783          	lw	a5,1460(gp) # 1000b34 <tm_count>
- 1000560:	0785                	addi	a5,a5,1
- 1000562:	5af1aa23          	sw	a5,1460(gp) # 1000b34 <tm_count>
+ 10006be:	5c41a783          	lw	a5,1476(gp) # 1000ca4 <tm_count>
+ 10006c2:	0785                	addi	a5,a5,1
+ 10006c4:	5cf1a223          	sw	a5,1476(gp) # 1000ca4 <tm_count>
 		TIMER_CR |= 0x00000100;
- 1000566:	1f020737          	lui	a4,0x1f020
- 100056a:	431c                	lw	a5,0(a4)
- 100056c:	1007e793          	ori	a5,a5,256
- 1000570:	c31c                	sw	a5,0(a4)
+ 10006c8:	1f020737          	lui	a4,0x1f020
+ 10006cc:	431c                	lw	a5,0(a4)
+ 10006ce:	1007e793          	ori	a5,a5,256
+ 10006d2:	c31c                	sw	a5,0(a4)
 }
- 1000572:	b7b9                	j	10004c0 <handle_irq+0xc>
+ 10006d4:	b3bd                	j	1000442 <handle_irq+0xc>
 	...
