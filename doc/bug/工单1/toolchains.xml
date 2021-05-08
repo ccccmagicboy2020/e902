@@ -1,0 +1,1392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	this file includes two parts:
+	1. <toolchain> tag provides all the toolchains that CDK supports 
+	2. <cpu> tag provides the [cpus <-> toolchain] map, 
+	the cpu here is the real cpu saved in the *.project file
+-->
+<root>
+	<toolchain name="csky-elf-" value="csky-elf-toolchain/bin/">
+		<property name="prefix" value="csky-elf-"/>
+		<property name="relative-env" value="../../bin;../../msys/1.0/bin;../../msys/1.0/local/share/bashdb/command"/>
+	</toolchain>
+	<toolchain name="csky-abiv2-elf-" value="csky-abiv2-elf-toolchain/bin/">
+		<property name="prefix" value="csky-elfabiv2-"/>
+		<property name="relative-env" value="../../bin;../../msys/1.0/bin;../../msys/1.0/local/share/bashdb/command"/>
+	</toolchain>
+	<toolchain name="riscv64-unknown-elf-" value="riscv64-unknown-elf-toolchain/bin/">
+		<property name="prefix" value="riscv64-unknown-elf-"/>
+		<property name="relative-env" value="../../bin;../../msys/1.0/bin;../../msys/1.0/local/share/bashdb/command"/>
+	</toolchain>
+	<cpu name="ck510">
+		<property name="cpu-switch" value="ck510"/>
+		<property name="toolchain" value="csky-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK510.H"/>
+	</cpu>
+	<cpu name="ck510e">
+		<property name="cpu-switch" value="ck510e"/>
+		<property name="toolchain" value="csky-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK510E.H"/>
+	</cpu>
+	<cpu name="ck520">
+		<property name="cpu-switch" value="ck520"/>
+		<property name="toolchain" value="csky-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK520.H"/>
+	</cpu>
+	<cpu name="ck610">
+		<property name="cpu-switch" value="ck610"/>
+		<property name="toolchain" value="csky-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK610.H"/>
+	</cpu>
+	<cpu name="ck610m">
+		<property name="cpu-switch" value="ck610"/>
+		<property name="toolchain" value="csky-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK610.H"/>
+	</cpu>
+	<cpu name="ck610ef">
+		<property name="cpu-switch" value="ck610ef"/>
+		<property name="toolchain" value="csky-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK610EF.H"/>
+	</cpu>
+	<cpu name="ck610mef">
+		<property name="cpu-switch" value="ck610ef"/>
+		<property name="toolchain" value="csky-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK610EF.H"/>
+	</cpu>
+	<cpu name="ck610e">
+		<property name="cpu-switch" value="ck610e"/>
+		<property name="toolchain" value="csky-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK610E.H"/>
+	</cpu>
+	<cpu name="ck610me">
+		<property name="cpu-switch" value="ck610e"/>
+		<property name="toolchain" value="csky-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK610E.H"/>
+	</cpu>
+	<cpu name="ck610f">
+		<property name="cpu-switch" value="ck610f"/>
+		<property name="toolchain" value="csky-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK610F.H"/>
+	</cpu>
+	<cpu name="ck610mf">
+		<property name="cpu-switch" value="ck610f"/>
+		<property name="toolchain" value="csky-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK610F.H"/>
+	</cpu>
+	<cpu name="ck801">
+		<property name="cpu-switch" value="ck801"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK801.H"/>
+	</cpu>
+	<cpu name="ck801t">
+		<property name="cpu-switch" value="ck801t"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK801.H"/>
+	</cpu>
+	<cpu name="ck802">
+		<property name="cpu-switch" value="ck802"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK802.H"/>
+	</cpu>
+	<cpu name="ck802j">
+		<property name="cpu-switch" value="ck802j"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK802.H"/>
+	</cpu>
+	<cpu name="ck802t">
+		<property name="cpu-switch" value="ck802t"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK802.H"/>
+	</cpu>
+	<cpu name="ck803">
+		<property name="cpu-switch" value="ck803"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803e">
+		<property name="cpu-switch" value="ck803e"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803ef">
+		<property name="cpu-switch" value="ck803ef"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803efh">
+		<property name="cpu-switch" value="ck803efh"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803efhr1">
+		<property name="cpu-switch" value="ck803efhr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803efhr2">
+		<property name="cpu-switch" value="ck803efhr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803efhr3">
+		<property name="cpu-switch" value="ck803efhr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803efht">
+		<property name="cpu-switch" value="ck803efht"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803efhtr1">
+		<property name="cpu-switch" value="ck803efhtr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803efhtr2">
+		<property name="cpu-switch" value="ck803efhtr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803efhtr3">
+		<property name="cpu-switch" value="ck803efhtr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803efr1">
+		<property name="cpu-switch" value="ck803efr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803efr2">
+		<property name="cpu-switch" value="ck803efr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803efr3">
+		<property name="cpu-switch" value="ck803efr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803eft">
+		<property name="cpu-switch" value="ck803eft"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803eftr1">
+		<property name="cpu-switch" value="ck803eftr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803eftr2">
+		<property name="cpu-switch" value="ck803eftr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803eftr3">
+		<property name="cpu-switch" value="ck803eftr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803eh">
+		<property name="cpu-switch" value="ck803eh"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803ehr1">
+		<property name="cpu-switch" value="ck803ehr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803ehr2">
+		<property name="cpu-switch" value="ck803ehr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803ehr3">
+		<property name="cpu-switch" value="ck803ehr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803eht">
+		<property name="cpu-switch" value="ck803eht"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803ehtr1">
+		<property name="cpu-switch" value="ck803ehtr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803ehtr2">
+		<property name="cpu-switch" value="ck803ehtr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803ehtr3">
+		<property name="cpu-switch" value="ck803ehtr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803er1">
+		<property name="cpu-switch" value="ck803er1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803er2">
+		<property name="cpu-switch" value="ck803er2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803er3">
+		<property name="cpu-switch" value="ck803er3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803et">
+		<property name="cpu-switch" value="ck803et"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803etr1">
+		<property name="cpu-switch" value="ck803etr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803etr2">
+		<property name="cpu-switch" value="ck803etr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803etr3">
+		<property name="cpu-switch" value="ck803etr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803f">
+		<property name="cpu-switch" value="ck803f"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803fh">
+		<property name="cpu-switch" value="ck803fh"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803fhr1">
+		<property name="cpu-switch" value="ck803fhr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803fhr2">
+		<property name="cpu-switch" value="ck803fhr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803fhr3">
+		<property name="cpu-switch" value="ck803fhr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803fr1">
+		<property name="cpu-switch" value="ck803fr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803fr2">
+		<property name="cpu-switch" value="ck803fr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803fr3">
+		<property name="cpu-switch" value="ck803fr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803ft">
+		<property name="cpu-switch" value="ck803ft"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803ftr1">
+		<property name="cpu-switch" value="ck803ftr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803ftr2">
+		<property name="cpu-switch" value="ck803ftr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803ftr3">
+		<property name="cpu-switch" value="ck803ftr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803h">
+		<property name="cpu-switch" value="ck803h"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803hr1">
+		<property name="cpu-switch" value="ck803hr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803hr2">
+		<property name="cpu-switch" value="ck803hr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803hr3">
+		<property name="cpu-switch" value="ck803hr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803ht">
+		<property name="cpu-switch" value="ck803ht"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803htr1">
+		<property name="cpu-switch" value="ck803htr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803htr2">
+		<property name="cpu-switch" value="ck803htr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803htr3">
+		<property name="cpu-switch" value="ck803htr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803r1">
+		<property name="cpu-switch" value="ck803r1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803r2">
+		<property name="cpu-switch" value="ck803r2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803r3">
+		<property name="cpu-switch" value="ck803r3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803s">
+		<property name="cpu-switch" value="ck803s"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803SF.H"/>
+	</cpu>
+	<cpu name="ck803se">
+		<property name="cpu-switch" value="ck803se"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803SF.H"/>
+	</cpu>
+	<cpu name="ck803sef">
+		<property name="cpu-switch" value="ck803sef"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803SF.H"/>
+	</cpu>
+	<cpu name="ck803seft">
+		<property name="cpu-switch" value="ck803seft"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803SF.H"/>
+	</cpu>
+	<cpu name="ck803sf">
+		<property name="cpu-switch" value="ck803sf"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803SF.H"/>
+	</cpu>
+	<cpu name="ck803st">
+		<property name="cpu-switch" value="ck803st"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803SF.H"/>
+	</cpu>
+	<cpu name="ck803t">
+		<property name="cpu-switch" value="ck803t"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803tr1">
+		<property name="cpu-switch" value="ck803tr1"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803tr2">
+		<property name="cpu-switch" value="ck803tr2"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck803tr3">
+		<property name="cpu-switch" value="ck803tr3"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="ck804">
+		<property name="cpu-switch" value="ck804"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804e">
+		<property name="cpu-switch" value="ck804e"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804ef">
+		<property name="cpu-switch" value="ck804ef"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804efh">
+		<property name="cpu-switch" value="ck804efh"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804efht">
+		<property name="cpu-switch" value="ck804efht"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804eft">
+		<property name="cpu-switch" value="ck804eft"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804eh">
+		<property name="cpu-switch" value="ck804eh"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804eht">
+		<property name="cpu-switch" value="ck804eht"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804et">
+		<property name="cpu-switch" value="ck804et"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804f">
+		<property name="cpu-switch" value="ck804f"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804fh">
+		<property name="cpu-switch" value="ck804fh"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804ft">
+		<property name="cpu-switch" value="ck804ft"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>	
+	<cpu name="ck804h">
+		<property name="cpu-switch" value="ck804h"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804ht">
+		<property name="cpu-switch" value="ck804ht"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck804t">
+		<property name="cpu-switch" value="ck804t"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="ck805">
+		<property name="cpu-switch" value="ck805"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK805.H"/>
+		<property name="big-endian" value="no"/>
+	</cpu>
+	<cpu name="ck805e">
+		<property name="cpu-switch" value="ck805e"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK805.H"/>
+		<property name="big-endian" value="no"/>
+	</cpu>
+	<cpu name="ck805ef">
+		<property name="cpu-switch" value="ck805ef"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK805.H"/>
+		<property name="big-endian" value="no"/>
+	</cpu>
+	<cpu name="ck805eft">
+		<property name="cpu-switch" value="ck805eft"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK805.H"/>
+		<property name="big-endian" value="no"/>
+	</cpu>
+	<cpu name="ck805et">
+		<property name="cpu-switch" value="ck805et"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK805.H"/>
+		<property name="big-endian" value="no"/>
+	</cpu>
+	<cpu name="ck805f">
+		<property name="cpu-switch" value="ck805f"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK805.H"/>
+		<property name="big-endian" value="no"/>
+	</cpu>
+	<cpu name="ck805ft">
+		<property name="cpu-switch" value="ck805ft"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK805.H"/>
+		<property name="big-endian" value="no"/>
+	</cpu>
+	<cpu name="ck805t">
+		<property name="cpu-switch" value="ck805t"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK805.H"/>
+		<property name="big-endian" value="no"/>
+	</cpu>
+	<cpu name="ck807">
+		<property name="cpu-switch" value="ck807"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK807.H"/>
+	</cpu>
+	<cpu name="ck807e">
+		<property name="cpu-switch" value="ck807e"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK807.H"/>
+	</cpu>
+	<cpu name="ck807ef">
+		<property name="cpu-switch" value="ck807ef"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK807.H"/>
+	</cpu>
+	<cpu name="ck807f">
+		<property name="cpu-switch" value="ck807f"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK807.H"/>
+	</cpu>
+	<cpu name="ck810">
+		<property name="cpu-switch" value="ck810"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="ck810e">
+		<property name="cpu-switch" value="ck810e"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="ck810ef">
+		<property name="cpu-switch" value="ck810ef"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="ck810eft">
+		<property name="cpu-switch" value="ck810eft"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="ck810et">
+		<property name="cpu-switch" value="ck810et"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="ck810f">
+		<property name="cpu-switch" value="ck810f"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="ck810ft">
+		<property name="cpu-switch" value="ck810ft"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="ck810ftv">
+		<property name="cpu-switch" value="ck810ftv"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="ck810fv">
+		<property name="cpu-switch" value="ck810fv"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="ck810t">
+		<property name="cpu-switch" value="ck810t"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="ck810tv">
+		<property name="cpu-switch" value="ck810tv"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="ck810v">
+		<property name="cpu-switch" value="ck810v"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="ck860">
+		<property name="cpu-switch" value="ck860"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+	</cpu>
+	<cpu name="ck860f">
+		<property name="cpu-switch" value="ck860f"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+	</cpu>
+	<cpu name="ck860fv">
+		<property name="cpu-switch" value="ck860fv"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="big-endian" value="no"/>
+	</cpu>
+	<cpu name="ck860v">
+		<property name="cpu-switch" value="ck860v"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="big-endian" value="no"/>
+	</cpu>
+	<cpu name="e801">
+		<property name="cpu-switch" value="e801"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK801.H"/>
+	</cpu>
+	<cpu name="e802">
+		<property name="cpu-switch" value="e802"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK802.H"/>
+	</cpu>
+	<cpu name="e802t">
+		<property name="cpu-switch" value="e802t"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK802.H"/>
+	</cpu>	
+	<cpu name="e803">
+		<property name="cpu-switch" value="e803"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>	
+	<cpu name="e803t">
+		<property name="cpu-switch" value="e803t"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>	
+	<cpu name="e804d">
+		<property name="cpu-switch" value="e804d"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="e804dt">
+		<property name="cpu-switch" value="e804dt"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>	
+	<cpu name="e804f">
+		<property name="cpu-switch" value="e804f"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>	
+	<cpu name="e804ft">
+		<property name="cpu-switch" value="e804ft"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>	
+	<cpu name="e804df">
+		<property name="cpu-switch" value="e804df"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>
+	<cpu name="e804dft">
+		<property name="cpu-switch" value="e804dft"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK804.H"/>
+	</cpu>	
+	<cpu name="c807">
+		<property name="cpu-switch" value="c807"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK807.H"/>
+	</cpu>	
+	<cpu name="c807f">
+		<property name="cpu-switch" value="c807f"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK807.H"/>
+	</cpu>		
+	<cpu name="c810">
+		<property name="cpu-switch" value="c810"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>	
+	<cpu name="c810v">
+		<property name="cpu-switch" value="c810v"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>	
+	<cpu name="c810t">
+		<property name="cpu-switch" value="c810t"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="c810tv">
+		<property name="cpu-switch" value="c810tv"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK810.H"/>
+	</cpu>
+	<cpu name="c860">
+		<property name="cpu-switch" value="c860"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+	</cpu>
+	<cpu name="c860v">
+		<property name="cpu-switch" value="c860v"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="big-endian" value="no"/>
+	</cpu>
+	<cpu name="s802">
+		<property name="cpu-switch" value="s802"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK802.H"/>
+	</cpu>	
+	<cpu name="s802t">
+		<property name="cpu-switch" value="s802t"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK802.H"/>
+	</cpu>
+	<cpu name="s803">
+		<property name="cpu-switch" value="s803"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>		
+	<cpu name="s803t">
+		<property name="cpu-switch" value="s803t"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK803.H"/>
+	</cpu>
+	<cpu name="r807">
+		<property name="cpu-switch" value="r807"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK807.H"/>
+	</cpu>	
+	<cpu name="r807f">
+		<property name="cpu-switch" value="r807f"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="csi_core_header" value="CSICORE_CK807.H"/>
+	</cpu>	
+	<cpu name="i805">
+		<property name="cpu-switch" value="i805"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK805.H"/>
+		<property name="big-endian" value="no"/>
+	</cpu>
+	<cpu name="i805f">
+		<property name="cpu-switch" value="i805f"/>
+		<property name="toolchain" value="csky-abiv2-elf-"/>
+		<property name="hard-float" value="yes"/>
+		<property name="enhanced-lrw" value="yes"/>
+		<property name="csi_core_header" value="CSICORE_CK805.H"/>
+		<property name="big-endian" value="no"/>
+	</cpu>	
+	<cpu name="rv32ec">
+		<property name="cpu-switch" value="rv32ec"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32e -march="/>
+	</cpu>
+	<cpu name="rv32emc">
+		<property name="cpu-switch" value="rv32emc"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32e -march="/>
+	</cpu>
+    <cpu name="rv32i">
+		<property name="cpu-switch" value="rv32i"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32 -march="/>
+	</cpu>
+    <cpu name="rv32ic">
+		<property name="cpu-switch" value="rv32ic"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32 -march="/>
+	</cpu>
+    <cpu name="rv32im">
+		<property name="cpu-switch" value="rv32im"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32 -march="/>
+	</cpu>
+    <cpu name="rv32imac">
+		<property name="cpu-switch" value="rv32imac"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32 -march="/>
+	</cpu>
+    <cpu name="rv32imc">
+		<property name="cpu-switch" value="rv32imc"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32 -march="/>
+	</cpu>
+	<cpu name="e902">
+		<property name="cpu-switch" value="rv32ecxthead"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32e -march="/>
+	</cpu>
+	<cpu name="e902m">
+		<property name="cpu-switch" value="rv32emcxthead"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32e -march="/>
+	</cpu>
+    <cpu name="e902t">
+		<property name="cpu-switch" value="rv32ecxthead"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32e -march="/>
+	</cpu>
+    <cpu name="e902mt">
+		<property name="cpu-switch" value="rv32emcxthead"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32e -march="/>
+	</cpu>
+    <cpu name="s902">
+		<property name="cpu-switch" value="rv32emcxthead"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32e -march="/>
+	</cpu>
+	<cpu name="e906">
+		<property name="cpu-switch" value="rv32imacxthead"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32 -march="/>
+	</cpu>
+    <cpu name="e906f">
+		<property name="cpu-switch" value="rv32imafcxthead"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32f -march="/>
+	</cpu>
+	<cpu name="e906fd">
+		<property name="cpu-switch" value="rv32imafdcxthead"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32d -march="/>
+	</cpu>
+	<!-- 64 link error, use -mcmodel=medany to compile every file -->
+	<cpu name="c906">
+		<property name="cpu-switch" value="rv64imacxthead -mcmodel=medany"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=lp64 -march="/>
+		<property name="arch-type" value="arch64"/>
+	</cpu>
+	<cpu name="c906fd">
+		<property name="cpu-switch" value="rv64imafdcxthead -mcmodel=medany"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=lp64d -march="/>
+		<property name="arch-type" value="arch64"/>
+	</cpu>
+	<cpu name="c906fdv">
+		<property name="cpu-switch" value="rv64imafdcvxthead -mcmodel=medany"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=lp64v -march="/>
+		<property name="arch-type" value="arch64"/>
+	</cpu>
+	<cpu name="c910">
+		<property name="cpu-switch" value="rv64imafdcxthead -mcmodel=medany"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=lp64d -march="/>
+		<property name="arch-type" value="arch64"/>
+	</cpu>
+	<cpu name="c910v">
+		<property name="cpu-switch" value="rv64imafdcvxthead -mcmodel=medany"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=lp64v -march="/>
+		<property name="arch-type" value="arch64"/>
+	</cpu>
+	<cpu name="xbr820">
+		<property name="cpu-switch" value="rv32exthead"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32e -march="/>
+	</cpu>
+</root>
