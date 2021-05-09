@@ -9,11 +9,10 @@
 #define TMEN(i)				(0x10 << (i))
 #define TMCLR(i)				(0x100 << (i))
 
-uint32_t tm_count;
+volatile uint32_t tm_count;
 
-void timer_init(void) {
-	tm_count = 0;
-	TIMINIT[0] = SYSTEM_CLOCK / 10;	// 100ms
+void timer_init(unsigned int val) {
+	TIMINIT[0] = val;
 	reg32_set(STCCTL, TMEN(0));
 	csi_vic_enable_irq(TIM0_IRQn);
 }

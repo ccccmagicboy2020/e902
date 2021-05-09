@@ -35,16 +35,6 @@
     <FlashOperate>46</FlashOperate>
   </MonitorProgress>
   <Dependencies Name="BuildSet"/>
-  <DebugSessions>
-    <watchExpressions/>
-    <memoryExpressions>;;;</memoryExpressions>
-    <statistics>;;MHZ;</statistics>
-    <peripheralTabs/>
-    <WatchDisplayFormat>1</WatchDisplayFormat>
-    <LocalDisplayFormat>1</LocalDisplayFormat>
-    <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
-  </DebugSessions>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -135,7 +125,7 @@
           <UserProgName>riscv64-unknown-elf-gcc -I. -I ..\tools -E -P ..\tools\memory.ld.c -o memory.ld</UserProgName>
         </BeforeMake>
         <AfterMake>
-          <RunUserProg>no</RunUserProg>
+          <RunUserProg>yes</RunUserProg>
           <UserProgName>$(ProjectPath)post_build.sh $(ProjectPath) $(ProjectOutputFile)</UserProgName>
         </AfterMake>
       </User>
@@ -179,10 +169,10 @@
         <StopAt>yes</StopAt>
         <StopAtText>main</StopAtText>
         <InitFile>$(ProjectPath)/gdb.init</InitFile>
-        <AutoRun>no</AutoRun>
+        <AutoRun>yes</AutoRun>
         <ResetType>Hard Reset</ResetType>
         <SoftResetVal>0</SoftResetVal>
-        <ResetAfterLoad>no</ResetAfterLoad>
+        <ResetAfterLoad>yes</ResetAfterLoad>
         <Dumpcore>no</Dumpcore>
         <DumpcoreText>$(ProjectPath)/$(ProjectName).cdkcore</DumpcoreText>
         <ConfigICE>
@@ -214,8 +204,8 @@
         </ConfigSIM>
       </Debug>
       <Flash>
-        <InitFile/>
-        <Erase>Erase Full Chip</Erase>
+        <InitFile>flash.init</InitFile>
+        <Erase>Do Not Erase</Erase>
         <Algorithms Path="">xbr820_spiflash.elf</Algorithms>
         <Program>no</Program>
         <Verify>no</Verify>
@@ -228,4 +218,14 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
+  <DebugSessions>
+    <watchExpressions>tm_count:1</watchExpressions>
+    <memoryExpressions>;;;</memoryExpressions>
+    <statistics>;;MHZ;</statistics>
+    <peripheralTabs/>
+    <WatchDisplayFormat>1</WatchDisplayFormat>
+    <LocalDisplayFormat>1</LocalDisplayFormat>
+    <debugLayout/>
+    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+  </DebugSessions>
 </Project>
