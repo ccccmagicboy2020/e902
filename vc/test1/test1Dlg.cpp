@@ -206,13 +206,13 @@ HCURSOR CTest1Dlg::OnQueryDragIcon()
 
 int CTest1Dlg::test_memory( struct target *target )
 {
-	unsigned char wbuff[128];
+//	unsigned char wbuff[128];
 	unsigned char rbuff[128];
 	int ret = 0;
 
 	printf ("=================== memory access test ==================\n\n");
 
-	ret = target_read_memory(target, 0x01000000, (unsigned char *)rbuff, 128);
+	ret = target_read_memory(target, 0x1f030000, (unsigned char *)rbuff, 128);
 	if (ret < 0) {
 		return ret;
 	}
