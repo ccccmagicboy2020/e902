@@ -2,10 +2,10 @@
 #include <xbr820.h>
 
 volatile uint8_t i2c_master_send_buffer[200];
-volatile uint8_t i2c_master_sended_buffer[16];
 volatile uint8_t i2c_master_rev_buffer[200];
 
-extern uint8_t volatile i2c_slave_buffer[200];
+extern uint8_t volatile i2c_slave_buffer[200];	//rev
+extern uint8_t volatile i2c_slave_buffer2[200];	//transmit
 
 uint8_t master_work_flag = 0;
 
@@ -17,7 +17,11 @@ extern volatile unsigned int buffer_cycle;
 extern volatile unsigned int buffer_pointer2;
 extern volatile unsigned int buffer_cycle2;
 
+volatile unsigned int slave_buffer_pointer = 0;
+
 volatile unsigned int rw_flag = 0;
+
+extern volatile unsigned char pos;
 
 void __bkpt_label();
 
@@ -43,11 +47,11 @@ void i2c_master_init(void)
 	
 	MAST_EN = 0x00000001UL;			//enable master clock
 	
-	MAST_MISC = 0x00000002UL;		//enable last ack
+	//MAST_MISC = 0x00000002UL;		//enable last ack
 	
 	//MAST_INT_EN |= 0x0000000f;//enable int source
 	//MAST_INT_EN |= 0x00000008;//enable int source
-	MAST_INT_EN |= 0x0000000A;  //enable int source most use this
+	MAST_INT_EN |= 0x0000000A;  //enable int source most use this: byte and stop
 	//MAST_INT_EN |= 0x00000002;  //only stop int source
 	//MAST_INT_EN |= 0x00000000;  //disable all int source
 	
@@ -136,11 +140,13 @@ int main()
 	
 	rw_flag = 0;
 	
+	slave_buffer_pointer = 0;
+	
     __enable_excp_irq();	
 	
 	while(1)
 	{
-		if (1)
+		if (0)
 		{
 			//transmit
 			i2c_master_transmit(128);
@@ -160,6 +166,45 @@ int main()
 		{
 			i2c_slave_buffer[i] = 0x00;
 		}
+		
+		if (1)
+		{
+			for (i=0;i<200;i++)//generate slave transmit buffer
+			{
+				i2c_slave_buffer2[i] = i + 1;
+			}
+			pos = 0;
+			slave_buffer_pointer = 0;
+			
+			i2c_master_restart_rev1(0x55, 16 + 2);//first two dummy bytes
+			
+			while(master_work_flag==0)
+			{
+				//
+			}
+			master_work_flag = 0;
+			i2c_master_rev_buffer[4+(buffer_cycle2-1)*8] = IICM_2_DATA1 & 0x000000ff;
+			i2c_master_rev_buffer[5+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
+			i2c_master_rev_buffer[6+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
+			i2c_master_rev_buffer[7+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0xff000000) >> 24;
+			i2c_master_rev_buffer[0+buffer_cycle2*8] = IICM_2_DATA0 & 0x000000ff;
+			i2c_master_rev_buffer[1+buffer_cycle2*8] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
+			i2c_master_rev_buffer[2+buffer_cycle2*8] = (IICM_2_DATA0 & 0x00ff0000) >> 16;
+			i2c_master_rev_buffer[3+buffer_cycle2*8] = (IICM_2_DATA0 & 0xff000000) >> 24;		
+		
+			delay(5000);
+			
+			buffer_cycle2 = 0;
+			for (i=0;i<200;i++)
+			{
+				i2c_master_rev_buffer[i] = 0x00;
+			}				
+		}
+		
+		for (i=0;i<200;i++)//clear slave rev buffer
+		{
+			i2c_slave_buffer[i] = 0x00;
+		}		
 	}
 	return 0;
 }

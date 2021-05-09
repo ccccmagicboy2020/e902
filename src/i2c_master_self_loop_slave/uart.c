@@ -17,11 +17,13 @@ volatile unsigned int buffer_cycle2 = 0;
 extern volatile unsigned int rw_flag;
 
 uint8_t volatile i2c_slave_buffer[200];
+uint8_t volatile i2c_slave_buffer2[200];
+
+extern volatile unsigned int slave_buffer_pointer;
+volatile unsigned char pos = 0;
 
 void handle_irq(uint32_t vec) 
 {	
-	static unsigned char pos = 0;
-	
 	if (I2C_SLAVE_IRQn == vec)
 	{		
 		SLAVEB_CLEAR |= 0x00000010;
@@ -39,8 +41,8 @@ void handle_irq(uint32_t vec)
 			if (0x00000010 & SLAVEB_STATUS)
 			{
 				//transmit
-				SLAVEB_DATA_2_IIC = i2c_slave_buffer[pos];
-				pos++;
+				SLAVEB_DATA_2_IIC = i2c_slave_buffer2[slave_buffer_pointer];
+				slave_buffer_pointer++;
 			}
 			else		
 			{
@@ -65,7 +67,6 @@ void handle_irq(uint32_t vec)
 			else		
 			{
 				//rev
-				pos = 0;
 			}
 		}
 	}	
@@ -88,15 +89,7 @@ void handle_irq(uint32_t vec)
 				buffer_pointer2 = 0;
 			}
 			
-			i2c_master_sended_buffer[ii] = (0x0000ff00 & MAST_STATUS) >> 8;
-			ii++;
-			if (16 <= ii)
-			{
-				ii = 0;
-			}
-			
-			
-			if (buffer_pointer % 8 == 1)
+			if (buffer_pointer % 8 == 1)//发送
 			{
 				DATA_2_IICM1 = (i2c_master_send_buffer[7+buffer_cycle*8] << 24) | (i2c_master_send_buffer[6+buffer_cycle*8] << 16) | (i2c_master_send_buffer[5+buffer_cycle*8] << 8) | (i2c_master_send_buffer[4+buffer_cycle*8]);				
 				buffer_cycle++;
@@ -106,7 +99,7 @@ void handle_irq(uint32_t vec)
 				DATA_2_IICM0 = (i2c_master_send_buffer[3+buffer_cycle*8] << 24) | (i2c_master_send_buffer[2+buffer_cycle*8] << 16) | (i2c_master_send_buffer[1+buffer_cycle*8] << 8) | (i2c_master_send_buffer[0+buffer_cycle*8]);
 			}
 			
-			if (buffer_pointer2 % 8 == 1)
+			if (buffer_pointer2 % 8 == 1)//接收
 			{
 				if (buffer_cycle2 != 0)
 				{
