@@ -4,6 +4,9 @@
 volatile uint8_t i2c_master_send_buffer[200];
 volatile uint8_t i2c_master_sended_buffer[16];
 volatile uint8_t i2c_master_rev_buffer[200];
+
+extern uint8_t volatile i2c_slave_buffer[200];
+
 uint8_t master_work_flag = 0;
 
 extern volatile uint32_t tm_count;
@@ -18,15 +21,25 @@ volatile unsigned int rw_flag = 0;
 
 void __bkpt_label();
 
+void i2c_slave_init(void)
+{
+	//
+	SLAVEDEV = 0x0000000CUL;
+	EN_SLAVEB = 0x00000001UL;
+	csi_vic_enable_irq(I2C_SLAVE_IRQn);
+}
+
 void i2c_master_init(void)
 {
 	unsigned int i = 0;   //index
 	//
-	SLAVE_ADDR = 0x0000000AUL;	//stm32 slave
+	SLAVE_ADDR = 0x0000000CUL;	//xbr820 slave
 	
-	MAST_CLK = 0x00000020UL;		//I2C CLK: 16000000/32/8 = 62.5K  pass!
-	//MAST_CLK = 0x00000010UL;		//I2C CLK: 16000000/16/8 = 125K  pass!
+	//MAST_CLK = 0x00000020UL;		//I2C CLK: 16000000/32/8 = 62.5K  pass!
+	MAST_CLK = 0x00000010UL;		//I2C CLK: 16000000/16/8 = 125K  pass!
+	//MAST_CLK = 0x0000000AUL;		//I2C CLK: 16000000/10/8 = 200K  not ok!
 	//MAST_CLK = 0x00000008UL;		//I2C CLK: 16000000/8/8 = 250K  not ok!
+	//MAST_CLK = 0x00000005UL;		//I2C CLK: 16000000/5/8 = 400K  not ok!
 	
 	MAST_EN = 0x00000001UL;			//enable master clock
 	
@@ -34,7 +47,9 @@ void i2c_master_init(void)
 	
 	//MAST_INT_EN |= 0x0000000f;//enable int source
 	//MAST_INT_EN |= 0x00000008;//enable int source
-	MAST_INT_EN |= 0x0000000A;  //enable int source
+	MAST_INT_EN |= 0x0000000A;  //enable int source most use this
+	//MAST_INT_EN |= 0x00000002;  //only stop int source
+	//MAST_INT_EN |= 0x00000000;  //disable all int source
 	
 	csi_vic_enable_irq(I2C_MASTER_IRQn);
 	
@@ -105,8 +120,11 @@ void delay(unsigned int val)
 int main() 
 {	
 	unsigned int i = 0;
+	
+	i2c_slave_init();
 	i2c_master_init();
-	timer0_init(16000);	
+	timer0_init(16000);//1ms
+	
 	ii = 0;
 	ii2 = 0;
 	master_work_flag = 0;
@@ -138,79 +156,10 @@ int main()
 			buffer_cycle = 0;			
 		}
 		
-		if (1)
+		for (i=0;i<200;i++)
 		{
-			//rev
-			i2c_master_rev(128);
-			
-			while(master_work_flag==0)
-			{
-				//
-			}
-			master_work_flag = 0;
-			i2c_master_rev_buffer[4+(buffer_cycle2-1)*8] = IICM_2_DATA1 & 0x000000ff;
-			i2c_master_rev_buffer[5+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
-			i2c_master_rev_buffer[6+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
-			i2c_master_rev_buffer[7+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0xff000000) >> 24;				
-
-			delay(5000);
-			buffer_cycle2 = 0;	
-
-			for (i=0;i<200;i++)
-			{
-				i2c_master_rev_buffer[i] = 0x00;
-			}		
+			i2c_slave_buffer[i] = 0x00;
 		}
-		
-		if (1)
-		{
-			//restart rev mode1
-			i2c_master_restart_rev1(0x55, 128);
-			
-			while(master_work_flag==0)
-			{
-				//
-			}
-			master_work_flag = 0;
-			i2c_master_rev_buffer[4+(buffer_cycle2-1)*8] = IICM_2_DATA1 & 0x000000ff;
-			i2c_master_rev_buffer[5+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
-			i2c_master_rev_buffer[6+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
-			i2c_master_rev_buffer[7+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0xff000000) >> 24;				
-		
-			delay(5000);	
-			buffer_cycle2 = 0;	
-			
-			for (i=0;i<200;i++)
-			{
-				i2c_master_rev_buffer[i] = 0x00;
-			}				
-		}
-		
-		if (1)
-		{
-			//restart rev mode2
-			i2c_master_restart_rev2(0x5872, 128);
-			
-			while(master_work_flag==0)
-			{
-				//
-			}
-			master_work_flag = 0;
-			i2c_master_rev_buffer[4+(buffer_cycle2-1)*8] = IICM_2_DATA1 & 0x000000ff;
-			i2c_master_rev_buffer[5+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
-			i2c_master_rev_buffer[6+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
-			i2c_master_rev_buffer[7+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0xff000000) >> 24;				
-		
-			delay(5000);	
-			buffer_cycle2 = 0;	
-			
-			for (i=0;i<200;i++)
-			{
-				i2c_master_rev_buffer[i] = 0x00;
-			}			
-		}
-		
-		//__bkpt_label();
 	}
 	return 0;
 }

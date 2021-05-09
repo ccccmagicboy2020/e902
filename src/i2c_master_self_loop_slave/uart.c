@@ -16,8 +16,59 @@ volatile unsigned int buffer_cycle2 = 0;
 
 extern volatile unsigned int rw_flag;
 
+uint8_t volatile i2c_slave_buffer[200];
+
 void handle_irq(uint32_t vec) 
 {	
+	static unsigned char pos = 0;
+	
+	if (I2C_SLAVE_IRQn == vec)
+	{		
+		SLAVEB_CLEAR |= 0x00000010;
+		
+		if (0x00000008 & SLAVEB_STATUS)		//addr
+		{
+			SLAVEB_CLEAR |= 0x00000008;		
+			i2c_slave_buffer[0] = (SLAVEB_DATA >> 8) & 0x000000FF;
+			pos = 1;
+		}
+		
+		if (0x00000001 & SLAVEB_STATUS)		//rw int
+		{
+			SLAVEB_CLEAR |= 0x00000001;			
+			if (0x00000010 & SLAVEB_STATUS)
+			{
+				//transmit
+				SLAVEB_DATA_2_IIC = i2c_slave_buffer[pos];
+				pos++;
+			}
+			else		
+			{
+				//rev
+				i2c_slave_buffer[pos] = (SLAVEB_DATA) & 0x000000FF;
+				pos++;
+			}			
+		}
+		
+		if (0x00000002 & SLAVEB_STATUS)		//nack
+		{
+			SLAVEB_CLEAR |= 0x00000002;
+			
+		}
+		if (0x00000004 & SLAVEB_STATUS)		//stop
+		{
+			SLAVEB_CLEAR |= 0x00000004;		
+			if (0x00000010 & SLAVEB_STATUS)
+			{
+				//transmit
+			}
+			else		
+			{
+				//rev
+				pos = 0;
+			}
+		}
+	}	
 	
 	if (I2C_MASTER_IRQn == vec)
 	{		

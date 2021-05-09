@@ -77,12 +77,16 @@ typedef enum IRQn {
 /* ================================================================================ */
 /* ================             Peripheral declaration             ================ */
 /* ================================================================================ */
-#define	SLAVE_ADDR			(*((volatile int *)(XBR820_I2CM_BASE + 0x00)))		//slave addr
+#define	SLAVEDEV			(*((volatile int *)(XBR820_I2CS_BASE + 0x00)))
+#define	EN_SLAVEB			(*((volatile int *)(XBR820_I2CS_BASE + 0x04)))
+#define	SLAVEB_DATA			(*((volatile int *)(XBR820_I2CS_BASE + 0x08)))
+#define	SLAVEB_DATA_2_IIC	(*((volatile int *)(XBR820_I2CS_BASE + 0x0C)))
+#define	SLAVEB_STATUS		(*((volatile int *)(XBR820_I2CS_BASE + 0x10)))
+#define	SLAVEB_CLEAR		(*((volatile int *)(XBR820_I2CS_BASE + 0x14)))
+
+#define	SLAVE_ADDR			(*((volatile int *)(XBR820_I2CM_BASE + 0x00)))		//master to slave addr
 #define	NWORD				(*((volatile int *)(XBR820_I2CM_BASE + 0x04)))		//master rw data length - 1
 #define	MASTER_CPU_CMD		(*((volatile int *)(XBR820_I2CM_BASE + 0x08)))		//master command trigger
-
-//#define	SLAVEB_DATA_2_IIC	(*((volatile int *)(XBR820_I2CM_BASE + 0x0C)))
-
 #define	MAST_MISC			(*((volatile int *)(XBR820_I2CM_BASE + 0x10)))		//master misc.
 #define	MAST_READ_ADDR		(*((volatile int *)(XBR820_I2CM_BASE + 0x14)))		//master data address
 #define	DATA_2_IICM0		(*((volatile int *)(XBR820_I2CM_BASE + 0x18)))		//master send buffer0
