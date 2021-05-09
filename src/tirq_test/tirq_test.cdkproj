@@ -4,7 +4,9 @@
     <File Name="config.h">
       <FileOption/>
     </File>
-    <File Name="typdef.h"/>
+    <File Name="typdef.h">
+      <FileOption/>
+    </File>
   </VirtualDirectory>
   <Description/>
   <VirtualDirectory Name="arch">
@@ -32,16 +34,6 @@
     <DebugLaunch>35</DebugLaunch>
   </MonitorProgress>
   <Dependencies Name="BuildSet"/>
-  <DebugSessions>
-    <watchExpressions>tm_count:1;val:1</watchExpressions>
-    <memoryExpressions>;;;</memoryExpressions>
-    <statistics>;;MHZ;</statistics>
-    <peripheralTabs/>
-    <WatchDisplayFormat>1</WatchDisplayFormat>
-    <LocalDisplayFormat>1</LocalDisplayFormat>
-    <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
-  </DebugSessions>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -225,4 +217,14 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
+  <DebugSessions>
+    <watchExpressions>tm_count:1;val:1</watchExpressions>
+    <memoryExpressions>;;;</memoryExpressions>
+    <statistics>;;MHZ;</statistics>
+    <peripheralTabs/>
+    <WatchDisplayFormat>1</WatchDisplayFormat>
+    <LocalDisplayFormat>1</LocalDisplayFormat>
+    <debugLayout/>
+    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+  </DebugSessions>
 </Project>
