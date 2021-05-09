@@ -1,1 +1,0 @@
-this is where the bin files located.
