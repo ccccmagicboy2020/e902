@@ -1,4 +1,5 @@
 #include <xbr820.h>
+#include <typdef.h>
 
 #define STCCTL				(XBR820_STC_BASE + 0x00)
 #define WDGCNT				(XBR820_STC_BASE + 0x04)

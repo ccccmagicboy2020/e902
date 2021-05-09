@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CDK_Workspace Name="xbr820_spiflash" Database="" DoubleClick="Yes">
+  <Project Name="xbr820_spiflash" Path="xbr820_spiflash.cdkproj" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="xbr820_spiflash" ConfigName="BuildSet"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CDK_Workspace>

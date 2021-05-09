@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CDK_Workspace Name="tirq_test" Database="" DoubleClick="Yes">
+  <Project Name="tirq_test" Path="tirq_test.cdkproj" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="tirq_test" ConfigName="BuildSet"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CDK_Workspace>
