@@ -14,6 +14,8 @@ volatile unsigned int buffer_cycle = 0;
 volatile unsigned int buffer_pointer2 = 0;
 volatile unsigned int buffer_cycle2 = 0;
 
+extern volatile unsigned int rw_flag;
+
 void handle_irq(uint32_t vec) 
 {	
 	
@@ -24,8 +26,16 @@ void handle_irq(uint32_t vec)
 		{
 			MAST_CLEAR |= 0x00000008;
 			
-			buffer_pointer = (0x0000ff00 & MAST_STATUS) >> 8;
-			buffer_pointer2 = (0x0000ff00 & MAST_STATUS) >> 8;
+			if (rw_flag)
+			{
+				buffer_pointer2 = (0x0000ff00 & MAST_STATUS) >> 8;
+				buffer_pointer = 0;
+			}
+			else
+			{
+				buffer_pointer = (0x0000ff00 & MAST_STATUS) >> 8;
+				buffer_pointer2 = 0;
+			}
 			
 			i2c_master_sended_buffer[ii] = (0x0000ff00 & MAST_STATUS) >> 8;
 			ii++;

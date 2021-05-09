@@ -14,6 +14,8 @@ extern volatile unsigned int buffer_cycle;
 extern volatile unsigned int buffer_pointer2;
 extern volatile unsigned int buffer_cycle2;
 
+volatile unsigned int rw_flag = 0;
+
 void __bkpt_label();
 
 void i2c_master_init(void)
@@ -62,6 +64,7 @@ void timer0_init(unsigned int init_val)
 
 void i2c_master_transmit(unsigned int trans_num)
 {
+	rw_flag = 0;
 	NWORD = trans_num - 1;
 	DATA_2_IICM0 = (i2c_master_send_buffer[3] << 24) | (i2c_master_send_buffer[2] << 16) | (i2c_master_send_buffer[1] << 8) | (i2c_master_send_buffer[0]);
 	MASTER_CPU_CMD = 0x00000011UL;
@@ -69,12 +72,14 @@ void i2c_master_transmit(unsigned int trans_num)
 
 void i2c_master_rev(unsigned int rev_num)
 {
+	rw_flag = 1;
 	NWORD = rev_num - 1;	
 	MASTER_CPU_CMD = 0x00000012UL;
 }
 
 void i2c_master_restart_rev1(unsigned char address, unsigned int rev_num)
 {
+	rw_flag = 1;
 	MAST_READ_ADDR = address;
 	NWORD = rev_num - 1;
 	MASTER_CPU_CMD = 0x00000017UL;
@@ -82,6 +87,7 @@ void i2c_master_restart_rev1(unsigned char address, unsigned int rev_num)
 
 void i2c_master_restart_rev2(unsigned short address, unsigned int rev_num)
 {
+	rw_flag = 1;
 	MAST_READ_ADDR = address;
 	NWORD = rev_num - 1;
 	MASTER_CPU_CMD = 0x0000001FUL;
@@ -108,13 +114,15 @@ int main()
 	buffer_cycle = 0;
 	
 	buffer_pointer2 = 0;
-	buffer_cycle2 = 0;	
+	buffer_cycle2 = 0;
+	
+	rw_flag = 0;
 	
     __enable_excp_irq();	
 	
 	while(1)
 	{
-		if (0)
+		if (1)
 		{
 			//transmit
 			i2c_master_transmit(128);
@@ -125,12 +133,12 @@ int main()
 			}
 			master_work_flag = 0;
 			DATA_2_IICM0 = (i2c_master_send_buffer[3] << 24) | (i2c_master_send_buffer[2] << 16) | (i2c_master_send_buffer[1] << 8) | (i2c_master_send_buffer[0]);
-			buffer_cycle = 0;
 
 			delay(5000);
+			buffer_cycle = 0;			
 		}
 		
-		if (0)
+		if (1)
 		{
 			//rev
 			i2c_master_rev(128);
@@ -178,7 +186,7 @@ int main()
 			}				
 		}
 		
-		if (0)
+		if (1)
 		{
 			//restart rev mode2
 			i2c_master_restart_rev2(0x5872, 128);
