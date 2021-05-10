@@ -2,6 +2,7 @@
 #include <xbr820.h>
 
 extern void timer_init(unsigned char chan, unsigned int val);
+extern void timer_deinit(unsigned char chan);
 
 extern volatile uint32_t tm_count;
 extern volatile uint32_t tm_count1;

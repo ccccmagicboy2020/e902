@@ -219,12 +219,12 @@
   </BuildConfigs>
   <DebugSessions>
     <watchExpressions>tm_count:1;val:1</watchExpressions>
-    <memoryExpressions>;;;</memoryExpressions>
+    <memoryExpressions>0x1f020000;;;</memoryExpressions>
     <statistics>;;MHZ;</statistics>
     <peripheralTabs/>
     <WatchDisplayFormat>1</WatchDisplayFormat>
     <LocalDisplayFormat>1</LocalDisplayFormat>
     <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+    <memoryTabColSizeExpressions>72:4;100:8;100:8;100:8;</memoryTabColSizeExpressions>
   </DebugSessions>
 </Project>
