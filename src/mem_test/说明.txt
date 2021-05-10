@@ -1,4 +1,21 @@
-1. 
+可以用于内存dump
+1. sram
 dump binary memory ./dump.bin  0x01000800 0x01000900
+2. master i2c: 0x1F030000
+dump binary memory ./dump-master_i2c.bin  0x1F030000 0x1F030080
+3. slave i2c: 0x1F040000
+dump binary memory ./dump-slave_i2c.bin  0x1F040000 0x1F040080
+3. ir: 0x1F070000
+dump binary memory ./dump-ir.bin  0x1F070000 0x1F070080
+4. pmu: 0x1F010000
+dump binary memory ./dump-pmu.bin  0x1F010000 0x1F010080
+5. uart1: 0x1F050000
+dump binary memory ./dump-uart1.bin  0x1F050000 0x1F050080
+6. uart2: 0x1F060000
+dump binary memory ./dump-uart2.bin  0x1F060000 0x1F060080
+7. top: 0x1F000000
+dump binary memory ./dump-top.bin  0x1F000000 0x1F000080
+8. stc: 0x1F020000
+dump binary memory ./dump-stc.bin  0x1F020000 0x1F020080
 
 
