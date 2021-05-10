@@ -11,13 +11,7 @@
     </File>
   </VirtualDirectory>
   <VirtualDirectory Name="inc">
-    <File Name="../nos/core_rv32.h">
-      <FileOption/>
-    </File>
-    <File Name="../nos/csi_rv32_gcc.h">
-      <FileOption/>
-    </File>
-    <File Name="../nos/config.h">
+    <File Name="config.h">
       <FileOption/>
     </File>
     <File Name="typdef.h">
@@ -133,7 +127,7 @@
         </BeforeCompile>
         <BeforeMake>
           <RunUserProg>yes</RunUserProg>
-          <UserProgName>riscv64-unknown-elf-gcc -I. -I ..\tools -E -P ..\tools\memory.ld.c -o memory.ld</UserProgName>
+          <UserProgName>riscv64-unknown-elf-gcc -I. -I ..\tools -E -P ..\tools\memory.ld.c -o Obj\memory.ld</UserProgName>
         </BeforeMake>
         <AfterMake>
           <RunUserProg>no</RunUserProg>
@@ -145,7 +139,7 @@
         <Undefine/>
         <Optim>Optimize (-Og)</Optim>
         <DebugLevel>Maximum (-g3)</DebugLevel>
-        <IncludePath>$(ProjectPath);$(CDKPath)/CSKY/csi/csi_core/include/;$(CDKPath)/CSKY/csi/csi_core/csi_cdk/;$(CDKPath)/CSKY/csi/csi_driver/include/</IncludePath>
+        <IncludePath>$(ProjectPath);$(CDKPath)/CSKY/csi/csi_core/include/;$(CDKPath)/CSKY/csi/csi_core/csi_cdk/;$(CDKPath)/CSKY/csi/csi_driver/include/;$(ProjectPath)../nos/</IncludePath>
         <OtherFlags/>
         <Verbose>no</Verbose>
         <Ansi>no</Ansi>
@@ -229,4 +223,14 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
+  <DebugSessions>
+    <watchExpressions/>
+    <memoryExpressions>;;;</memoryExpressions>
+    <statistics>;;MHZ;</statistics>
+    <peripheralTabs/>
+    <WatchDisplayFormat>1</WatchDisplayFormat>
+    <LocalDisplayFormat>1</LocalDisplayFormat>
+    <debugLayout/>
+    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+  </DebugSessions>
 </Project>

@@ -7,8 +7,8 @@ Reset_Handler:
 	# enable MXSTATUS.THEADISAEE bit[22]
 	li t0,  0x400000
 	csrs mxstatus, t0
-#ifdef CONFIG_ICACHE
-	# icache enable
+#ifndef __NO_ICACHE
+	# icache disable
 	li t1,  1
 	csrw mhcr, t1
 
