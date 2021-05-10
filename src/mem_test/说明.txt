@@ -1,3 +1,5 @@
+正常模式：code running at flash
+
 可以用于内存dump
 1. sram
 dump binary memory ./dump.bin  0x01000800 0x01000900
