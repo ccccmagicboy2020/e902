@@ -82,17 +82,19 @@ __Vectors:
   .globl Reset_Handler
   .type Reset_Handler, %function
 Reset_Handler:
-#ifdef CONFIG_ICACHE
 	# enable MXSTATUS.THEADISAEE bit[22]
 	li t0,  0x400000
 	csrs mxstatus, t0
-
+#ifndef __NO_ICACHE
 	# icache enable
 	li t1,  1
 	csrw mhcr, t1
 
 	# invalid icache
 	ICACHE.IALL
+#else
+	# icache disable
+	csrw mhcr, zero
 #endif
 
 #ifdef CONFIG_SBUS_LOAD

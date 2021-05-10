@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Session Name="D:\cccc2020\CODE\e902\src\tirq_test\tirq_test.cdkws">
-  <int Value="0" Name="m_selectedTab"/>
+  <int Value="3" Name="m_selectedTab"/>
   <wxString Value="D:\cccc2020\CODE\e902\src\tirq_test\tirq_test.cdkws" Name="m_workspaceName"/>
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
@@ -21,6 +21,20 @@
       <wxString Value="D:\cccc2020\CODE\e902\src\tirq_test\xbr820.h" Name="FileName"/>
       <int Value="40" Name="FirstVisibleLine"/>
       <int Value="41" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="D:\cccc2020\CODE\e902\src\tirq_test\config.h" Name="FileName"/>
+      <int Value="1" Name="FirstVisibleLine"/>
+      <int Value="6" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="D:\cccc2020\CODE\e902\src\tirq_test\crt0.S" Name="FileName"/>
+      <int Value="81" Name="FirstVisibleLine"/>
+      <int Value="87" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>

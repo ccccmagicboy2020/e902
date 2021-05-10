@@ -4,4 +4,5 @@
 #define CONFIG_CPU_E902 1
 #define CONFIG_SBUS_LOAD
 #define CONFIG_STACKSIZE 512
+#define __NO_ICACHE
 #endif
