@@ -201,8 +201,6 @@ int main()
 				i2c_master_rev_buffer[i] = 0x00;
 			}			
 		}
-		
-		//__bkpt_label();
 	}
 	return 0;
 }

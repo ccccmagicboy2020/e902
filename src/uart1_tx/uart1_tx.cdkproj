@@ -32,6 +32,7 @@
   </VirtualDirectory>
   <MonitorProgress>
     <DebugLaunch>35</DebugLaunch>
+    <FlashOperate>37</FlashOperate>
   </MonitorProgress>
   <Dependencies Name="BuildSet"/>
   <BuildConfigs>
@@ -204,8 +205,8 @@
       </Debug>
       <Flash>
         <InitFile/>
-        <Erase>Erase Sectors</Erase>
-        <Algorithms Path=""/>
+        <Erase>Do Not Erase</Erase>
+        <Algorithms Path="">xbr820_spiflash.elf</Algorithms>
         <Program>no</Program>
         <Verify>no</Verify>
         <ResetAndRun>no</ResetAndRun>

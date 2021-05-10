@@ -91,7 +91,17 @@ Reset_Handler:
 	# enable MXSTATUS.THEADISAEE bit[22]
 	li t0,  0x400000
 	csrs mxstatus, t0
+#ifndef __NO_ICACHE
+	# icache disable
+	li t1,  1
+	csrw mhcr, t1
 
+	# invalid icache
+	ICACHE.IALL
+#else
+	# icache enable
+	csrw mhcr, zero
+#endif
 .option push
 .option norelax
     la      gp, __global_pointer$

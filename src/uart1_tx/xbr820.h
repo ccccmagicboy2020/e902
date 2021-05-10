@@ -98,6 +98,9 @@ typedef enum IRQn {
 #define	TIMER0_REG			(*((volatile int *)(XBR820_STC_BASE + 0x08)))
 #define	TIMER_CR			(*((volatile int *)(XBR820_STC_BASE + 0x00)))
 
+
+
+
 #ifdef __cplusplus
 }
 #endif
