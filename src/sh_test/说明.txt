@@ -1,0 +1,6 @@
+run code at sram(copy from flash)
+
+basic shell:
+com6 57600@8 even 1
+
+
