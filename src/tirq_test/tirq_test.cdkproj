@@ -21,6 +21,9 @@
     <File Name="gdb.init">
       <FileOption/>
     </File>
+    <File Name="flash.init">
+      <FileOption/>
+    </File>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
     <File Name="main.c">
