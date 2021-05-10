@@ -1,0 +1,4 @@
+1. 
+dump binary memory ./dump.bin  0x01000800 0x01000900
+
+
