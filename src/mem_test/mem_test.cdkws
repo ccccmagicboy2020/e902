@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CDK_Workspace Name="mem_test" Database="">
+<CDK_Workspace Name="mem_test" Database="" DoubleClick="Yes">
   <Project Name="mem_test" Path="mem_test.cdkproj" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">

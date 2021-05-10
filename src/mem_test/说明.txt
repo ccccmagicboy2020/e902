@@ -18,4 +18,25 @@ dump binary memory ./dump-top.bin  0x1F000000 0x1F000080
 8. stc: 0x1F020000
 dump binary memory ./dump-stc.bin  0x1F020000 0x1F020080
 
+添加xbr820定义的方法
+1. 找到目录里的文件 d:\C-Sky\CDK\CSKY\config\toolchains.xml
+2. 打开文件toolchains.xml
+3. 增加一个CPU的定义如下：
+	<cpu name="xbr820">
+		<property name="cpu-switch" value="rv32exthead"/>
+		<property name="toolchain" value="riscv64-unknown-elf-"/>
+		<property name="hard-float" value="no"/>
+		<property name="enhanced-lrw" value="no"/>
+		<property name="semi-host" value="no"/>
+		<property name="support-rom" value="no"/>
+		<property name="support-ram" value="no"/>
+		<property name="auto-ld-file" value="no"/>
+		<property name="sim-connector" value="yes"/>
+		<property name="big-endian" value="no"/>
+		<property name="support-callgraph" value="no"/>
+		<property name="cpu-args" value="-mabi=ilp32e -march="/>
+	</cpu>
+4. 用文本编辑打开之前可以用的工程，例如mem_test.cdkproj，修改<CPU>e902</CPU>部分为<CPU>xbr820</CPU>，并保存
+5. 打开mem_test.cdkproj工程并编译
+
 

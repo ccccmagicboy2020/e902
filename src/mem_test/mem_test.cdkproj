@@ -92,8 +92,8 @@
             <Init>yes</Init>
           </RAM5>
         </RAMBank>
-        <CPU>e902</CPU>
-        <UseMiniLib>no</UseMiniLib>
+        <CPU>xbr820</CPU>
+        <UseMiniLib>yes</UseMiniLib>
         <Endian>little</Endian>
         <UseHardFloat>no</UseHardFloat>
         <UseEnhancedLRW>yes</UseEnhancedLRW>
