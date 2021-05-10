@@ -165,7 +165,8 @@ module ahb2apb_ibus #(
     pprot_reg <= {2{1'b0}};
     pstrb_reg <= {4{1'b0}};
     end
-  else if (apb_select) // Capture transfer information at the end of AHB address phase
+  //else if (apb_select) // Capture transfer information at the end of AHB address phase
+  else if (apb_select &&(state_reg==ST_IDLE||state_reg==ST_APB_ENDOK)) // Capture transfer information at the end of AHB address phase
     begin
     addr_reg  <= HADDR[ADDRWIDTH-1:2];
                         
