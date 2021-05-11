@@ -6,21 +6,6 @@
 --------------------Configuration: test1 - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\phosense\AppData\Local\Temp\RSP1FE6.tmp" with contents
-[
-/nologo /subsystem:windows /incremental:yes /pdb:"Debug/test1.pdb" /debug /machine:I386 /out:"Debug/test1.exe" /pdbtype:sept 
-.\Debug\StdAfx.obj
-.\Debug\test1.obj
-.\Debug\test1Dlg.obj
-.\Debug\test1.res
-.\libs\XmlParser.lib
-".\libs\libusb-1.0.lib"
-.\libs\Target.lib
-.\libs\Utils.lib
-]
-Creating command line "link.exe @C:\Users\phosense\AppData\Local\Temp\RSP1FE6.tmp"
-<h3>Output Window</h3>
-Linking...
 
 
 

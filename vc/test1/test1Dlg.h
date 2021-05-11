@@ -27,6 +27,7 @@ public:
 	//{{AFX_VIRTUAL(CTest1Dlg)
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
+	virtual void PostNcDestroy();
 	//}}AFX_VIRTUAL
 
 // Implementation
@@ -39,12 +40,18 @@ protected:
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
+	afx_msg void OnButton1();
+	afx_msg void OnClose();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
 
 	//
 	int test_memory (struct target *target);
+
+public:
+	dbg_server_cfg_t cfg;
+	struct halt_info info;
 };
 
 //{{AFX_INSERT_LOCATION}}

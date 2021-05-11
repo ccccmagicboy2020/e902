@@ -26,6 +26,11 @@
 #include <dbg-target.h>
 #include <debug.h>
 
+#pragma comment (lib, "XmlParser.lib")
+#pragma comment (lib, "Utils.lib")
+#pragma comment (lib, "Target.lib")
+#pragma comment (lib, "libusb-1.0.lib")
+
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
