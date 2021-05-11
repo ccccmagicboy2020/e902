@@ -82,6 +82,8 @@ BEGIN_MESSAGE_MAP(CTest1Dlg, CDialog)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
+	ON_WM_CLOSE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -120,7 +122,7 @@ BOOL CTest1Dlg::OnInitDialog()
 	//
 	//
 	//
-	dbg_server_cfg_t cfg;
+
 	
 	init_default_config(&cfg);
 
@@ -131,25 +133,22 @@ BOOL CTest1Dlg::OnInitDialog()
     if (target_init (&cfg)) {
         //
 		//
-		//
+		return TRUE;
     }
 
 	/* Print target version. */
     target_print_version ();
     if (cfg.misc.print_version) {
 		//
+		return TRUE;
     }
 
     /* Open device. */
     cfg.target = target_open (&cfg);
     if (!(cfg.target && target_is_connected (cfg.target))) {
 		//
+		return TRUE;
     }
-
-	/* Memory access test.  */
-	test_memory(cfg.target);
-
-	target_close (cfg.target);
 
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -206,16 +205,42 @@ HCURSOR CTest1Dlg::OnQueryDragIcon()
 
 int CTest1Dlg::test_memory( struct target *target )
 {
-	unsigned char wbuff[128];
-	unsigned char rbuff[128];
+	unsigned char rbuff[36];
 	int ret = 0;
 
 	printf ("=================== memory access test ==================\n\n");
 
-	ret = target_read_memory(target, 0x01000000, (unsigned char *)rbuff, 128);
+	ret = target_read_memory(target, 0x1f050000, (unsigned char *)rbuff, 36);	//uart1 controller register
+	if (ret < 0) {
+		return ret;
+	}
+
+	ret = target_read_memory(target, 0x1f060000, (unsigned char *)rbuff, 36);	//uart2 controller register
 	if (ret < 0) {
 		return ret;
 	}
 
 	return 0;
+}
+
+void CTest1Dlg::OnButton1() 
+{
+	// TODO: Add your control notification handler code here
+	/* Memory access test.  */
+	test_memory(cfg.target);
+}
+
+void CTest1Dlg::PostNcDestroy() 
+{
+	// TODO: Add your specialized code here and/or call the base class
+	
+	CDialog::PostNcDestroy();
+}
+
+void CTest1Dlg::OnClose() 
+{
+	// TODO: Add your message handler code here and/or call default
+	target_close (cfg.target);
+
+	CDialog::OnClose();
 }
