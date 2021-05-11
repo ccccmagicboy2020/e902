@@ -6,6 +6,45 @@
 --------------------Configuration: test1 - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/test1.res" /d "_DEBUG" /d "_AFXDLL" "D:\cccc2020\CODE\e902\vc\test1\test1.rc"" 
+Creating temporary file "C:\Users\phosense\AppData\Local\Temp\RSPFA94.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/test1.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\cccc2020\CODE\e902\vc\test1\test1.cpp"
+"D:\cccc2020\CODE\e902\vc\test1\test1Dlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\phosense\AppData\Local\Temp\RSPFA94.tmp" 
+Creating temporary file "C:\Users\phosense\AppData\Local\Temp\RSPFA95.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/test1.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\cccc2020\CODE\e902\vc\test1\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\phosense\AppData\Local\Temp\RSPFA95.tmp" 
+Creating temporary file "C:\Users\phosense\AppData\Local\Temp\RSPFA96.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/test1.pdb" /debug /machine:I386 /out:"Debug/test1.exe" /pdbtype:sept 
+.\Debug\StdAfx.obj
+.\Debug\test1.obj
+.\Debug\test1Dlg.obj
+.\Debug\test1.res
+.\libs\XmlParser.lib
+".\libs\libusb-1.0.lib"
+.\libs\Target.lib
+.\libs\Utils.lib
+]
+Creating command line "link.exe @C:\Users\phosense\AppData\Local\Temp\RSPFA96.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+test1.cpp
+test1Dlg.cpp
+Generating Code...
+Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/test1.bsc"  .\Debug\StdAfx.sbr .\Debug\test1.sbr .\Debug\test1Dlg.sbr"
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 
