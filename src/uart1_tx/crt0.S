@@ -1,15 +1,9 @@
-#include <config.h>
+#include <memory_ld.h>
 
 # define LREG lw
 # define SREG sw
 # define REGBYTES 4
 // <<< Use Configuration Wizard in Context Menu >>>
-.globl __bkpt_label
-.section ".text"
-.align 2
-.type __bkpt_label, %function
-__bkpt_label:
-    ebreak
 
 .global __initial_sp
 
@@ -92,16 +86,51 @@ Reset_Handler:
 	li t0,  0x400000
 	csrs mxstatus, t0
 #ifndef __NO_ICACHE
-	# icache disable
+	# icache enable
 	li t1,  1
 	csrw mhcr, t1
 
 	# invalid icache
 	ICACHE.IALL
 #else
-	# icache enable
+	# icache disable
 	csrw mhcr, zero
 #endif
+
+#ifdef CONFIG_SBUS_LOAD
+	la      t0, 0x1f010058
+	li      t1, 0x12	# boot from flash & SRAM used for data buffer
+	sw      t1, (t0)
+#endif
+	/* Load code & data section */
+    la      a0, __etext
+    la      a1, __scode + CONFIG_IBUS2SBUS_OFFSET
+    la      a2, __data_end__ + CONFIG_IBUS2SBUS_OFFSET
+    bgeu    a1, a2, 2f
+1:
+    lw      t0, (a0)
+    sw      t0, (a1)
+    addi    a0, a0, 4
+    addi    a1, a1, 4
+    bltu    a1, a2, 1b
+2:
+#ifndef __NO_BSS_INIT
+    /* Clear bss section */
+    la      a0, __bss_start__ + CONFIG_IBUS2SBUS_OFFSET
+    la      a1, __bss_end__ + CONFIG_IBUS2SBUS_OFFSET
+    bgeu    a0, a1, 2f
+1:
+    sw      zero, (a0)
+    addi    a0, a0, 4
+    bltu    a0, a1, 1b
+2:
+#endif
+#ifdef CONFIG_SBUS_LOAD
+	la      t0, 0x1f010058
+	li      t1, 0x10
+	sw      t1, (t0)
+#endif
+
 .option push
 .option norelax
     la      gp, __global_pointer$
@@ -117,7 +146,8 @@ Reset_Handler:
     la      sp, __initial_sp
     csrw    mscratch, sp
 
-    jal     main
+	la		t1, main
+    jalr	t0, t1
 
     .size   Reset_Handler, . - Reset_Handler
 
@@ -209,11 +239,10 @@ Default_IRQHandler:
     mret
 
 
-    .align  6
-    .weak   Default_Handler
-    .global Default_Handler
-    .type   Default_Handler, %function
-Default_Handler:
+    .align  2
+    .global ExceptionHandler
+    .type   ExceptionHandler, %function
+ExceptionHandler:
     /* Check for interrupt */
     addi    sp, sp, -4
     sw      t0, 0x0(sp)
@@ -256,4 +285,11 @@ trap:
     lw      t0, 0x0(sp)
     addi    sp, sp, 4
     j       Default_IRQHandler
+
+    .align  6
+    .weak   Default_Handler
+    .global Default_Handler
+    .type   Default_Handler, %function
+Default_Handler:
+    j       ExceptionHandler
     .size   Default_Handler, . - Default_Handler

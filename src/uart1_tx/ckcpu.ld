@@ -2,53 +2,51 @@
 // <<< Use Configuration Wizard in Context Menu >>>
 */
 
+OUTPUT_ARCH( "riscv" )
 /*
 // <m> Entry Point <2>
 // <i> config start function for this application
 */
 ENTRY( Reset_Handler )
 
-MEMORY
-{
-  MEM : 
-/*
-// <o> Memory Start Address (in Bytes) <0x0-0xFFFFFFFF:0x100>
-// <i> config start address of RAM area for this application
-*/
-  ORIGIN = 0x01000000 , 
-/*
-// <o> Memory Length (in Bytes) <0x0-0xFFFFFFFF:0x1>
-// <i> config the length of RAM area for this application
-*/
-  LENGTH = 0x1000
-}
+INCLUDE Obj\memory.ld
+
+PROVIDE (__stack = ORIGIN(RAM) + LENGTH(RAM));
+
+REGION_ALIAS("REGION_TEXT",    ROM);
+REGION_ALIAS("REGION_RODATA",  ROM);
+REGION_ALIAS("REGION_DATA",    RAM);
+REGION_ALIAS("REGION_BSS",     RAM);
 
 SECTIONS
 {
     .text : {
 		. = ALIGN(0x4) ;
-		*crt0.o(.text.init)
-		*crt0.o(.exp_table)
 		__stext = . ;
-		*(.text)
-		*(.text*)
-		*(.text.*)
+		*crt0.o(.text.init)
 		. = ALIGN(0x10) ;
 		__etext = . ;
-    } > MEM
+    } > REGION_TEXT
 
-    .rodata : {
+	.code : {
+		. = ALIGN(0x4) ;
+		__scode = . ;
+		*crt0.o(.exp_table)
+		*(.text)
+		__ecode = .;
+		__code_end__ = .;
+		. = ALIGN(0x4) ;
+	} > REGION_DATA AT > REGION_RODATA
+
+	.rodata : {
 		. = ALIGN(0x4) ;
 		__srodata = .;
 		*(.rdata)
-		*(.rdata*)
-		*(.rdata.*)
 		*(.rodata)
-		*(.rodata*)
-		*(.rodata.*)
-		. = ALIGN(0x10) ;
+		. = ALIGN(0x4) ;
 		__erodata = .;
-    } > MEM
+		__rodata_end__ = .;
+	} > REGION_DATA AT > REGION_RODATA
 
     .data : {
 		. = ALIGN(0x4) ;
@@ -63,7 +61,7 @@ SECTIONS
 		. = ALIGN(0x10) ; 
 		__data_end__ = .;
 		__edata = . ;
-	} > MEM
+	} > REGION_DATA AT > REGION_RODATA
 
     .bss : {
 		. = ALIGN(0x4) ;
@@ -78,5 +76,5 @@ SECTIONS
 		KEEP(*crt0.o(.bss.trap_stack))
 		__end = . ;
 		end = . ;
-	} > MEM
+	} > REGION_BSS
 }

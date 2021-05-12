@@ -1,0 +1,7 @@
+running at flash
+
+uart1: 115200@8n1
+time0: 1Hz
+发送四个节字
+
+
