@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+
+        {
+            "name": "xbr820",
+            "type": "cppdbg",
+            "request": "launch",
+            "miDebuggerServerAddress": "localhost:1025",
+            "program": "${workspaceFolder}/Obj/uart1_tx.elf",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "d:/C-Sky/CDK/CSKY/MinGW/riscv64-unknown-elf-toolchain/bin/riscv64-unknown-elf-gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "riscv arch",
+                    "text": "set arch riscv:rv32",
+                    "ignoreFailures": true
+                }                
+            ]
+        }
+    ]
+}

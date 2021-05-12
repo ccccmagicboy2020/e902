@@ -1,4 +1,6 @@
 #include <xbr820.h>
+#include <uart.h>
+#include <string.h>
 
 volatile uint32_t tm_count;
 extern volatile uint8_t i2c_master_sended_buffer[16];
@@ -14,77 +16,35 @@ volatile unsigned int buffer_cycle = 0;
 volatile unsigned int buffer_pointer2 = 0;
 volatile unsigned int buffer_cycle2 = 0;
 
+const uint32_t buad_rates[] = {
+	75,
+	110,
+	150,
+	300,
+	600,
+	1200,
+	1800,
+	2400,
+	4800,
+	7200,
+	9600,
+	14400,
+	19200,
+	38400,
+	57600,
+	115200,
+	230400,
+	460800,
+	921600
+};
+
+uart_device_t uart_dev[CONFIG_UART_NUM];
+
 void handle_irq(uint32_t vec) 
 {	
-	
-	if (I2C_MASTER_IRQn == vec)
+	if (UART0_RX_IRQn == vec)
 	{		
-		ii2++;
-		if (0x00000010 & MAST_STATUS) // byte done
-		{
-			MAST_CLEAR |= 0x00000008;
-			
-			buffer_pointer = (0x0000ff00 & MAST_STATUS) >> 8;
-			buffer_pointer2 = (0x0000ff00 & MAST_STATUS) >> 8;
-			
-			i2c_master_sended_buffer[ii] = (0x0000ff00 & MAST_STATUS) >> 8;
-			ii++;
-			if (16 <= ii)
-			{
-				ii = 0;
-			}
-			
-			
-			if (buffer_pointer % 8 == 1)
-			{
-				DATA_2_IICM1 = (i2c_master_send_buffer[7+buffer_cycle*8] << 24) | (i2c_master_send_buffer[6+buffer_cycle*8] << 16) | (i2c_master_send_buffer[5+buffer_cycle*8] << 8) | (i2c_master_send_buffer[4+buffer_cycle*8]);				
-				buffer_cycle++;
-			}
-			else if (buffer_pointer % 8 == 4)
-			{
-				DATA_2_IICM0 = (i2c_master_send_buffer[3+buffer_cycle*8] << 24) | (i2c_master_send_buffer[2+buffer_cycle*8] << 16) | (i2c_master_send_buffer[1+buffer_cycle*8] << 8) | (i2c_master_send_buffer[0+buffer_cycle*8]);
-			}
-			
-			if (buffer_pointer2 % 8 == 1)
-			{
-				if (buffer_cycle2 != 0)
-				{
-					i2c_master_rev_buffer[4+(buffer_cycle2-1)*8] = IICM_2_DATA1 & 0x000000ff;
-					i2c_master_rev_buffer[5+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x0000ff00) >> 8;
-					i2c_master_rev_buffer[6+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0x00ff0000) >> 16;
-					i2c_master_rev_buffer[7+(buffer_cycle2-1)*8] = (IICM_2_DATA1 & 0xff000000) >> 24;					
-				}
-			}
-			else if (buffer_pointer2 % 8 == 5)
-			{
-				i2c_master_rev_buffer[0+buffer_cycle2*8] = IICM_2_DATA0 & 0x000000ff;
-				i2c_master_rev_buffer[1+buffer_cycle2*8] = (IICM_2_DATA0 & 0x0000ff00) >> 8;
-				i2c_master_rev_buffer[2+buffer_cycle2*8] = (IICM_2_DATA0 & 0x00ff0000) >> 16;
-				i2c_master_rev_buffer[3+buffer_cycle2*8] = (IICM_2_DATA0 & 0xff000000) >> 24;
-				buffer_cycle2++;
-			}
-		}
-		
-		if (0x00000008 & MAST_STATUS)//idle
-		{
-			
-		}
-		
-		if (0x00000004 & MAST_STATUS)//timeout
-		{
-			MAST_CLEAR |= 0x00000004;
-		}
-		
-		if (0x00000002 & MAST_STATUS)//after stop
-		{
-			MAST_CLEAR |= 0x00000002;
-			master_work_flag = 1;
-		}
-		
-		if (0x00000001 & MAST_STATUS)//no ack
-		{
-			MAST_CLEAR |= 0x00000001;
-		}
+		//
 	}
 	
 	if (TIM0_IRQn == vec)
@@ -93,3 +53,70 @@ void handle_irq(uint32_t vec)
 		TIMER_CR |= 0x00000100;
 	}
 }
+
+bool uart_init(int index, const uart_config_t* config) {
+	uint8_t cfg = UART_CONFIG;
+	uint8_t buad = UART_BAUD;
+	uint32_t divisor = 0;
+
+	if (index >= CONFIG_UART_NUM)
+		return false;
+		
+	memset(&uart_dev[index], 0, sizeof(uart_dev[index]));
+	
+	uart_dev[index].reg = index ? XBR820_UART1 : XBR820_UART0;			//链接硬件寄存器
+	uart_dev[index].irq = index ? UART1_RX_IRQn : UART0_RX_IRQn;		//链接中断源
+	uart_dev[index].reg->enable = 0;									//寄存器操作
+	
+	if (config) //如果有新的设置
+	{
+		if (config->buf) //如果有一个数据buffer，用于rx/tx共用，地址相接
+		{
+			if (config->rsize) 
+			{
+				uart_dev[index].rx_fifo.buffer = (uint8_t *)config->buf;
+				uart_dev[index].rx_fifo.size = config->rsize;
+			}
+			
+			if (config->tsize) 
+			{
+				uart_dev[index].tx_fifo.buffer = (uint8_t *)config->buf + config->rsize;
+				uart_dev[index].tx_fifo.size = config->tsize;
+			}
+		}
+	
+		cfg = config->cfg;
+			
+		if (config->buad <= BAUD_921600)
+			buad = config->buad;
+	}
+	
+	uart_dev[index].reg->config = cfg;
+	divisor = (SYSTEM_CLOCK + buad_rates[buad]/2) / buad_rates[buad] - 1;
+	uart_dev[index].reg->baud_high = (divisor >> 8) & 0xff;
+	uart_dev[index].reg->baud_low = divisor & 0xff;
+	uart_dev[index].reg->rfifo = UART_RFIFO_CLR;	//clear fifo
+	uart_dev[index].reg->enable |= 0xB0;			//enable user define buadrate, tx, and rx
+
+	//enalbe the rev irq
+	csi_vic_enable_irq(uart_dev[index].irq);
+	
+	return true;
+}
+
+bool sent_byte(int index, uint32_t data0)
+{
+	uart_reg_t* uart = uart_dev[index].reg;
+	
+	do 
+	{
+		// TX not idle
+	}
+	while (uart->state & 0x07);
+	
+	uart->int_err |= 0x02;
+	uart->tx_data = data0;
+	
+	return 1;
+}
+

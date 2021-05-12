@@ -15,6 +15,7 @@
 #define _XBR820_H_
 
 #include "core_rv32.h"
+#include "fifo.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -77,29 +78,8 @@ typedef enum IRQn {
 /* ================================================================================ */
 /* ================             Peripheral declaration             ================ */
 /* ================================================================================ */
-#define	SLAVE_ADDR			(*((volatile int *)(XBR820_I2CM_BASE + 0x00)))		//slave addr
-#define	NWORD				(*((volatile int *)(XBR820_I2CM_BASE + 0x04)))		//master rw data length - 1
-#define	MASTER_CPU_CMD		(*((volatile int *)(XBR820_I2CM_BASE + 0x08)))		//master command trigger
-
-//#define	SLAVEB_DATA_2_IIC	(*((volatile int *)(XBR820_I2CM_BASE + 0x0C)))
-
-#define	MAST_MISC			(*((volatile int *)(XBR820_I2CM_BASE + 0x10)))		//master misc.
-#define	MAST_READ_ADDR		(*((volatile int *)(XBR820_I2CM_BASE + 0x14)))		//master data address
-#define	DATA_2_IICM0		(*((volatile int *)(XBR820_I2CM_BASE + 0x18)))		//master send buffer0
-#define	DATA_2_IICM1		(*((volatile int *)(XBR820_I2CM_BASE + 0x1C)))		//master send buffer1
-#define	IICM_2_DATA0		(*((volatile int *)(XBR820_I2CM_BASE + 0x20)))		//master rev buffer0
-#define	IICM_2_DATA1		(*((volatile int *)(XBR820_I2CM_BASE + 0x24)))		//master rev buffer1
-#define	MAST_STATUS			(*((volatile int *)(XBR820_I2CM_BASE + 0x28)))		//master status reg
-#define	MAST_INT_EN			(*((volatile int *)(XBR820_I2CM_BASE + 0x2C)))		//master interrupt enable
-#define	MAST_CLEAR			(*((volatile int *)(XBR820_I2CM_BASE + 0x30)))		//master clear flags
-#define	MAST_CLK			(*((volatile int *)(XBR820_I2CM_BASE + 0x34)))		//master clock div
-#define	MAST_EN				(*((volatile int *)(XBR820_I2CM_BASE + 0x38)))		//master clock enable
-
 #define	TIMER0_REG			(*((volatile int *)(XBR820_STC_BASE + 0x08)))
 #define	TIMER_CR			(*((volatile int *)(XBR820_STC_BASE + 0x00)))
-
-
-
 
 #ifdef __cplusplus
 }

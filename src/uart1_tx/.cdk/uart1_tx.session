@@ -5,8 +5,22 @@
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
       <wxString Value="D:\cccc2020\CODE\e902\src\uart1_tx\main.c" Name="FileName"/>
-      <int Value="154" Name="FirstVisibleLine"/>
-      <int Value="27" Name="CurrentLine"/>
+      <int Value="26" Name="FirstVisibleLine"/>
+      <int Value="30" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="D:\cccc2020\CODE\e902\src\uart1_tx\uart.h" Name="FileName"/>
+      <int Value="48" Name="FirstVisibleLine"/>
+      <int Value="62" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="D:\cccc2020\CODE\e902\src\uart1_tx\uart.c" Name="FileName"/>
+      <int Value="43" Name="FirstVisibleLine"/>
+      <int Value="49" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
