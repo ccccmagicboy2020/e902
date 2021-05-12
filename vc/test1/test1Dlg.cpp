@@ -215,6 +215,16 @@ int CTest1Dlg::test_memory( struct target *target )
 		return ret;
 	}
 
+	ret = target_read_memory(target, 0x1f050000, (unsigned char *)rbuff, 64);	//uart0 controller register
+	if (ret < 0) {
+		return ret;
+	}
+
+	ret = target_read_memory(target, 0x1f060000, (unsigned char *)rbuff, 64);	//uart1 controller register
+	if (ret < 0) {
+		return ret;
+	}
+
 
 
 	return 0;
