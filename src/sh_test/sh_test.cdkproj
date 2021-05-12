@@ -81,7 +81,7 @@
     </File>
   </VirtualDirectory>
   <MonitorProgress>
-    <DebugLaunch>50</DebugLaunch>
+    <DebugLaunch>35</DebugLaunch>
     <FlashOperate>47</FlashOperate>
   </MonitorProgress>
   <Dependencies Name="BuildSet"/>
@@ -184,7 +184,7 @@
         <Undefine/>
         <Optim>Optimize (-Og)</Optim>
         <DebugLevel>Maximum (-g3)</DebugLevel>
-        <IncludePath>$(ProjectPath);$(CDKPath)/CSKY/csi/csi_core/include/;$(CDKPath)/CSKY/csi/csi_core/csi_cdk/;$(CDKPath)/CSKY/csi/csi_driver/include/</IncludePath>
+        <IncludePath>$(ProjectPath);$(CDKPath)/CSKY/csi/csi_core/include/;$(CDKPath)/CSKY/csi/csi_core/csi_cdk/;$(CDKPath)/CSKY/csi/csi_driver/include/;$(ProjectPath)/;$(ProjectPath)/../nos/</IncludePath>
         <OtherFlags/>
         <Verbose>no</Verbose>
         <Ansi>no</Ansi>
@@ -200,12 +200,13 @@
       <Asm>
         <Define/>
         <Undefine/>
-        <IncludePath>$(ProjectPath);$(CDKPath)/CSKY/csi/csi_core/include/;$(CDKPath)/CSKY/csi/csi_core/csi_cdk/;$(CDKPath)/CSKY/csi/csi_driver/include/;$(ProjectPath)../tools/</IncludePath>
+        <IncludePath>$(ProjectPath);$(CDKPath)/CSKY/csi/csi_core/include/;$(CDKPath)/CSKY/csi/csi_core/csi_cdk/;$(CDKPath)/CSKY/csi/csi_driver/include/;$(ProjectPath)/;$(ProjectPath)/../nos/;$(ProjectPath)../tools/</IncludePath>
         <OtherFlags/>
         <DebugLevel>gdwarf2</DebugLevel>
       </Asm>
       <Linker>
         <Garbage>yes</Garbage>
+        <Garbage2>yes</Garbage2>
         <LDFile>$(ProjectPath)/sh_test.ld</LDFile>
         <LibName/>
         <LibPath/>
@@ -219,6 +220,7 @@
         <StopAt>yes</StopAt>
         <StopAtText>main</StopAtText>
         <InitFile>$(ProjectPath)/gdb.init</InitFile>
+        <AfterLoadFile/>
         <AutoRun>yes</AutoRun>
         <ResetType>Hard Reset</ResetType>
         <SoftResetVal>0</SoftResetVal>
@@ -236,10 +238,10 @@
           <TRST>no</TRST>
           <DebugPrint>no</DebugPrint>
           <Connect>Normal</Connect>
-          <ResetType>Soft Reset</ResetType>
+          <ResetType>soft</ResetType>
           <SoftResetVal>0</SoftResetVal>
-          <RTOSType>Bare Metal</RTOSType>
-          <DownloadToFlash>yes</DownloadToFlash>
+          <RTOSType>None</RTOSType>
+          <DownloadToFlash>no</DownloadToFlash>
           <ResetAfterConnect>yes</ResetAfterConnect>
           <GDBName/>
           <GDBServerType>Local</GDBServerType>
@@ -252,6 +254,14 @@
           <Log>no</Log>
           <SimTrace>no</SimTrace>
         </ConfigSIM>
+        <ConfigOpenOCD>
+          <OpenOCDExecutablePath/>
+          <OpenOCDTelnetPortEnable>no</OpenOCDTelnetPortEnable>
+          <OpenOCDTelnetPort>4444</OpenOCDTelnetPort>
+          <OpenOCDTclPortEnable>no</OpenOCDTclPortEnable>
+          <OpenOCDTclPort>6666</OpenOCDTclPort>
+          <OpenOCDConfigOptions/>
+        </ConfigOpenOCD>
       </Debug>
       <Flash>
         <InitFile>$(ProjectPath)/flash.init</InitFile>
@@ -270,12 +280,12 @@
   </BuildConfigs>
   <DebugSessions>
     <watchExpressions/>
-    <memoryExpressions>;;;</memoryExpressions>
+    <memoryExpressions>0x1f060000;;;</memoryExpressions>
     <statistics>;;MHZ;</statistics>
     <peripheralTabs/>
     <WatchDisplayFormat>1</WatchDisplayFormat>
     <LocalDisplayFormat>1</LocalDisplayFormat>
     <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+    <memoryTabColSizeExpressions>72:4;100:8;100:8;100:8;</memoryTabColSizeExpressions>
   </DebugSessions>
 </Project>

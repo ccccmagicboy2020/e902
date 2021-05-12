@@ -1,0 +1,907 @@
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           RISC-V
+  Version:                           0x1
+  Entry point address:               0x1000008
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          84124 (bytes into file)
+  Flags:                             0x9, RVC, RVE, soft-float ABI
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         1
+  Size of section headers:           40 (bytes)
+  Number of section headers:         19
+  Section header string table index: 18
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .text             PROGBITS        01000000 001000 000cc0 00  AX  0   0  4
+  [ 2] .rodata           PROGBITS        01000cc0 001cc0 000140 00   A  0   0  4
+  [ 3] .data             PROGBITS        01000e00 001e00 000000 00  WA  0   0  1
+  [ 4] .bss              NOBITS          01000e00 001e00 000160 00  WA  0   0  8
+  [ 5] .riscv.attributes RISCV_ATTRIBUTE 00000000 001e00 00002b 00      0   0  1
+  [ 6] .comment          PROGBITS        00000000 001e2b 000034 01  MS  0   0  1
+  [ 7] .debug_line       PROGBITS        00000000 001e5f 002d7b 00      0   0  1
+  [ 8] .debug_info       PROGBITS        00000000 004bda 004676 00      0   0  1
+  [ 9] .debug_abbrev     PROGBITS        00000000 009250 00111e 00      0   0  1
+  [10] .debug_aranges    PROGBITS        00000000 00a370 000120 00      0   0  8
+  [11] .debug_str        PROGBITS        00000000 00a490 007cb9 01  MS  0   0  1
+  [12] .debug_macro      PROGBITS        00000000 012149 000b43 00      0   0  1
+  [13] .debug_frame      PROGBITS        00000000 012c8c 00045c 00      0   0  4
+  [14] .debug_loc        PROGBITS        00000000 0130e8 000e48 00      0   0  1
+  [15] .debug_ranges     PROGBITS        00000000 013f30 000090 00      0   0  1
+  [16] .symtab           SYMTAB          00000000 013fc0 000580 10     17  40  4
+  [17] .strtab           STRTAB          00000000 014540 000299 00      0   0  1
+  [18] .shstrtab         STRTAB          00000000 0147d9 0000c2 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  p (processor specific)
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  LOAD           0x001000 0x01000000 0x01000000 0x00e00 0x00f60 RWE 0x1000
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .text .rodata .bss 
+======================================================================
+Archive member included to satisfy reference by file (symbol)
+
+d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a(div.o)
+                              Obj/stc.o (__udivsi3)
+d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-memcpy.o)
+                              Obj/fifo.o (memcpy)
+d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-memset.o)
+                              Obj/uart.o (memset)
+d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-strcmp.o)
+                              Obj/shell.o (strcmp)
+
+Allocating common symbols
+Common symbol       size              file
+
+uart_dev            0x40              Obj/uart.o
+
+Discarded input sections
+
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .group         0x0000000000000000        0xc Obj/isr.o
+ .text          0x0000000000000000        0x0 Obj/isr.o
+ .data          0x0000000000000000        0x0 Obj/isr.o
+ .bss           0x0000000000000000        0x0 Obj/isr.o
+ .debug_info    0x0000000000000000      0x91e Obj/isr.o
+ .debug_abbrev  0x0000000000000000      0x1b4 Obj/isr.o
+ .debug_aranges
+                0x0000000000000000       0x18 Obj/isr.o
+ .debug_macro   0x0000000000000000      0x17a Obj/isr.o
+ .debug_macro   0x0000000000000000      0x74e Obj/isr.o
+ .debug_macro   0x0000000000000000       0x22 Obj/isr.o
+ .debug_macro   0x0000000000000000       0x8e Obj/isr.o
+ .debug_macro   0x0000000000000000       0x51 Obj/isr.o
+ .debug_macro   0x0000000000000000       0xef Obj/isr.o
+ .debug_macro   0x0000000000000000       0x6a Obj/isr.o
+ .debug_macro   0x0000000000000000      0x1df Obj/isr.o
+ .debug_macro   0x0000000000000000       0x22 Obj/isr.o
+ .debug_macro   0x0000000000000000       0x46 Obj/isr.o
+ .debug_macro   0x0000000000000000       0x4c Obj/isr.o
+ .debug_macro   0x0000000000000000       0x3a Obj/isr.o
+ .debug_macro   0x0000000000000000       0x19 Obj/isr.o
+ .debug_macro   0x0000000000000000       0x4c Obj/isr.o
+ .debug_macro   0x0000000000000000       0x34 Obj/isr.o
+ .debug_macro   0x0000000000000000       0x34 Obj/isr.o
+ .debug_macro   0x0000000000000000       0x16 Obj/isr.o
+ .debug_macro   0x0000000000000000      0x10e Obj/isr.o
+ .debug_macro   0x0000000000000000       0x8d Obj/isr.o
+ .debug_macro   0x0000000000000000       0x52 Obj/isr.o
+ .debug_macro   0x0000000000000000       0x1f Obj/isr.o
+ .debug_macro   0x0000000000000000       0x43 Obj/isr.o
+ .debug_macro   0x0000000000000000       0x20 Obj/isr.o
+ .debug_macro   0x0000000000000000      0x18e Obj/isr.o
+ .debug_macro   0x0000000000000000      0x330 Obj/isr.o
+ .debug_macro   0x0000000000000000       0x16 Obj/isr.o
+ .debug_macro   0x0000000000000000       0x29 Obj/isr.o
+ .debug_macro   0x0000000000000000       0x31 Obj/isr.o
+ .debug_macro   0x0000000000000000      0x20a Obj/isr.o
+ .debug_macro   0x0000000000000000       0x6a Obj/isr.o
+ .debug_line    0x0000000000000000      0x2dc Obj/isr.o
+ .debug_str     0x0000000000000000     0x7218 Obj/isr.o
+ .comment       0x0000000000000000       0x35 Obj/isr.o
+ .riscv.attributes
+                0x0000000000000000       0x2b Obj/isr.o
+ .data          0x0000000000000000        0x0 Obj/startup.o
+ .bss           0x0000000000000000        0x0 Obj/startup.o
+ .vectors       0x0000000000000000        0x4 Obj/startup.o
+ .text          0x0000000000000000        0x0 Obj/vectors.o
+ .data          0x0000000000000000        0x0 Obj/vectors.o
+ .bss           0x0000000000000000        0x0 Obj/vectors.o
+ .riscv.attributes
+                0x0000000000000000       0x2b Obj/vectors.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .group         0x0000000000000000        0xc Obj/main.o
+ .data          0x0000000000000000        0x0 Obj/main.o
+ .bss           0x0000000000000000        0x0 Obj/main.o
+ .debug_macro   0x0000000000000000      0x74e Obj/main.o
+ .debug_macro   0x0000000000000000       0x22 Obj/main.o
+ .debug_macro   0x0000000000000000       0x8e Obj/main.o
+ .debug_macro   0x0000000000000000       0x51 Obj/main.o
+ .debug_macro   0x0000000000000000       0xef Obj/main.o
+ .debug_macro   0x0000000000000000       0x6a Obj/main.o
+ .debug_macro   0x0000000000000000      0x1df Obj/main.o
+ .debug_macro   0x0000000000000000       0x22 Obj/main.o
+ .debug_macro   0x0000000000000000       0x46 Obj/main.o
+ .debug_macro   0x0000000000000000       0x4c Obj/main.o
+ .debug_macro   0x0000000000000000       0x3a Obj/main.o
+ .debug_macro   0x0000000000000000       0x19 Obj/main.o
+ .debug_macro   0x0000000000000000       0x4c Obj/main.o
+ .debug_macro   0x0000000000000000       0x34 Obj/main.o
+ .debug_macro   0x0000000000000000       0x34 Obj/main.o
+ .debug_macro   0x0000000000000000       0x16 Obj/main.o
+ .debug_macro   0x0000000000000000      0x10e Obj/main.o
+ .debug_macro   0x0000000000000000       0x8d Obj/main.o
+ .debug_macro   0x0000000000000000       0x52 Obj/main.o
+ .debug_macro   0x0000000000000000       0x1f Obj/main.o
+ .debug_macro   0x0000000000000000       0x43 Obj/main.o
+ .debug_macro   0x0000000000000000       0x20 Obj/main.o
+ .debug_macro   0x0000000000000000      0x18e Obj/main.o
+ .debug_macro   0x0000000000000000      0x330 Obj/main.o
+ .debug_macro   0x0000000000000000       0x16 Obj/main.o
+ .debug_macro   0x0000000000000000       0x29 Obj/main.o
+ .debug_macro   0x0000000000000000       0x31 Obj/main.o
+ .debug_macro   0x0000000000000000      0x20a Obj/main.o
+ .debug_macro   0x0000000000000000       0x6a Obj/main.o
+ .group         0x0000000000000000        0xc Obj/board_init.o
+ .group         0x0000000000000000        0xc Obj/board_init.o
+ .group         0x0000000000000000        0xc Obj/board_init.o
+ .group         0x0000000000000000        0xc Obj/board_init.o
+ .group         0x0000000000000000        0xc Obj/board_init.o
+ .group         0x0000000000000000        0xc Obj/board_init.o
+ .group         0x0000000000000000        0xc Obj/board_init.o
+ .group         0x0000000000000000        0xc Obj/board_init.o
+ .group         0x0000000000000000        0xc Obj/board_init.o
+ .group         0x0000000000000000        0xc Obj/board_init.o
+ .data          0x0000000000000000        0x0 Obj/board_init.o
+ .bss           0x0000000000000000        0x0 Obj/board_init.o
+ .debug_macro   0x0000000000000000      0x74e Obj/board_init.o
+ .debug_macro   0x0000000000000000       0x22 Obj/board_init.o
+ .debug_macro   0x0000000000000000       0x8e Obj/board_init.o
+ .debug_macro   0x0000000000000000       0x51 Obj/board_init.o
+ .debug_macro   0x0000000000000000       0xef Obj/board_init.o
+ .debug_macro   0x0000000000000000       0x6a Obj/board_init.o
+ .debug_macro   0x0000000000000000      0x1df Obj/board_init.o
+ .debug_macro   0x0000000000000000       0x22 Obj/board_init.o
+ .debug_macro   0x0000000000000000       0x46 Obj/board_init.o
+ .debug_macro   0x0000000000000000       0x4c Obj/board_init.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/shell.o
+ .data          0x0000000000000000        0x0 Obj/shell.o
+ .debug_macro   0x0000000000000000      0x74e Obj/shell.o
+ .debug_macro   0x0000000000000000       0x22 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x8e Obj/shell.o
+ .debug_macro   0x0000000000000000       0x51 Obj/shell.o
+ .debug_macro   0x0000000000000000       0xef Obj/shell.o
+ .debug_macro   0x0000000000000000       0x6a Obj/shell.o
+ .debug_macro   0x0000000000000000      0x1df Obj/shell.o
+ .debug_macro   0x0000000000000000       0x22 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x46 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x4c Obj/shell.o
+ .debug_macro   0x0000000000000000       0x3a Obj/shell.o
+ .debug_macro   0x0000000000000000       0x19 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x4c Obj/shell.o
+ .debug_macro   0x0000000000000000       0x34 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x34 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x16 Obj/shell.o
+ .debug_macro   0x0000000000000000      0x10e Obj/shell.o
+ .debug_macro   0x0000000000000000       0x8d Obj/shell.o
+ .debug_macro   0x0000000000000000       0x52 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x1f Obj/shell.o
+ .debug_macro   0x0000000000000000       0x43 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x20 Obj/shell.o
+ .debug_macro   0x0000000000000000      0x18e Obj/shell.o
+ .debug_macro   0x0000000000000000      0x330 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x16 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x29 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x31 Obj/shell.o
+ .debug_macro   0x0000000000000000      0x20a Obj/shell.o
+ .debug_macro   0x0000000000000000       0x6a Obj/shell.o
+ .debug_macro   0x0000000000000000       0x4c Obj/shell.o
+ .debug_macro   0x0000000000000000       0x40 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x10 Obj/shell.o
+ .debug_macro   0x0000000000000000       0x10 Obj/shell.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .group         0x0000000000000000        0xc Obj/system.o
+ .data          0x0000000000000000        0x0 Obj/system.o
+ .bss           0x0000000000000000        0x0 Obj/system.o
+ .debug_macro   0x0000000000000000      0x74e Obj/system.o
+ .debug_macro   0x0000000000000000       0x22 Obj/system.o
+ .debug_macro   0x0000000000000000       0x8e Obj/system.o
+ .debug_macro   0x0000000000000000       0x51 Obj/system.o
+ .debug_macro   0x0000000000000000       0xef Obj/system.o
+ .debug_macro   0x0000000000000000       0x6a Obj/system.o
+ .debug_macro   0x0000000000000000      0x1df Obj/system.o
+ .debug_macro   0x0000000000000000       0x22 Obj/system.o
+ .debug_macro   0x0000000000000000       0x46 Obj/system.o
+ .debug_macro   0x0000000000000000       0x4c Obj/system.o
+ .debug_macro   0x0000000000000000       0x3a Obj/system.o
+ .debug_macro   0x0000000000000000       0x19 Obj/system.o
+ .debug_macro   0x0000000000000000       0x4c Obj/system.o
+ .debug_macro   0x0000000000000000       0x34 Obj/system.o
+ .debug_macro   0x0000000000000000       0x34 Obj/system.o
+ .debug_macro   0x0000000000000000       0x16 Obj/system.o
+ .debug_macro   0x0000000000000000      0x10e Obj/system.o
+ .debug_macro   0x0000000000000000       0x8d Obj/system.o
+ .debug_macro   0x0000000000000000       0x52 Obj/system.o
+ .debug_macro   0x0000000000000000       0x1f Obj/system.o
+ .debug_macro   0x0000000000000000       0x43 Obj/system.o
+ .debug_macro   0x0000000000000000       0x20 Obj/system.o
+ .debug_macro   0x0000000000000000      0x18e Obj/system.o
+ .debug_macro   0x0000000000000000      0x330 Obj/system.o
+ .debug_macro   0x0000000000000000       0x16 Obj/system.o
+ .debug_macro   0x0000000000000000       0x29 Obj/system.o
+ .debug_macro   0x0000000000000000       0x31 Obj/system.o
+ .debug_macro   0x0000000000000000      0x20a Obj/system.o
+ .debug_macro   0x0000000000000000       0x6a Obj/system.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/stc.o
+ .data          0x0000000000000000        0x0 Obj/stc.o
+ .bss           0x0000000000000000        0x0 Obj/stc.o
+ .debug_macro   0x0000000000000000      0x74e Obj/stc.o
+ .debug_macro   0x0000000000000000       0x22 Obj/stc.o
+ .debug_macro   0x0000000000000000       0x8e Obj/stc.o
+ .debug_macro   0x0000000000000000       0x51 Obj/stc.o
+ .debug_macro   0x0000000000000000       0xef Obj/stc.o
+ .debug_macro   0x0000000000000000       0x6a Obj/stc.o
+ .debug_macro   0x0000000000000000      0x1df Obj/stc.o
+ .debug_macro   0x0000000000000000       0x22 Obj/stc.o
+ .debug_macro   0x0000000000000000       0x46 Obj/stc.o
+ .debug_macro   0x0000000000000000       0x4c Obj/stc.o
+ .debug_macro   0x0000000000000000       0x3a Obj/stc.o
+ .debug_macro   0x0000000000000000       0x19 Obj/stc.o
+ .debug_macro   0x0000000000000000       0x4c Obj/stc.o
+ .debug_macro   0x0000000000000000       0x34 Obj/stc.o
+ .debug_macro   0x0000000000000000       0x34 Obj/stc.o
+ .debug_macro   0x0000000000000000       0x16 Obj/stc.o
+ .debug_macro   0x0000000000000000      0x10e Obj/stc.o
+ .debug_macro   0x0000000000000000       0x8d Obj/stc.o
+ .debug_macro   0x0000000000000000       0x52 Obj/stc.o
+ .debug_macro   0x0000000000000000       0x1f Obj/stc.o
+ .debug_macro   0x0000000000000000       0x43 Obj/stc.o
+ .debug_macro   0x0000000000000000       0x20 Obj/stc.o
+ .debug_macro   0x0000000000000000      0x18e Obj/stc.o
+ .debug_macro   0x0000000000000000      0x330 Obj/stc.o
+ .debug_macro   0x0000000000000000       0x16 Obj/stc.o
+ .debug_macro   0x0000000000000000       0x29 Obj/stc.o
+ .debug_macro   0x0000000000000000       0x31 Obj/stc.o
+ .debug_macro   0x0000000000000000      0x20a Obj/stc.o
+ .debug_macro   0x0000000000000000       0x6a Obj/stc.o
+ .debug_macro   0x0000000000000000       0x4c Obj/stc.o
+ .debug_macro   0x0000000000000000       0x40 Obj/stc.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/uart.o
+ .data          0x0000000000000000        0x0 Obj/uart.o
+ .bss           0x0000000000000000        0x0 Obj/uart.o
+ .debug_macro   0x0000000000000000      0x74e Obj/uart.o
+ .debug_macro   0x0000000000000000       0x22 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x8e Obj/uart.o
+ .debug_macro   0x0000000000000000       0x51 Obj/uart.o
+ .debug_macro   0x0000000000000000       0xef Obj/uart.o
+ .debug_macro   0x0000000000000000       0x6a Obj/uart.o
+ .debug_macro   0x0000000000000000      0x1df Obj/uart.o
+ .debug_macro   0x0000000000000000       0x22 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x46 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x4c Obj/uart.o
+ .debug_macro   0x0000000000000000       0x3a Obj/uart.o
+ .debug_macro   0x0000000000000000       0x19 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x4c Obj/uart.o
+ .debug_macro   0x0000000000000000       0x34 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x34 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x16 Obj/uart.o
+ .debug_macro   0x0000000000000000      0x10e Obj/uart.o
+ .debug_macro   0x0000000000000000       0x8d Obj/uart.o
+ .debug_macro   0x0000000000000000       0x52 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x1f Obj/uart.o
+ .debug_macro   0x0000000000000000       0x43 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x20 Obj/uart.o
+ .debug_macro   0x0000000000000000      0x18e Obj/uart.o
+ .debug_macro   0x0000000000000000      0x330 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x16 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x29 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x31 Obj/uart.o
+ .debug_macro   0x0000000000000000      0x20a Obj/uart.o
+ .debug_macro   0x0000000000000000       0x6a Obj/uart.o
+ .debug_macro   0x0000000000000000       0x4c Obj/uart.o
+ .debug_macro   0x0000000000000000       0x40 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x16 Obj/uart.o
+ .debug_macro   0x0000000000000000       0x35 Obj/uart.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .group         0x0000000000000000        0xc Obj/console.o
+ .data          0x0000000000000000        0x0 Obj/console.o
+ .debug_macro   0x0000000000000000      0x74e Obj/console.o
+ .debug_macro   0x0000000000000000       0x22 Obj/console.o
+ .debug_macro   0x0000000000000000       0x8e Obj/console.o
+ .debug_macro   0x0000000000000000       0x51 Obj/console.o
+ .debug_macro   0x0000000000000000       0xef Obj/console.o
+ .debug_macro   0x0000000000000000       0x6a Obj/console.o
+ .debug_macro   0x0000000000000000      0x1df Obj/console.o
+ .debug_macro   0x0000000000000000       0x22 Obj/console.o
+ .debug_macro   0x0000000000000000       0x46 Obj/console.o
+ .debug_macro   0x0000000000000000       0x4c Obj/console.o
+ .debug_macro   0x0000000000000000       0x40 Obj/console.o
+ .debug_macro   0x0000000000000000       0x10 Obj/console.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .group         0x0000000000000000        0xc Obj/fifo.o
+ .text          0x0000000000000000      0x176 Obj/fifo.o
+ .data          0x0000000000000000        0x0 Obj/fifo.o
+ .bss           0x0000000000000000        0x0 Obj/fifo.o
+ .debug_info    0x0000000000000000      0xb8a Obj/fifo.o
+ .debug_abbrev  0x0000000000000000      0x270 Obj/fifo.o
+ .debug_loc     0x0000000000000000      0x333 Obj/fifo.o
+ .debug_aranges
+                0x0000000000000000       0x20 Obj/fifo.o
+ .debug_macro   0x0000000000000000      0x1ba Obj/fifo.o
+ .debug_macro   0x0000000000000000      0x74e Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x22 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x8e Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x51 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0xef Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x6a Obj/fifo.o
+ .debug_macro   0x0000000000000000      0x1df Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x22 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x46 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x4c Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x3a Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x19 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x4c Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x34 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x34 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x16 Obj/fifo.o
+ .debug_macro   0x0000000000000000      0x10e Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x8d Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x52 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x1f Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x43 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x20 Obj/fifo.o
+ .debug_macro   0x0000000000000000      0x18e Obj/fifo.o
+ .debug_macro   0x0000000000000000      0x330 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x16 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x29 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x31 Obj/fifo.o
+ .debug_macro   0x0000000000000000      0x20a Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x6a Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x40 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x16 Obj/fifo.o
+ .debug_macro   0x0000000000000000       0x35 Obj/fifo.o
+ .debug_line    0x0000000000000000      0x605 Obj/fifo.o
+ .debug_str     0x0000000000000000     0x749f Obj/fifo.o
+ .comment       0x0000000000000000       0x35 Obj/fifo.o
+ .debug_frame   0x0000000000000000       0x70 Obj/fifo.o
+ .riscv.attributes
+                0x0000000000000000       0x2b Obj/fifo.o
+ .data          0x0000000000000000        0x0 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a(div.o)
+ .bss           0x0000000000000000        0x0 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a(div.o)
+ .text          0x0000000000000000      0x130 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-memcpy.o)
+ .data          0x0000000000000000        0x0 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-memcpy.o)
+ .bss           0x0000000000000000        0x0 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-memcpy.o)
+ .comment       0x0000000000000000       0x35 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-memcpy.o)
+ .riscv.attributes
+                0x0000000000000000       0x1f d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-memcpy.o)
+ .data          0x0000000000000000        0x0 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-memset.o)
+ .bss           0x0000000000000000        0x0 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-memset.o)
+ .data          0x0000000000000000        0x0 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-strcmp.o)
+ .bss           0x0000000000000000        0x0 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-strcmp.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x0000000001000000 0x0000000000001000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD Obj/isr.o
+LOAD Obj/startup.o
+LOAD Obj/vectors.o
+LOAD Obj/main.o
+LOAD Obj/board_init.o
+LOAD Obj/shell.o
+LOAD Obj/system.o
+LOAD Obj/stc.o
+LOAD Obj/uart.o
+LOAD Obj/console.o
+LOAD Obj/fifo.o
+LOAD d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a
+START GROUP
+LOAD d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a
+LOAD d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libgloss.a
+END GROUP
+LOAD d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a
+                [!provide]                        PROVIDE (__stack = (ORIGIN (RAM) + LENGTH (RAM)))
+
+.text           0x0000000001000000      0xcc0
+                0x0000000001000000                . = ALIGN (0x4)
+                0x0000000001000000                __stext = .
+ *startup.o(.vectors)
+ *startup.o(.text)
+ .text          0x0000000001000000       0x34 Obj/startup.o
+                0x0000000001000008                Reset_Handler
+ *(.text)
+ .text          0x0000000001000034       0x1a Obj/main.o
+                0x0000000001000034                main
+ .text          0x000000000100004e        0xe Obj/board_init.o
+                0x000000000100004e                board_init
+ .text          0x000000000100005c      0x526 Obj/shell.o
+                0x000000000100021c                dump
+                0x0000000001000252                stoi
+                0x00000000010003e8                sh_init
+                0x0000000001000408                sh_loop
+                0x000000000100057c                sh_error
+ .text          0x0000000001000582       0x62 Obj/system.o
+                0x0000000001000582                SystemInit
+ .text          0x00000000010005e4       0xc4 Obj/stc.o
+                0x000000000100062c                stc_init
+                0x0000000001000638                tick_count
+                0x0000000001000640                tick_diff
+                0x0000000001000662                tick_diff_ms
+                0x0000000001000678                delay_ms
+ .text          0x00000000010006a8      0x24e Obj/uart.o
+                0x00000000010006a8                uart_init
+                0x00000000010007f0                uart_send
+                0x0000000001000872                uart_receive
+ .text          0x00000000010008f6      0x170 Obj/console.o
+                0x00000000010008f6                console_init
+                0x000000000100090c                getchar
+                0x0000000001000932                putchar
+                0x000000000100097c                puts
+                0x00000000010009a8                put_h8
+                0x0000000001000a04                put_h16
+                0x0000000001000a34                put_h32
+ *fill*         0x0000000001000a66        0x2 
+ .text          0x0000000001000a68       0x7e d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a(div.o)
+                0x0000000001000a68                __divsi3
+                0x0000000001000a70                __udivsi3
+                0x0000000001000a9c                __umodsi3
+                0x0000000001000ac0                __modsi3
+ *fill*         0x0000000001000ae6        0x2 
+ .text          0x0000000001000ae8       0xae d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-memset.o)
+                0x0000000001000ae8                memset
+ *fill*         0x0000000001000b96        0x2 
+ .text          0x0000000001000b98      0x122 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-strcmp.o)
+                0x0000000001000b98                strcmp
+ *(.text*)
+ *(.text.*)
+                0x0000000001000cc0                . = ALIGN (0x10)
+ *fill*         0x0000000001000cba        0x6 
+                0x0000000001000cc0                __etext = .
+
+.rodata         0x0000000001000cc0      0x140
+                0x0000000001000cc0                . = ALIGN (0x4)
+                0x0000000001000cc0                __srodata = .
+ *(.rdata)
+ *(.rdata*)
+ *(.rdata.*)
+ *(.rodata)
+ .rodata        0x0000000001000cc0       0x24 Obj/shell.o
+ .rodata        0x0000000001000ce4       0x4c Obj/uart.o
+                0x0000000001000ce4                buad_rates
+ .rodata        0x0000000001000d30       0x11 Obj/console.o
+ *(.rodata*)
+ *fill*         0x0000000001000d41        0x3 
+ .rodata.str1.4
+                0x0000000001000d44       0x21 Obj/main.o
+ *fill*         0x0000000001000d65        0x3 
+ .rodata.str1.4
+                0x0000000001000d68       0x98 Obj/shell.o
+                                         0x95 (size before relaxing)
+ *(.rodata.*)
+                0x0000000001000e00                . = ALIGN (0x10)
+                0x0000000001000e00                __erodata = .
+
+.rela.dyn       0x0000000001000e00        0x0
+ .rela.text     0x0000000001000e00        0x0 Obj/startup.o
+
+.data           0x0000000001000e00        0x0
+                0x0000000001000e00                . = ALIGN (0x4)
+                0x0000000001000e00                __sdata = .
+                0x0000000001000e00                __data_start = .
+ *(.data)
+ *(.data*)
+ *(.data.*)
+                0x0000000001000e00                __global_pointer$ = .
+ *(.sdata)
+ *(.sdata.*)
+                0x0000000001000e00                . = ALIGN (0x10)
+                0x0000000001000e00                __data_end__ = .
+                0x0000000001000e00                __edata = .
+
+.bss            0x0000000001000e00      0x160
+                0x0000000001000e00                . = ALIGN (0x4)
+                0x0000000001000e00                __sbss = ALIGN (0x4)
+                0x0000000001000e00                __bss_start__ = .
+ *(.bss)
+ .bss           0x0000000001000e00       0x5c Obj/shell.o
+ .bss           0x0000000001000e5c        0x4 Obj/console.o
+ *(.bss.*)
+ .bss.app_stack
+                0x0000000001000e60       0xc0 Obj/startup.o
+                0x0000000001000e60                g_base_irqstack
+                0x0000000001000f20                g_top_irqstack
+ *(COMMON)
+ COMMON         0x0000000001000f20       0x40 Obj/uart.o
+                0x0000000001000f20                uart_dev
+                0x0000000001000f60                . = ALIGN (0x10)
+                0x0000000001000f60                __bss_end__ = .
+ *startup.o(.bss.app_stack)
+ *startup.o(.bss.trap_stack)
+                0x0000000001000f60                __end = .
+                0x0000000001000f60                end = .
+OUTPUT(Obj/sh_test.elf elf32-littleriscv)
+
+.riscv.attributes
+                0x0000000000000000       0x2b
+ .riscv.attributes
+                0x0000000000000000       0x2b Obj/startup.o
+ .riscv.attributes
+                0x000000000000002b       0x2b Obj/main.o
+ .riscv.attributes
+                0x0000000000000056       0x2b Obj/board_init.o
+ .riscv.attributes
+                0x0000000000000081       0x2b Obj/shell.o
+ .riscv.attributes
+                0x00000000000000ac       0x2b Obj/system.o
+ .riscv.attributes
+                0x00000000000000d7       0x2b Obj/stc.o
+ .riscv.attributes
+                0x0000000000000102       0x2b Obj/uart.o
+ .riscv.attributes
+                0x000000000000012d       0x2b Obj/console.o
+ .riscv.attributes
+                0x0000000000000158       0x1f d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a(div.o)
+ .riscv.attributes
+                0x0000000000000177       0x1f d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-memset.o)
+ .riscv.attributes
+                0x0000000000000196       0x1f d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/../../../../riscv64-unknown-elf/lib/rv32ec/ilp32e\libc.a(lib_a-strcmp.o)
+
+.comment        0x0000000000000000       0x34
+ .comment       0x0000000000000000       0x34 Obj/main.o
+                                         0x35 (size before relaxing)
+ .comment       0x0000000000000034       0x35 Obj/board_init.o
+ .comment       0x0000000000000034       0x35 Obj/shell.o
+ .comment       0x0000000000000034       0x35 Obj/system.o
+ .comment       0x0000000000000034       0x35 Obj/stc.o
+ .comment       0x0000000000000034       0x35 Obj/uart.o
+ .comment       0x0000000000000034       0x35 Obj/console.o
+
+.debug_line     0x0000000000000000     0x2d7b
+ .debug_line    0x0000000000000000       0x71 Obj/startup.o
+ .debug_line    0x0000000000000071      0x393 Obj/main.o
+ .debug_line    0x0000000000000404      0x24d Obj/board_init.o
+ .debug_line    0x0000000000000651      0xf26 Obj/shell.o
+ .debug_line    0x0000000000001577      0x378 Obj/system.o
+ .debug_line    0x00000000000018ef      0x4cf Obj/stc.o
+ .debug_line    0x0000000000001dbe      0x90e Obj/uart.o
+ .debug_line    0x00000000000026cc      0x533 Obj/console.o
+ .debug_line    0x0000000000002bff      0x17c d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a(div.o)
+
+.debug_info     0x0000000000000000     0x4676
+ .debug_info    0x0000000000000000       0x26 Obj/startup.o
+ .debug_info    0x0000000000000026      0x9d1 Obj/main.o
+ .debug_info    0x00000000000009f7       0x9c Obj/board_init.o
+ .debug_info    0x0000000000000a93     0x1328 Obj/shell.o
+ .debug_info    0x0000000000001dbb      0xa03 Obj/system.o
+ .debug_info    0x00000000000027be      0xaf7 Obj/stc.o
+ .debug_info    0x00000000000032b5      0xfc9 Obj/uart.o
+ .debug_info    0x000000000000427e      0x3d2 Obj/console.o
+ .debug_info    0x0000000000004650       0x26 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a(div.o)
+
+.debug_abbrev   0x0000000000000000     0x111e
+ .debug_abbrev  0x0000000000000000       0x14 Obj/startup.o
+ .debug_abbrev  0x0000000000000014      0x232 Obj/main.o
+ .debug_abbrev  0x0000000000000246       0x67 Obj/board_init.o
+ .debug_abbrev  0x00000000000002ad      0x428 Obj/shell.o
+ .debug_abbrev  0x00000000000006d5      0x24f Obj/system.o
+ .debug_abbrev  0x0000000000000924      0x2dc Obj/stc.o
+ .debug_abbrev  0x0000000000000c00      0x337 Obj/uart.o
+ .debug_abbrev  0x0000000000000f37      0x1d3 Obj/console.o
+ .debug_abbrev  0x000000000000110a       0x14 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a(div.o)
+
+.debug_aranges  0x0000000000000000      0x120
+ .debug_aranges
+                0x0000000000000000       0x20 Obj/startup.o
+ .debug_aranges
+                0x0000000000000020       0x20 Obj/main.o
+ .debug_aranges
+                0x0000000000000040       0x20 Obj/board_init.o
+ .debug_aranges
+                0x0000000000000060       0x20 Obj/shell.o
+ .debug_aranges
+                0x0000000000000080       0x20 Obj/system.o
+ .debug_aranges
+                0x00000000000000a0       0x20 Obj/stc.o
+ .debug_aranges
+                0x00000000000000c0       0x20 Obj/uart.o
+ .debug_aranges
+                0x00000000000000e0       0x20 Obj/console.o
+ .debug_aranges
+                0x0000000000000100       0x20 d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a(div.o)
+
+.debug_str      0x0000000000000000     0x7cb9
+ .debug_str     0x0000000000000000       0x38 Obj/startup.o
+ .debug_str     0x0000000000000038     0x72f3 Obj/main.o
+                                       0x7544 (size before relaxing)
+ .debug_str     0x000000000000732b       0x25 Obj/board_init.o
+                                       0x3628 (size before relaxing)
+ .debug_str     0x0000000000007350      0x24d Obj/shell.o
+                                       0x77cd (size before relaxing)
+ .debug_str     0x000000000000759d       0x6d Obj/system.o
+                                       0x7293 (size before relaxing)
+ .debug_str     0x000000000000760a      0x1ae Obj/stc.o
+                                       0x7688 (size before relaxing)
+ .debug_str     0x00000000000077b8      0x3c0 Obj/uart.o
+                                       0x7951 (size before relaxing)
+ .debug_str     0x0000000000007b78       0x82 Obj/console.o
+                                       0x39b6 (size before relaxing)
+ .debug_str     0x0000000000007bfa       0xbf d:/c-sky/cdk/csky/mingw/riscv64-unknown-elf-toolchain/bin/../lib/gcc/riscv64-unknown-elf/8.4.0/rv32ec/ilp32e\libgcc.a(div.o)
+                                         0xcb (size before relaxing)
+
+.debug_macro    0x0000000000000000      0xb43
+ .debug_macro   0x0000000000000000      0x19e Obj/main.o
+ .debug_macro   0x000000000000019e       0x4c Obj/main.o
+ .debug_macro   0x00000000000001ea       0x40 Obj/main.o
+ .debug_macro   0x000000000000022a       0x10 Obj/main.o
+ .debug_macro   0x000000000000023a       0x10 Obj/main.o
+ .debug_macro   0x000000000000024a       0x94 Obj/board_init.o
+ .debug_macro   0x00000000000002de      0x1f4 Obj/shell.o
+ .debug_macro   0x00000000000004d2       0x16 Obj/shell.o
+ .debug_macro   0x00000000000004e8       0x35 Obj/shell.o
+ .debug_macro   0x000000000000051d      0x180 Obj/system.o
+ .debug_macro   0x000000000000069d      0x1c8 Obj/stc.o
+ .debug_macro   0x0000000000000865      0x1e1 Obj/uart.o
+ .debug_macro   0x0000000000000a46       0xb7 Obj/console.o
+ .debug_macro   0x0000000000000afd       0x46 Obj/console.o
+
+.debug_frame    0x0000000000000000      0x45c
+ .debug_frame   0x0000000000000000       0x28 Obj/main.o
+ .debug_frame   0x0000000000000028       0x2c Obj/board_init.o
+ .debug_frame   0x0000000000000054      0x18c Obj/shell.o
+ .debug_frame   0x00000000000001e0       0x30 Obj/system.o
+ .debug_frame   0x0000000000000210       0xcc Obj/stc.o
+ .debug_frame   0x00000000000002dc       0x80 Obj/uart.o
+ .debug_frame   0x000000000000035c      0x100 Obj/console.o
+
+.debug_loc      0x0000000000000000      0xe48
+ .debug_loc     0x0000000000000000      0x6ca Obj/shell.o
+ .debug_loc     0x00000000000006ca       0x28 Obj/system.o
+ .debug_loc     0x00000000000006f2      0x122 Obj/stc.o
+ .debug_loc     0x0000000000000814      0x4cb Obj/uart.o
+ .debug_loc     0x0000000000000cdf      0x169 Obj/console.o
+
+.debug_ranges   0x0000000000000000       0x90
+ .debug_ranges  0x0000000000000000       0x30 Obj/shell.o
+ .debug_ranges  0x0000000000000030       0x18 Obj/system.o
+ .debug_ranges  0x0000000000000048       0x48 Obj/console.o

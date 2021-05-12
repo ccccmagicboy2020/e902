@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Session Name="D:\cccc2020\CODE\e902\src\sh_test\sh_test.cdkws">
-  <int Value="5" Name="m_selectedTab"/>
+  <int Value="1" Name="m_selectedTab"/>
   <wxString Value="D:\cccc2020\CODE\e902\src\sh_test\sh_test.cdkws" Name="m_workspaceName"/>
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
@@ -12,36 +12,36 @@
     </TabInfo>
     <TabInfo>
       <wxString Value="D:\cccc2020\CODE\e902\src\sh_test\main.c" Name="FileName"/>
-      <int Value="12" Name="FirstVisibleLine"/>
-      <int Value="3" Name="CurrentLine"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="6" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
       <wxString Value="D:\cccc2020\CODE\e902\src\sh_test\uart.c" Name="FileName"/>
-      <int Value="185" Name="FirstVisibleLine"/>
-      <int Value="175" Name="CurrentLine"/>
+      <int Value="196" Name="FirstVisibleLine"/>
+      <int Value="202" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
       <wxString Value="D:\cccc2020\CODE\e902\src\sh_test\console.c" Name="FileName"/>
-      <int Value="30" Name="FirstVisibleLine"/>
-      <int Value="52" Name="CurrentLine"/>
+      <int Value="47" Name="FirstVisibleLine"/>
+      <int Value="60" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
       <wxString Value="D:\cccc2020\CODE\e902\src\sh_test\config.h" Name="FileName"/>
       <int Value="0" Name="FirstVisibleLine"/>
-      <int Value="20" Name="CurrentLine"/>
+      <int Value="3" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
       <wxString Value="D:\cccc2020\CODE\e902\src\sh_test\stc.c" Name="FileName"/>
-      <int Value="100" Name="FirstVisibleLine"/>
-      <int Value="120" Name="CurrentLine"/>
+      <int Value="97" Name="FirstVisibleLine"/>
+      <int Value="98" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
@@ -82,8 +82,22 @@
     </TabInfo>
     <TabInfo>
       <wxString Value="D:\cccc2020\CODE\e902\src\sh_test\startup.S" Name="FileName"/>
-      <int Value="81" Name="FirstVisibleLine"/>
-      <int Value="88" Name="CurrentLine"/>
+      <int Value="153" Name="FirstVisibleLine"/>
+      <int Value="166" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="D:\cccc2020\CODE\e902\src\sh_test\shell.c" Name="FileName"/>
+      <int Value="496" Name="FirstVisibleLine"/>
+      <int Value="506" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="D:\cccc2020\CODE\e902\src\sh_test\isr.c" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="1" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
