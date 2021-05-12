@@ -21,9 +21,6 @@
     <File Name="gdb.init">
       <FileOption/>
     </File>
-    <File Name="flash.init">
-      <FileOption/>
-    </File>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
     <File Name="main.c">
@@ -35,7 +32,7 @@
   </VirtualDirectory>
   <MonitorProgress>
     <DebugLaunch>35</DebugLaunch>
-    <FlashOperate>46</FlashOperate>
+    <FlashOperate>47</FlashOperate>
   </MonitorProgress>
   <Dependencies Name="BuildSet"/>
   <BuildConfigs>
@@ -112,7 +109,7 @@
         <OutputName>$(ProjectName)</OutputName>
         <Type>Executable</Type>
         <CreateHexFile>yes</CreateHexFile>
-        <CreateBinFile>yes</CreateBinFile>
+        <CreateBinFile>no</CreateBinFile>
         <Preprocessor>no</Preprocessor>
         <Disassmeble>yes</Disassmeble>
         <CallGraph>no</CallGraph>
@@ -125,10 +122,10 @@
         </BeforeCompile>
         <BeforeMake>
           <RunUserProg>yes</RunUserProg>
-          <UserProgName>riscv64-unknown-elf-gcc -I. -I ..\tools -E -P ..\tools\memory.ld.c -o memory.ld</UserProgName>
+          <UserProgName>riscv64-unknown-elf-gcc -I. -I ..\tools -E -P ..\tools\memory.ld.c -o Obj\memory.ld</UserProgName>
         </BeforeMake>
         <AfterMake>
-          <RunUserProg>yes</RunUserProg>
+          <RunUserProg>no</RunUserProg>
           <UserProgName>$(ProjectPath)post_build.sh $(ProjectPath) $(ProjectOutputFile)</UserProgName>
         </AfterMake>
       </User>
@@ -137,7 +134,7 @@
         <Undefine/>
         <Optim>Optimize (-Og)</Optim>
         <DebugLevel>Default (-g)</DebugLevel>
-        <IncludePath>$(ProjectPath);$(CDKPath)/CSKY/Flash;$(CDKPath)/CSKY/csi/csi_core/include/;$(CDKPath)/CSKY/csi/csi_core/csi_cdk/;$(CDKPath)/CSKY/csi/csi_driver/include/</IncludePath>
+        <IncludePath>$(ProjectPath);$(CDKPath)/CSKY/Flash;$(CDKPath)/CSKY/csi/csi_core/include/;$(CDKPath)/CSKY/csi/csi_core/csi_cdk/;$(CDKPath)/CSKY/csi/csi_driver/include/;$(ProjectPath)/../nos/</IncludePath>
         <OtherFlags>-fno-isolate-erroneous-paths-dereference</OtherFlags>
         <Verbose>no</Verbose>
         <Ansi>no</Ansi>
@@ -159,6 +156,7 @@
       </Asm>
       <Linker>
         <Garbage>yes</Garbage>
+        <Garbage2>yes</Garbage2>
         <LDFile>$(ProjectPath)/ckcpu.ld</LDFile>
         <LibName/>
         <LibPath/>
@@ -172,10 +170,11 @@
         <StopAt>yes</StopAt>
         <StopAtText>main</StopAtText>
         <InitFile>$(ProjectPath)/gdb.init</InitFile>
+        <AfterLoadFile/>
         <AutoRun>yes</AutoRun>
         <ResetType>Hard Reset</ResetType>
         <SoftResetVal>0</SoftResetVal>
-        <ResetAfterLoad>yes</ResetAfterLoad>
+        <ResetAfterLoad>no</ResetAfterLoad>
         <Dumpcore>no</Dumpcore>
         <DumpcoreText>$(ProjectPath)/$(ProjectName).cdkcore</DumpcoreText>
         <ConfigICE>
@@ -189,9 +188,9 @@
           <TRST>no</TRST>
           <DebugPrint>no</DebugPrint>
           <Connect>Normal</Connect>
-          <ResetType>soft</ResetType>
+          <ResetType>Soft Reset</ResetType>
           <SoftResetVal>0</SoftResetVal>
-          <RTOSType>None</RTOSType>
+          <RTOSType>Bare Metal</RTOSType>
           <DownloadToFlash>no</DownloadToFlash>
           <ResetAfterConnect>yes</ResetAfterConnect>
           <GDBName/>
@@ -205,14 +204,22 @@
           <Log>no</Log>
           <SimTrace>no</SimTrace>
         </ConfigSIM>
+        <ConfigOpenOCD>
+          <OpenOCDExecutablePath/>
+          <OpenOCDTelnetPortEnable>no</OpenOCDTelnetPortEnable>
+          <OpenOCDTelnetPort>4444</OpenOCDTelnetPort>
+          <OpenOCDTclPortEnable>no</OpenOCDTclPortEnable>
+          <OpenOCDTclPort>6666</OpenOCDTclPort>
+          <OpenOCDConfigOptions/>
+        </ConfigOpenOCD>
       </Debug>
       <Flash>
-        <InitFile>flash.init</InitFile>
-        <Erase>Do Not Erase</Erase>
+        <InitFile/>
+        <Erase>Erase Full Chip</Erase>
         <Algorithms Path="">xbr820_spiflash.elf</Algorithms>
-        <Program>no</Program>
+        <Program>yes</Program>
         <Verify>no</Verify>
-        <ResetAndRun>no</ResetAndRun>
+        <ResetAndRun>yes</ResetAndRun>
         <ResetType>Hard Reset</ResetType>
         <SoftResetVal/>
         <External>no</External>
@@ -222,13 +229,13 @@
     </BuildConfig>
   </BuildConfigs>
   <DebugSessions>
-    <watchExpressions>tm_count:1</watchExpressions>
-    <memoryExpressions>;;;</memoryExpressions>
+    <watchExpressions/>
+    <memoryExpressions>;0x1f050000;;</memoryExpressions>
     <statistics>;;MHZ;</statistics>
     <peripheralTabs/>
     <WatchDisplayFormat>1</WatchDisplayFormat>
     <LocalDisplayFormat>1</LocalDisplayFormat>
     <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+    <memoryTabColSizeExpressions>100:8;72:4;100:8;100:8;</memoryTabColSizeExpressions>
   </DebugSessions>
 </Project>

@@ -1,1 +1,0 @@
-Obj/isr.o Obj/startup.o Obj/vectors.o Obj/main.o Obj/board_init.o Obj/shell.o Obj/system.o Obj/stc.o Obj/uart.o Obj/console.o Obj/fifo.o 

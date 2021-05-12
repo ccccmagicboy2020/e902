@@ -9,7 +9,7 @@ OUTPUT_ARCH( "riscv" )
 */
 ENTRY( Reset_Handler )
 
-INCLUDE memory.ld
+INCLUDE Obj\memory.ld
 
 PROVIDE (__stack = ORIGIN(RAM) + LENGTH(RAM));
 

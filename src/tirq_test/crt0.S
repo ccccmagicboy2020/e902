@@ -102,7 +102,7 @@ Reset_Handler:
 	li      t1, 0x12	# boot from flash & SRAM used for data buffer
 	sw      t1, (t0)
 #endif
-    /* Load code & data section */
+	/* Load code & data section */
     la      a0, __etext
     la      a1, __scode + CONFIG_IBUS2SBUS_OFFSET
     la      a2, __data_end__ + CONFIG_IBUS2SBUS_OFFSET
@@ -114,6 +114,17 @@ Reset_Handler:
     addi    a1, a1, 4
     bltu    a1, a2, 1b
 2:
+#ifndef __NO_BSS_INIT
+    /* Clear bss section */
+    la      a0, __bss_start__ + CONFIG_IBUS2SBUS_OFFSET
+    la      a1, __bss_end__ + CONFIG_IBUS2SBUS_OFFSET
+    bgeu    a0, a1, 2f
+1:
+    sw      zero, (a0)
+    addi    a0, a0, 4
+    bltu    a0, a1, 1b
+2:
+#endif
 #ifdef CONFIG_SBUS_LOAD
 	la      t0, 0x1f010058
 	li      t1, 0x10

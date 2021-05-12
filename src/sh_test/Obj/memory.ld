@@ -1,6 +1,0 @@
-MEMORY
-{
-  RAM :
-  ORIGIN = 0x01000000 ,
-  LENGTH = 0x00001000
-}
