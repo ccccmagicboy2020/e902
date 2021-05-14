@@ -207,16 +207,94 @@ int CTest1Dlg::test_memory( struct target *target )
 {
 	unsigned char rbuff[128];
 	int ret = 0;
+	unsigned int adc_raw = 0;		//adc实时值
+	unsigned int bb = 0;			//基带设置及使能
+	unsigned int bb_timer = 0;		//基带采样速度
+	unsigned int adc_ac_sum = 0;	//馒头波的累计值
+	unsigned int adc_ac_avg = 0;	//馒头波的平均值
+	unsigned int adc_dc_sum = 0;	//adc raw data累加，如可以用于光敏
+	unsigned int adc_dc_avg_history1 = 0;	//adc dc 平均历史值
+	unsigned int adc_dc_avg_history2 = 0;	//adc dc 平均历史值
+	unsigned int adc_dc_avg_history3 = 0;	//adc dc 平均历史值
+	unsigned int adc_dc_avg_history4 = 0;	//adc dc 平均历史值
+	unsigned int temp_val = 0;				
+	unsigned int bb_adc_thersh1 = 0;		//距离门限
+	unsigned int bb_adc_thersh2 = 0;		//底躁门限
+	unsigned int noise_config = 0;			//设定的noise值
+	unsigned int used_noise_val = 0;		//实际用的noise值（基于throshold2变化，或者不基于变化）
+	unsigned int t1_val = 0;			//感应延时时间
+	unsigned int t2_val = 0;			//锁定停顿延时
+	unsigned int io_config = 0;			//输出引脚的控制
 
 	printf ("=================== xbr820 pmu adc part test ==================\n\n");
 
-	ret = target_read_memory(target, 0x1f010000, (unsigned char *)rbuff, 128);	//pmu controller register
+	ret = target_read_memory(target, XBR820_PMU_BASE, (unsigned char *)rbuff, 128);	//pmu controller register
 	if (ret < 0) {
 		return ret;
 	}
-
-
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x30, (unsigned char *)&t1_val, 4);
+	t1_val = 3*32000;	//设置为3s的感应延时
+	target_write_memory(target, XBR820_PMU_BASE + 0x30, (unsigned char *)&t1_val, 4);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x34, (unsigned char *)&t2_val, 4);
+	t2_val = 1*32000;	//设置为1s的死区时间，如解决继电器的干扰
+	target_write_memory(target, XBR820_PMU_BASE + 0x34, (unsigned char *)&t2_val, 4);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x38, (unsigned char *)&io_config, 4);
+	io_config |= 0x00000008;	//p2.1算法模块输出io使能
+	target_write_memory(target, XBR820_PMU_BASE + 0x38, (unsigned char *)&io_config, 4);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x44, (unsigned char *)&bb, 4);
+	//bb = bb | 0x00000002;//使能adc并且用bb控制adc并且使能32点的平均
+	bb = bb | 0x0000000e;//使能adc并且用bb控制adc并且使能256点的平均
+	target_write_memory(target, XBR820_PMU_BASE + 0x44, (unsigned char *)&bb, 4);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x28, (unsigned char *)&adc_raw, 4);
+	adc_raw &= 0x00000FFF;//取出adc的值
+	printf("adc raw value: 0x%04X(%d)\n", adc_raw, adc_raw);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x48, (unsigned char *)&bb_adc_thersh1, 4);
+	bb_adc_thersh1 = 0x3fff;//调这里可以调感应距离
+	target_write_memory(target, XBR820_PMU_BASE + 0x48, (unsigned char *)&bb_adc_thersh1, 4);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x4C, (unsigned char *)&bb_adc_thersh2, 4);
+	bb_adc_thersh2 = 0x1000;//调这里可以去工频干扰，或者一些现场的干扰
+	target_write_memory(target, XBR820_PMU_BASE + 0x4C, (unsigned char *)&bb_adc_thersh2, 4);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	noise_config = 0x00000260;//写入初始环境noise对比值
+	target_write_memory(target, XBR820_PMU_BASE + 0x50, (unsigned char *)&noise_config, 4);
+	noise_config = 0x00001260;//使数据加载到算法模块
+	target_write_memory(target, XBR820_PMU_BASE + 0x50, (unsigned char *)&noise_config, 4);
+	target_read_memory(target, XBR820_PMU_BASE + 0x50, (unsigned char *)&temp_val, 4);
+	used_noise_val = (temp_val & 0x0fff0000) >> 16;//取出值
+	printf("used_noise_val value: 0x%08X\n", used_noise_val);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x54, (unsigned char *)&bb_timer, 4);
+	bb_timer = (32000/1000) - 1;//1k采样bb速度
+	//bb_timer = (32000/8000) - 1;//8k采样bb速度
+	//bb_timer = (32000/16000) - 1;//16k采样bb速度
+	target_write_memory(target, XBR820_PMU_BASE + 0x54, (unsigned char *)&bb_timer, 4);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x70, (unsigned char *)&adc_ac_sum, 4);
+	adc_ac_sum &= 0x003fffff;//取出值
+	printf("adc_ac_sum value: 0x%08X(%d)\n", adc_ac_sum, adc_ac_sum);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x74, (unsigned char *)&adc_ac_avg, 4);
+	adc_ac_avg &= 0x00000fff;//取出值
+	printf("adc_ac_avg value: 0x%04X(%d)\n", adc_ac_avg, adc_ac_avg);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x78, (unsigned char *)&adc_dc_sum, 4);
+	adc_dc_sum &= 0x003fffff;//取出值
+	printf("adc_dc_sum value: 0x%08X(%d)\n", adc_dc_sum, adc_dc_sum);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x7C, (unsigned char *)&temp_val, 4);
+	adc_dc_avg_history1 = temp_val & 0x00000fff;//取出值
+	adc_dc_avg_history2 = (temp_val & 0x0fff0000) >> 16;//取出值
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	target_read_memory(target, XBR820_PMU_BASE + 0x80, (unsigned char *)&temp_val, 4);
+	adc_dc_avg_history3 = temp_val & 0x00000fff;//取出值
+	adc_dc_avg_history4 = (temp_val & 0x0fff0000) >> 16;//取出值
 
 	return 0;
 }

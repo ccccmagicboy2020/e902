@@ -31,6 +31,8 @@
 #pragma comment (lib, "Target.lib")
 #pragma comment (lib, "libusb-1.0.lib")
 
+#include "xbr820/xbr820.h"
+
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 

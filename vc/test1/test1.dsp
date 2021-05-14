@@ -126,6 +126,10 @@ SOURCE=.\test1.h
 
 SOURCE=.\test1Dlg.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\xbr820\xbr820.h
+# End Source File
 # End Group
 # Begin Group "Resource Files"
 
