@@ -1,0 +1,8 @@
+./sysmap.h
+./E902_20210130.v
+../INST_LIB/gated_clk_cell.v
+../INST_LIB/smic_spsram_128x50.v
+../INST_LIB/smic_spsram_512x32.v
+../LIB/GCKHBQX8AH6.v
+../LIB/RF1_128_50.v
+../LIB/RF1_512_32.v
