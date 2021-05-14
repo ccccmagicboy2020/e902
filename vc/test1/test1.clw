@@ -28,6 +28,8 @@ Type=0
 HeaderFile=test1Dlg.h
 ImplementationFile=test1Dlg.cpp
 Filter=D
+BaseClass=CDialog
+VirtualFilter=dWC
 
 [CLS:CAboutDlg]
 Type=0
@@ -47,7 +49,6 @@ Control4=IDOK,button,1342373889
 [DLG:IDD_TEST1_DIALOG]
 Type=1
 Class=CTest1Dlg
-ControlCount=2
-Control1=IDOK,button,1342242817
-Control2=IDCANCEL,button,1342242816
+ControlCount=1
+Control1=IDC_BUTTON1,button,1342242816
 
