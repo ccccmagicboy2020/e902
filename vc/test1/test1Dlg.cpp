@@ -228,7 +228,7 @@ int CTest1Dlg::test_memory( struct target *target )
 
 	printf ("=================== xbr820 pmu adc part test ==================\n\n");
 
-	ret = target_read_memory(target, XBR820_PMU_BASE, (unsigned char *)rbuff, 128);	//pmu controller register
+	ret = target_read_memory(target, XBR820_PMU_BASE, (unsigned char *)rbuff, 128);	//pmu controller registers
 	if (ret < 0) {
 		return ret;
 	}
@@ -264,6 +264,8 @@ int CTest1Dlg::test_memory( struct target *target )
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	noise_config = 0x00000260;//写入初始环境noise对比值
 	target_write_memory(target, XBR820_PMU_BASE + 0x50, (unsigned char *)&noise_config, 4);
+	//delay here
+	//
 	noise_config = 0x00001260;//使数据加载到算法模块
 	target_write_memory(target, XBR820_PMU_BASE + 0x50, (unsigned char *)&noise_config, 4);
 	target_read_memory(target, XBR820_PMU_BASE + 0x50, (unsigned char *)&temp_val, 4);
