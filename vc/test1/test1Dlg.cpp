@@ -67,6 +67,14 @@ CTest1Dlg::CTest1Dlg(CWnd* pParent /*=NULL*/)
 	//}}AFX_DATA_INIT
 	// Note that LoadIcon does not require a subsequent DestroyIcon in Win32
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+
+	//thread
+	int i;
+	
+	for (i=0;i<MAXIMUM_WAIT_OBJECTS;i++)
+	{
+		m_event_handle[i] = m_event[i].m_hObject;
+	}
 }
 
 void CTest1Dlg::DoDataExchange(CDataExchange* pDX)
@@ -84,6 +92,7 @@ BEGIN_MESSAGE_MAP(CTest1Dlg, CDialog)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
 	ON_WM_CLOSE()
+	ON_WM_TIMER()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -149,6 +158,9 @@ BOOL CTest1Dlg::OnInitDialog()
 		//
 		return TRUE;
     }
+
+	init_timer();
+	init_thread();
 
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -226,7 +238,7 @@ int CTest1Dlg::test_memory( struct target *target )
 	unsigned int t2_val = 0;			//锁定停顿延时
 	unsigned int io_config = 0;			//输出引脚的控制
 
-	printf ("=================== xbr820 pmu adc part test ==================\n\n");
+	TRACE("=================== xbr820 pmu adc part test ==================\n\n");
 
 	ret = target_read_memory(target, XBR820_PMU_BASE, (unsigned char *)rbuff, 128);	//pmu controller registers
 	if (ret < 0) {
@@ -234,70 +246,85 @@ int CTest1Dlg::test_memory( struct target *target )
 	}
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x30, (unsigned char *)&t1_val, 4);
+	TRACE("delay time read back: %d = %ds", t1_val, t1_val/32000);
 	t1_val = 3*32000;	//设置为3s的感应延时
 	target_write_memory(target, XBR820_PMU_BASE + 0x30, (unsigned char *)&t1_val, 4);
+	TRACE("new delay time write: %d = %ds", t1_val, t1_val/32000);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x34, (unsigned char *)&t2_val, 4);
+	TRACE("dead time read back: %d = %ds", t2_val, t2_val/32000);
 	t2_val = 1*32000;	//设置为1s的死区时间，如解决继电器的干扰
 	target_write_memory(target, XBR820_PMU_BASE + 0x34, (unsigned char *)&t2_val, 4);
+	TRACE("new dead time write: %d = %ds", t2_val, t2_val/32000);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x38, (unsigned char *)&io_config, 4);
 	io_config |= 0x00000008;	//p2.1算法模块输出io使能
 	target_write_memory(target, XBR820_PMU_BASE + 0x38, (unsigned char *)&io_config, 4);
+	TRACE("enable the p2.1 io output!");
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x44, (unsigned char *)&bb, 4);
 	//bb = bb | 0x00000002;//使能adc并且用bb控制adc并且使能32点的平均
 	bb = bb | 0x0000000e;//使能adc并且用bb控制adc并且使能256点的平均
 	target_write_memory(target, XBR820_PMU_BASE + 0x44, (unsigned char *)&bb, 4);
+	TRACE("enable bb 256 points avg!");
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x28, (unsigned char *)&adc_raw, 4);
 	adc_raw &= 0x00000FFF;//取出adc的值
-	printf("adc raw value: 0x%04X(%d)\n", adc_raw, adc_raw);
+	TRACE("adc raw value: 0x%04X(%d)\n", adc_raw, adc_raw);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x48, (unsigned char *)&bb_adc_thersh1, 4);
+	TRACE("bb_adc_thersh1 read back: 0x%06X(%d)", bb_adc_thersh1, bb_adc_thersh1);
 	bb_adc_thersh1 = 0x3fff;//调这里可以调感应距离
 	target_write_memory(target, XBR820_PMU_BASE + 0x48, (unsigned char *)&bb_adc_thersh1, 4);
+	TRACE("new bb_adc_thersh1 write: 0x%06X(%d)", bb_adc_thersh1, bb_adc_thersh1);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x4C, (unsigned char *)&bb_adc_thersh2, 4);
+	TRACE("bb_adc_thersh2 read back: 0x%06X(%d)", bb_adc_thersh2, bb_adc_thersh2);
 	bb_adc_thersh2 = 0x1000;//调这里可以去工频干扰，或者一些现场的干扰
 	target_write_memory(target, XBR820_PMU_BASE + 0x4C, (unsigned char *)&bb_adc_thersh2, 4);
+	TRACE("new bb_adc_thersh2 write: 0x%06X(%d)", bb_adc_thersh2, bb_adc_thersh2);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	noise_config = 0x00000260;//写入初始环境noise对比值
 	target_write_memory(target, XBR820_PMU_BASE + 0x50, (unsigned char *)&noise_config, 4);
 	//delay here
-	//
+	Sleep(10);
 	noise_config = 0x00001260;//使数据加载到算法模块
 	target_write_memory(target, XBR820_PMU_BASE + 0x50, (unsigned char *)&noise_config, 4);
+	TRACE("load new noise_config to bb: 0x%03X(%d)", noise_config & 0x00000fff, noise_config & 0x00000fff);
 	target_read_memory(target, XBR820_PMU_BASE + 0x50, (unsigned char *)&temp_val, 4);
 	used_noise_val = (temp_val & 0x0fff0000) >> 16;//取出值
-	printf("used_noise_val value: 0x%08X\n", used_noise_val);
+	TRACE("used_noise_val value: 0x%08X(%d)", used_noise_val, used_noise_val);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x54, (unsigned char *)&bb_timer, 4);
 	bb_timer = (32000/1000) - 1;//1k采样bb速度
 	//bb_timer = (32000/8000) - 1;//8k采样bb速度
 	//bb_timer = (32000/16000) - 1;//16k采样bb速度
 	target_write_memory(target, XBR820_PMU_BASE + 0x54, (unsigned char *)&bb_timer, 4);
+	TRACE("bb timer is set to 1KHz!");
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x70, (unsigned char *)&adc_ac_sum, 4);
 	adc_ac_sum &= 0x003fffff;//取出值
-	printf("adc_ac_sum value: 0x%08X(%d)\n", adc_ac_sum, adc_ac_sum);
+	TRACE("adc_ac_sum value: 0x%08X(%d)", adc_ac_sum, adc_ac_sum);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x74, (unsigned char *)&adc_ac_avg, 4);
 	adc_ac_avg &= 0x00000fff;//取出值
-	printf("adc_ac_avg value: 0x%04X(%d)\n", adc_ac_avg, adc_ac_avg);
+	TRACE("adc_ac_avg value: 0x%04X(%d)", adc_ac_avg, adc_ac_avg);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x78, (unsigned char *)&adc_dc_sum, 4);
 	adc_dc_sum &= 0x003fffff;//取出值
-	printf("adc_dc_sum value: 0x%08X(%d)\n", adc_dc_sum, adc_dc_sum);
+	TRACE("adc_dc_sum value: 0x%08X(%d)", adc_dc_sum, adc_dc_sum);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x7C, (unsigned char *)&temp_val, 4);
 	adc_dc_avg_history1 = temp_val & 0x00000fff;//取出值
 	adc_dc_avg_history2 = (temp_val & 0x0fff0000) >> 16;//取出值
+	TRACE("adc_dc_avg_history1 value: 0x%04X(%d)", adc_dc_avg_history1, adc_dc_avg_history1);
+	TRACE("adc_dc_avg_history2 value: 0x%04X(%d)", adc_dc_avg_history2, adc_dc_avg_history2);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x80, (unsigned char *)&temp_val, 4);
 	adc_dc_avg_history3 = temp_val & 0x00000fff;//取出值
 	adc_dc_avg_history4 = (temp_val & 0x0fff0000) >> 16;//取出值
-
+	TRACE("adc_dc_avg_history3 value: 0x%04X(%d)", adc_dc_avg_history3, adc_dc_avg_history3);
+	TRACE("adc_dc_avg_history4 value: 0x%04X(%d)", adc_dc_avg_history4, adc_dc_avg_history4);
 	return 0;
 }
 
@@ -311,6 +338,7 @@ void CTest1Dlg::OnButton1()
 void CTest1Dlg::PostNcDestroy() 
 {
 	// TODO: Add your specialized code here and/or call the base class
+	waitThreads();
 	
 	CDialog::PostNcDestroy();
 }
@@ -321,4 +349,105 @@ void CTest1Dlg::OnClose()
 	target_close (cfg.target);
 
 	CDialog::OnClose();
+}
+
+void CTest1Dlg::init_timer()
+{
+	SetTimer(0, 200, NULL);	//200ms一次
+}
+
+void CTest1Dlg::init_thread()
+{
+	CString	thread_str;
+	
+	//负责写硬件命令到控制板
+	CWinThread *th0 = AfxBeginThread(Read_ac, this, THREAD_PRIORITY_NORMAL, 0, CREATE_SUSPENDED);
+	SetThreadName(th0->m_nThreadID, "read_ac");
+	th0->ResumeThread();
+
+}
+
+void CTest1Dlg::OnTimer(UINT nIDEvent) 
+{
+	switch (nIDEvent)
+	{
+	case 0:
+		update_var_display();
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	default:
+		break;
+	}
+	
+	CDialog::OnTimer(nIDEvent);
+}
+
+UINT CTest1Dlg::Read_ac( void* p_Param )
+{
+	CTest1App* global_var = (CTest1App *)AfxGetApp();
+	CTest1Dlg* pThis = (CTest1Dlg*)p_Param;
+
+	unsigned int adc_ac_sum = 0;	//馒头波的累计值
+	
+	while(1)
+	{
+		DWORD thread_status;
+		
+		thread_status = WaitForMultipleObjects(MAXIMUM_WAIT_OBJECTS, pThis->m_event_handle, FALSE, 100);	//100ms duty
+		
+		if (WAIT_TIMEOUT == thread_status)
+		{	
+			//do some thing!
+			//user define
+			target_read_memory(pThis->cfg.target, XBR820_PMU_BASE + 0x70, (unsigned char *)&adc_ac_sum, 4);
+			adc_ac_sum &= 0x003fffff;//取出值
+			global_var->g_adc_ac_sum = adc_ac_sum;
+			//
+			//
+			
+			continue;
+		}
+		else if (WAIT_FAILED == thread_status)
+		{
+			continue;
+		}
+		else
+		{
+			switch (thread_status)
+			{
+			case WAIT_OBJECT_0:
+				pThis->m_event[1].SetEvent();
+				return	0x11111111;
+			case WAIT_OBJECT_0 + 2:
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	
+	return 0x11111111;
+}
+
+void CTest1Dlg::waitThreads()
+{
+	DWORD thread_status;
+	
+	m_event[0].SetEvent();//退出线程0
+	thread_status = WaitForSingleObject(m_event[1], INFINITE);
+	TRACE("th0 quit!");
+}
+
+void CTest1Dlg::update_var_display()
+{
+	CTest1App* global_var = (CTest1App *)AfxGetApp();
+	//read g_adc_ac_sum and display it below!
+	TRACE("adc_ac_sum value: 0x%08X(%d)", global_var->g_adc_ac_sum, global_var->g_adc_ac_sum);
 }

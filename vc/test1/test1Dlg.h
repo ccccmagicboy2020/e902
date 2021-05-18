@@ -8,6 +8,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+
 /////////////////////////////////////////////////////////////////////////////
 // CTest1Dlg dialog
 
@@ -42,13 +43,22 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnButton1();
 	afx_msg void OnClose();
+	afx_msg void OnTimer(UINT nIDEvent);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
+public:
+	static UINT Read_ac( void* p_Param );		//thread0
 
+public:
+	CEvent	m_event[MAXIMUM_WAIT_OBJECTS];	//for thread0
+	HANDLE	m_event_handle[MAXIMUM_WAIT_OBJECTS];
 	//
 	int test_memory (struct target *target);
-
+	void init_timer();
+	void init_thread();
+	void waitThreads();
+	void update_var_display();
 public:
 	dbg_server_cfg_t cfg;
 	struct halt_info info;

@@ -106,6 +106,14 @@ SOURCE=.\test1.rc
 
 SOURCE=.\test1Dlg.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\3rd_part\thread_name\thread_name.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\3rd_part\xtracestd\xtrace.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -128,7 +136,19 @@ SOURCE=.\test1Dlg.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\3rd_part\thread_name\thread_name.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\xbr820\xbr820.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\3rd_part\xtracestd\xtrace.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\3rd_part\xtracestd\xtracestd.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
@@ -166,6 +186,10 @@ SOURCE=.\libs\Utils.lib
 # Begin Source File
 
 SOURCE=.\ReadMe.txt
+# End Source File
+# Begin Source File
+
+SOURCE=.\XPStyle.manifest
 # End Source File
 # End Target
 # End Project

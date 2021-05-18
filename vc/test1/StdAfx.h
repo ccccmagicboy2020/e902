@@ -22,16 +22,28 @@
 
 #include <afxsock.h>		// MFC socket extensions
 
+#include <afxmt.h>
+
+//cklink sdk lib
 #include <dbg-cfg.h>
 #include <dbg-target.h>
 #include <debug.h>
-
 #pragma comment (lib, "XmlParser.lib")
 #pragma comment (lib, "Utils.lib")
 #pragma comment (lib, "Target.lib")
 #pragma comment (lib, "libusb-1.0.lib")
 
+//xbr820 mcu register
 #include "xbr820/xbr820.h"
+
+///增强调试TRACE输出
+#ifdef _DEBUG
+#include "3rd_part\xtracestd\xtrace.h"
+#include "3rd_part\xtracestd\xtracestd.h"
+#endif
+
+///thread name
+#include "3rd_part\thread_name\thread_name.h"
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
