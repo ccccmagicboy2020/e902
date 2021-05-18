@@ -21,7 +21,7 @@ void debugInit()
 	::system("title DEBUGÊä³ö");
 	::system("mode con: cols=80 lines=300");
 
-	::SetWindowPos(cmd, HWND_TOPMOST, 0, 0, 700, 250, SWP_HIDEWINDOW);
+	//::SetWindowPos(cmd, HWND_TOPMOST, 0, 0, 700, 250, SWP_HIDEWINDOW);
 	::SetWindowLong(cmd, GWL_STYLE, GetWindowLong(cmd, GWL_STYLE)&~WS_MINIMIZEBOX);
 	::SetWindowLong(cmd, GWL_STYLE, GetWindowLong(cmd, GWL_STYLE)&~WS_MAXIMIZEBOX);
 	::SetWindowLong(cmd, GWL_STYLE, GetWindowLong(cmd, GWL_STYLE)&~WS_SYSMENU);

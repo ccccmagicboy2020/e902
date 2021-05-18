@@ -91,6 +91,10 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat;asm"
 # Begin Source File
 
+SOURCE=.\3rd_part\mdebug\mdebug.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\StdAfx.cpp
 # ADD CPP /Yc"stdafx.h"
 # End Source File
@@ -118,6 +122,10 @@ SOURCE=.\3rd_part\xtracestd\xtrace.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl;inc"
+# Begin Source File
+
+SOURCE=.\3rd_part\mdebug\mdebug.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\Resource.h

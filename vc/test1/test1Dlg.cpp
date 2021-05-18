@@ -93,6 +93,10 @@ BEGIN_MESSAGE_MAP(CTest1Dlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
 	ON_WM_CLOSE()
 	ON_WM_TIMER()
+	ON_WM_CREATE()
+	ON_BN_CLICKED(IDC_BUTTON2, OnButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, OnButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, OnButton4)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -274,7 +278,7 @@ int CTest1Dlg::test_memory( struct target *target )
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	target_read_memory(target, XBR820_PMU_BASE + 0x48, (unsigned char *)&bb_adc_thersh1, 4);
 	TRACE("bb_adc_thersh1 read back: 0x%06X(%d)", bb_adc_thersh1, bb_adc_thersh1);
-	bb_adc_thersh1 = 0x3fff;//调这里可以调感应距离
+	bb_adc_thersh1 = 2500;//调这里可以调感应距离
 	target_write_memory(target, XBR820_PMU_BASE + 0x48, (unsigned char *)&bb_adc_thersh1, 4);
 	TRACE("new bb_adc_thersh1 write: 0x%06X(%d)", bb_adc_thersh1, bb_adc_thersh1);
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -449,5 +453,59 @@ void CTest1Dlg::update_var_display()
 {
 	CTest1App* global_var = (CTest1App *)AfxGetApp();
 	//read g_adc_ac_sum and display it below!
-	TRACE("adc_ac_sum value: 0x%08X(%d)", global_var->g_adc_ac_sum, global_var->g_adc_ac_sum);
+	mPuts("%06d\n", global_var->g_adc_ac_sum);
+	//TRACE("adc_ac_sum value: 0x%08X(%d)", global_var->g_adc_ac_sum, global_var->g_adc_ac_sum);
+}
+
+int CTest1Dlg::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+{
+	if (CDialog::OnCreate(lpCreateStruct) == -1)
+		return -1;
+	
+	// TODO: Add your specialized creation code here
+	debugInit();
+	
+	return 0;
+}
+
+void CTest1Dlg::OnButton2() 
+{
+	unsigned int bb_adc_thersh1 = 0;		//距离门限
+
+	target_read_memory(cfg.target, XBR820_PMU_BASE + 0x48, (unsigned char *)&bb_adc_thersh1, 4);
+	TRACE("bb_adc_thersh1 read back: 0x%06X(%d)", bb_adc_thersh1, bb_adc_thersh1);
+	bb_adc_thersh1 = 2500;//调这里可以调感应距离
+	target_write_memory(cfg.target, XBR820_PMU_BASE + 0x48, (unsigned char *)&bb_adc_thersh1, 4);
+	TRACE("new bb_adc_thersh1 write: 0x%06X(%d)", bb_adc_thersh1, bb_adc_thersh1);
+	mPutsEx("%frmag");
+	mPuts("new thersh1: %06d\n", bb_adc_thersh1);
+	mPutsEx("%endfr");
+}
+
+void CTest1Dlg::OnButton3() 
+{
+	unsigned int bb_adc_thersh1 = 0;		//距离门限
+
+	target_read_memory(cfg.target, XBR820_PMU_BASE + 0x48, (unsigned char *)&bb_adc_thersh1, 4);
+	TRACE("bb_adc_thersh1 read back: 0x%06X(%d)", bb_adc_thersh1, bb_adc_thersh1);
+	bb_adc_thersh1 = 10000;//调这里可以调感应距离
+	target_write_memory(cfg.target, XBR820_PMU_BASE + 0x48, (unsigned char *)&bb_adc_thersh1, 4);
+	TRACE("new bb_adc_thersh1 write: 0x%06X(%d)", bb_adc_thersh1, bb_adc_thersh1);
+	mPutsEx("%fryellow");
+	mPuts("new thersh1: %06d\n", bb_adc_thersh1);
+	mPutsEx("%endfr");
+}
+
+void CTest1Dlg::OnButton4() 
+{
+	unsigned int bb_adc_thersh1 = 0;		//距离门限
+	
+	target_read_memory(cfg.target, XBR820_PMU_BASE + 0x48, (unsigned char *)&bb_adc_thersh1, 4);
+	TRACE("bb_adc_thersh1 read back: 0x%06X(%d)", bb_adc_thersh1, bb_adc_thersh1);
+	bb_adc_thersh1 = 80000;//调这里可以调感应距离
+	target_write_memory(cfg.target, XBR820_PMU_BASE + 0x48, (unsigned char *)&bb_adc_thersh1, 4);
+	TRACE("new bb_adc_thersh1 write: 0x%06X(%d)", bb_adc_thersh1, bb_adc_thersh1);
+	mPutsEx("%frgreen");
+	mPuts("new thersh1: %06d\n", bb_adc_thersh1);
+	mPutsEx("%endfr");
 }

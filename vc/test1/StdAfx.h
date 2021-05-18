@@ -45,6 +45,10 @@
 ///thread name
 #include "3rd_part\thread_name\thread_name.h"
 
+///mdebugÊä³ö
+#include "3rd_part/mdebug/mdebug.h"
+
+
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 

@@ -7,7 +7,7 @@ LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "test1.h"
 
-ClassCount=4
+ClassCount=3
 Class1=CTest1App
 Class2=CTest1Dlg
 Class3=CAboutDlg
@@ -30,6 +30,7 @@ ImplementationFile=test1Dlg.cpp
 Filter=D
 BaseClass=CDialog
 VirtualFilter=dWC
+LastObject=IDC_BUTTON3
 
 [CLS:CAboutDlg]
 Type=0
@@ -49,6 +50,9 @@ Control4=IDOK,button,1342373889
 [DLG:IDD_TEST1_DIALOG]
 Type=1
 Class=CTest1Dlg
-ControlCount=1
+ControlCount=4
 Control1=IDC_BUTTON1,button,1342242816
+Control2=IDC_BUTTON2,button,1342242816
+Control3=IDC_BUTTON3,button,1342242816
+Control4=IDC_BUTTON4,button,1342242816
 

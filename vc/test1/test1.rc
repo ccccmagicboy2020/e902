@@ -58,6 +58,7 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // 24
@@ -97,6 +98,9 @@ CAPTION "test1"
 FONT 9, "ËÎÌå"
 BEGIN
     PUSHBUTTON      "&Initial",IDC_BUTTON1,7,7,63,26
+    PUSHBUTTON      "Ô¶(10.5m)",IDC_BUTTON2,7,50,62,24
+    PUSHBUTTON      "½ü(4-5m)",IDC_BUTTON3,7,91,62,24
+    PUSHBUTTON      "³¬½ü(0.5m)",IDC_BUTTON4,7,132,62,24
 END
 
 
