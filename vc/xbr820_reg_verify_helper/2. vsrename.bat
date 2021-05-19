@@ -1,0 +1,1 @@
+vsrename.exe xbr820_reg_verify_helper xbr820_reg_verify_helper .\
