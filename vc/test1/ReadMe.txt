@@ -1,46 +1,46 @@
 ========================================================================
-       MICROSOFT FOUNDATION CLASS LIBRARY : test1
+       MICROSOFT FOUNDATION CLASS LIBRARY : pmu_adc
 ========================================================================
 
 
-AppWizard has created this test1 application for you.  This application
+AppWizard has created this pmu_adc application for you.  This application
 not only demonstrates the basics of using the Microsoft Foundation classes
 but is also a starting point for writing your application.
 
 This file contains a summary of what you will find in each of the files that
-make up your test1 application.
+make up your pmu_adc application.
 
-test1.dsp
+pmu_adc.dsp
     This file (the project file) contains information at the project level and
     is used to build a single project or subproject. Other users can share the
     project (.dsp) file, but they should export the makefiles locally.
 
-test1.h
+pmu_adc.h
     This is the main header file for the application.  It includes other
     project specific headers (including Resource.h) and declares the
-    CTest1App application class.
+    Cpmu_adcApp application class.
 
-test1.cpp
+pmu_adc.cpp
     This is the main application source file that contains the application
-    class CTest1App.
+    class Cpmu_adcApp.
 
-test1.rc
+pmu_adc.rc
     This is a listing of all of the Microsoft Windows resources that the
     program uses.  It includes the icons, bitmaps, and cursors that are stored
     in the RES subdirectory.  This file can be directly edited in Microsoft
 	Visual C++.
 
-test1.clw
+pmu_adc.clw
     This file contains information used by ClassWizard to edit existing
     classes or add new classes.  ClassWizard also uses this file to store
     information needed to create and edit message maps and dialog data
     maps and to create prototype member functions.
 
-res\test1.ico
+res\pmu_adc.ico
     This is an icon file, which is used as the application's icon.  This
-    icon is included by the main resource file test1.rc.
+    icon is included by the main resource file pmu_adc.rc.
 
-res\test1.rc2
+res\pmu_adc.rc2
     This file contains resources that are not edited by Microsoft 
 	Visual C++.  You should place all resources not editable by
 	the resource editor in this file.
@@ -52,10 +52,10 @@ res\test1.rc2
 
 AppWizard creates one dialog class:
 
-test1Dlg.h, test1Dlg.cpp - the dialog
-    These files contain your CTest1Dlg class.  This class defines
+pmu_adcDlg.h, pmu_adcDlg.cpp - the dialog
+    These files contain your Cpmu_adcDlg class.  This class defines
     the behavior of your application's main dialog.  The dialog's
-    template is in test1.rc, which can be edited in Microsoft
+    template is in pmu_adc.rc, which can be edited in Microsoft
 	Visual C++.
 
 
@@ -64,7 +64,7 @@ Other standard files:
 
 StdAfx.h, StdAfx.cpp
     These files are used to build a precompiled header (PCH) file
-    named test1.pch and a precompiled types file named StdAfx.obj.
+    named pmu_adc.pch and a precompiled types file named StdAfx.obj.
 
 Resource.h
     This is the standard header file, which defines new resource IDs.

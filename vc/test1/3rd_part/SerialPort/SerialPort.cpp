@@ -20,7 +20,7 @@
 
 #include "stdafx.h"
 #include "SerialPort.h"
-#include "../../APC.h"
+#include "../../pmu_adc.h"
 
 #include <assert.h>
 
@@ -771,7 +771,7 @@ void CSerialPort::ReceiveChar(CSerialPort* port)
 		
 // 		DWORD i = 0;
 // 		CChar_fifo_node* p0;
-// 		CAPCApp* global_var = (CAPCApp *)AfxGetApp();
+// 		Cpmu_adcApp* global_var = (Cpmu_adcApp *)AfxGetApp();
 // 
 // 		for (i=0;i<BytesRead;i++)
 // 		{

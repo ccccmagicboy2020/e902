@@ -117,7 +117,7 @@ protected:
 
 private:
 	static LRESULT CALLBACK CaptionFrameWindowProc(HWND, UINT, WPARAM, LPARAM);
-	static CMap <HWND,HWND,CCustomBitmapButton*,CCustomBitmapButton*> m_mAPCaptionFrames;
+	static CMap <HWND,HWND,CCustomBitmapButton*,CCustomBitmapButton*> m_mpmu_adcaptionFrames;
 	static CCriticalSection m_cs;
 
 private:

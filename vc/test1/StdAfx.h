@@ -25,9 +25,9 @@
 #include <afxmt.h>
 
 //cklink sdk lib
-#include <dbg-cfg.h>
-#include <dbg-target.h>
-#include <debug.h>
+#include "./includes/dbg-cfg.h"
+#include "./includes/dbg-target.h"
+#include "./includes/debug.h"
 #pragma comment (lib, "XmlParser.lib")
 #pragma comment (lib, "Utils.lib")
 #pragma comment (lib, "Target.lib")

@@ -1,1 +1,1 @@
-vsrename.exe APC APC .\
+vsrename.exe pmu_adc pmu_adc .\

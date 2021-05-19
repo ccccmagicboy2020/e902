@@ -19,7 +19,7 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CCustomBitmapButton
 
-CMap <HWND,HWND,CCustomBitmapButton*,CCustomBitmapButton*> CCustomBitmapButton::m_mAPCaptionFrames;
+CMap <HWND,HWND,CCustomBitmapButton*,CCustomBitmapButton*> CCustomBitmapButton::m_mpmu_adcaptionFrames;
 CCriticalSection CCustomBitmapButton::m_cs;
 
 CCustomBitmapButton::CCustomBitmapButton() :
@@ -113,7 +113,7 @@ int CCustomBitmapButton::CreateCaptionFrame(CWnd * pCaptionWnd, int nIDIcon)
 
 	CCustomBitmapButton* p;
 	m_cs.Lock();
-	if(m_mAPCaptionFrames.Lookup(pCaptionWnd->m_hWnd,p))
+	if(m_mpmu_adcaptionFrames.Lookup(pCaptionWnd->m_hWnd,p))
 	{
 		m_cs.Unlock();
 		return CBNERR_INCORRECTPARAMETER;
@@ -123,7 +123,7 @@ int CCustomBitmapButton::CreateCaptionFrame(CWnd * pCaptionWnd, int nIDIcon)
 		m_cs.Unlock();
 		return CBNERR_SETWINDOWLONGFAILED;
 	}
-	m_mAPCaptionFrames.SetAt(pCaptionWnd->m_hWnd,this);
+	m_mpmu_adcaptionFrames.SetAt(pCaptionWnd->m_hWnd,this);
 	m_pCaptionWnd = pCaptionWnd;
 	m_cs.Unlock();
 
@@ -169,7 +169,7 @@ int CCustomBitmapButton::DestroyCaptionFrame()
 		m_cs.Unlock();
 		return CBNERR_SETWINDOWLONGFAILED;
 	}
-	m_mAPCaptionFrames.RemoveKey(m_pCaptionWnd->m_hWnd);
+	m_mpmu_adcaptionFrames.RemoveKey(m_pCaptionWnd->m_hWnd);
 	m_pOldWndProc = NULL;
 	m_pCaptionWnd = NULL;
 	m_cs.Unlock();
@@ -235,7 +235,7 @@ int CCustomBitmapButton::SetTooltipText(CString sText)
 			return CBNERR_INCORRECTBUTTONSTYLE;
 		pTooltipWnd = m_pCaptionWnd;
 		m_cs.Lock();
-		if(!m_mAPCaptionFrames.Lookup(m_pCaptionWnd->m_hWnd,pTooltipBn))
+		if(!m_mpmu_adcaptionFrames.Lookup(m_pCaptionWnd->m_hWnd,pTooltipBn))
 		{
 			m_cs.Unlock();
 			return CBNERR_INCORRECTBUTTONSTYLE;
@@ -1288,7 +1288,7 @@ LRESULT CALLBACK CCustomBitmapButton::CaptionFrameWindowProc(HWND hWnd, UINT mes
 {
 	CCustomBitmapButton* p;
 	m_cs.Lock();
-	if(!m_mAPCaptionFrames.Lookup(hWnd,p))
+	if(!m_mpmu_adcaptionFrames.Lookup(hWnd,p))
 	{
 		m_cs.Unlock();
 		return 0;

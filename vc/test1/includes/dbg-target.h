@@ -35,7 +35,7 @@
 #endif   /* _WIN32 */
 
 #include "dbg-cfg.h"
-#include "regType.h"
+#include "./csky/regType.h"
 #include "dataType.h"
 #include "link.h"
 

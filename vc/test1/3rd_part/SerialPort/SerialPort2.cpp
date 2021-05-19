@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "../../APC.h"
+#include "../../pmu_adc.h"
 #include "SerialPort2.h"
 
 #ifdef _DEBUG
